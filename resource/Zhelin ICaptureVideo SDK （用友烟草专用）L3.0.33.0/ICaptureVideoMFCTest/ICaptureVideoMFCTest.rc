@@ -1,0 +1,211 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (P.R.C.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#include ""res\\ICaptureVideoMFCTest.rc2""  // 非 Microsoft Visual C++ 编辑的资源\r\n"
+    "#include ""l.CHS\\afxres.rc""      // 标准组件\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\ICaptureVideoMFCTest.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ICAPTUREVIDEOMFCTEST_DIALOG DIALOGEX 0, 0, 487, 317
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "ICaptureVideoMFCTest"
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    PUSHBUTTON      "退出",IDCANCEL,430,296,50,14
+    CONTROL         "",IDC_ICAPTUREVIDEOCTRL,
+                    "{9A73DB73-2CA3-478D-9A3F-7E9D6A8D327C}",WS_TABSTOP,7,7,334,303
+    PUSHBUTTON      "启动设备",IDC_BUTTON_START_DEVICE,347,7,50,14
+    COMBOBOX        IDC_COMBO_DEVICE_INDEX,405,7,75,30,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "停止设备",IDC_BUTTON_STOP_DEVICE,347,26,50,14
+    COMBOBOX        IDC_COMBO_RESOLUTION_INDEX,405,26,75,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_INFOMATION,349,235,131,52,ES_MULTILINE | ES_AUTOHSCROLL | WS_VSCROLL
+    CONTROL         "自动切边",IDC_RADIO_AUTO_CUT,"Button",BS_AUTORADIOBUTTON,390,49,39,10
+    CONTROL         "完整图幅",IDC_RADIO_FULL_IMAGE,"Button",BS_AUTORADIOBUTTON,348,49,40,10
+    CONTROL         "自定义切边",IDC_RADIO_CUSTOM_CUT,"Button",BS_AUTORADIOBUTTON,433,49,43,10
+    PUSHBUTTON      "存图",IDC_BUTTON_CAPTURE,347,80,50,14
+    PUSHBUTTON      "设置参数",IDC_BUTTON_SET_PARA,405,163,50,14
+    PUSHBUTTON      "开始录制视频",IDC_BUTTON_START_RECORDING,347,122,50,14
+    PUSHBUTTON      "停止录制视频",IDC_BUTTON_STOP_RECORDING,405,122,50,14
+    CONTROL         "人脸检测",IDC_RADIO_FACE_DETECT,"Button",BS_AUTORADIOBUTTON,348,64,43,10
+    PUSHBUTTON      "人证比对",IDC_BUTTON_FACE_VERTIFY,347,143,50,14
+    PUSHBUTTON      "获取设备详情",IDC_BUTTON_GET_DEVICE_DETAILS,347,163,50,14
+    PUSHBUTTON      "生成多页文件",IDC_BUTTON_MAKE_MULTIPAGE_FILE,347,101,50,14
+    CONTROL         "标记为多页源",IDC_CHECK_MARK_MULTI_PAGE_SOURCE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,404,83,57,10
+    LTEXT           "待合并的图片文件1",IDC_STATIC,348,182,60,8
+    EDITTEXT        IDC_EDIT_FILE1_FOR_MERGE,411,180,69,14,ES_AUTOHSCROLL
+    LTEXT           "待合并的图片文件2",IDC_STATIC,348,199,60,8
+    EDITTEXT        IDC_EDIT_FILE2_FOR_MERGE,411,198,69,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "合并",IDC_BUTTON_MERGE,349,215,50,14
+    PUSHBUTTON      "图片比对",IDC_BUTTON_FACE_VERTIFY_2_IMAGE,406,215,50,14
+    PUSHBUTTON      "活体检测",IDC_BUTTON_LIVING_REG,406,143,50,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080403a8"
+        BEGIN
+            VALUE "CompanyName", "TODO: <公司名>"
+            VALUE "FileDescription", "TODO: <文件说明>"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "ICaptureVideoMFCTest.exe"
+            VALUE "LegalCopyright", "TODO: (C) <公司名>。保留所有权利。"
+            VALUE "OriginalFilename", "ICaptureVideoMFCTest.exe"
+            VALUE "ProductName", "TODO: <产品名>"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 936
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ICAPTUREVIDEOMFCTEST_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 480
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 310
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_ICAPTUREVIDEOMFCTEST_DIALOG DLGINIT
+BEGIN
+    IDC_ICAPTUREVIDEOCTRL, 0x376, 20, 0
+0x0000, 0x0000, 0x0000, 0x0001, 0x3c76, 0x0000, 0x36c7, 0x0000, 0x0000, 
+0x0000, 
+    0
+END
+
+#endif    // Chinese (P.R.C.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE 4, 2
+#pragma code_page(936)
+#include "res\ICaptureVideoMFCTest.rc2"  // 非 Microsoft Visual C++ 编辑的资源
+#include "l.CHS\afxres.rc"      // 标准组件
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

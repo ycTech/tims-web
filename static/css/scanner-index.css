@@ -78,7 +78,7 @@
   height: 48px;
   font-size: 24px;
   line-height: 48px;
-  border-radius: 50%;
+  border-radius: 4px;
   outline: none;
   padding: 0;
   text-align: center;
@@ -86,7 +86,10 @@
   color: rgb(44, 52, 72);
   background-color: rgba(200, 210, 220, .3);
 }
-
+.action-button__wrapper button i {
+  font-size: 24px;
+  line-height: 48px;
+}
 .action-button__wrapper button:hover {
   background-color: rgba(200, 210, 220, .6);
 }
