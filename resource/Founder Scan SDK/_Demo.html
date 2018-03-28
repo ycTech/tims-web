@@ -59,7 +59,7 @@
             FScanX.Scan();
             var ScanImageCount = FScanX.GetScanImageCount();
             document.getElementById("ScanImageCount").value = ScanImageCount;
-            document.getElementById("StartIndex").value = parseInt(StartIndex) + ScanImageCount; 
+            document.getElementById("StartIndex").value = parseInt(StartIndex) + ScanImageCount;
             /////////////
             /*var j, k;
             for (j = 1 ; j < ScanImageCount+1 ; j++) {
@@ -137,7 +137,11 @@
     <div class="div1">Web Scan</div>
     <div class="div2">
         <div class="div2-1">
-            <object classid="clsid:9134F6A9-1FF8-420F-9E9E-DDD374C19715" id="FScanX" width="408" height="650"></object>
+            <object classid="clsid:9134F6A9-1FF8-420F-9E9E-DDD374C19715"
+                id="FScanX"
+                width="408"
+                height="650">
+            </object>
         </div>
         <div class="div2-2">
             <br />&nbsp;选择扫描仪<select style="width:300px" id = "ScannerName" onchange = "SelScanner()"></select><br /><br />
@@ -173,10 +177,10 @@
                 </select>
                 &nbsp;压缩质量<input style="width:55px" type="text" id="CompressionRate" value="70" />
                 &nbsp;TIFF压缩方式<select style="width:105px" id = "TiffCompressType">
-                <option value="0">TIFF_JPEG</option> <option value="1">TIFF_G4FAX</option> 
+                <option value="0">TIFF_JPEG</option> <option value="1">TIFF_G4FAX</option>
                 </select><br /><br />
                 &nbsp;PDF压缩方式<select style="width:105px" id = "PDFCompressType">
-                <option value="0">PDF_JPEG</option> <option value="1">PDF_G4FAX</option> 
+                <option value="0">PDF_JPEG</option> <option value="1">PDF_G4FAX</option>
                 </select>
             </fieldset><br />
 
@@ -186,7 +190,7 @@
             第<input style="width:50px" type="text" name="ImageIndex" id="ImageIndex" value="1" />页图像路径
             <input style="width:290px" type="text" name="ScanImagePath" id="ScanImagePath" value="" /><br /><br />
             &nbsp;<input style="width:65px" type="button" value="条码" onclick="GetBar();" />
-            <textarea rows="3" cols="100" id="BarData" style="width:440px"></textarea><br />    
+            <textarea rows="3" cols="100" id="BarData" style="width:440px"></textarea><br />
             &nbsp;<input style="width:65px" type="button" value="Base64" onclick="GetImageBase64();" />
             <textarea rows="3" cols="100" id="ImageBase64" style="width:440px"></textarea><br /><br />
 

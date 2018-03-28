@@ -4,27 +4,25 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>ICaptureVideo测试页</title>
 <script type="text/javascript" src="icapturevideo.js"></script>
-<script type="text/javascript">	
+<script type="text/javascript">
 	//初始化，打开高拍仪
 	function InitOCX(){
 		try{
 			Content = document.getElementById("content");//获取文本框对象
-			Capture = document.getElementById("Capture");//根据js的脚本内容，必须先获取object对象		
+			Capture = document.getElementById("Capture");//根据js的脚本内容，必须先获取object对象
 			ResSelect = document.getElementById("Resolution_Select");//获取分辨率select标签的object对象
 		}catch(err){
 			alert("未找到ICaptureVideo.ocx控件，请重新安装");
 		}
 	}
-	function onbeforeunload()   
-	{   
+	function onbeforeunload()
+	{
 		Capture.ReleaseDevice();
-		window.event.returnValue="确定要退出本页吗？"; 
+		window.event.returnValue="确定要退出本页吗？";
 	}
 </script>
 
-
 <style type="text/css">
-
 
 body {
 	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
@@ -72,7 +70,7 @@ a:hover, a:active, a:focus { /* 此组选择器将为键盘导航者提供与鼠
 	overflow: hidden; /* 此声明将使 .container 清除其包含的所有浮动列。 */
 }
 
-/* ~~ 以下是此布局的列。 ~~ 
+/* ~~ 以下是此布局的列。 ~~
 
 1) 填充只会放置于 div 的顶部和/或底部。此 div 中的元素侧边会有填充。这样，您可以避免使用任何“方框模型数学”。请注意，如果向 div 自身添加任何侧边填充或边框，这些侧边填充或边框将与您定义的宽度相加，得出 *总计* 宽度。您也可以选择删除 div 中的元素的填充，并在该元素中另外放置一个没有任何宽度但具有设计所需填充的 div。
 
@@ -102,7 +100,7 @@ a:hover, a:active, a:focus { /* 此组选择器将为键盘导航者提供与鼠
 }
 
 /* ~~ 此分组的选择器为 .content 区域中的列表提供了空间 ~~ */
-.content ul, .content ol { 
+.content ul, .content ol {
 	padding: 0 15px 15px 40px; /* 此填充反映上述标题和段落规则中的右填充。填充放置于下方可用于间隔列表中其它元素，置于左侧可用于创建缩进。您可以根据需要进行调整。 */
 }
 
@@ -266,16 +264,16 @@ ul.nav a { zoom: 1; }  /* 缩放属性将为 IE 提供其需要的 hasLayout 触
             <tr> </tr>
           </table>
         </div>
-        <div class="TabbedPanelsContent"><span style=" font-size:12px;">请输入待处理的文件名 
+        <div class="TabbedPanelsContent"><span style=" font-size:12px;">请输入待处理的文件名
             <br />
-&nbsp;<input id="textBaseFileName" 
-                style="width: 80%; border-top: 1px solid #808080; border-right: 1px solid #D4D0C8; border-bottom: 1px solid #D4D0C8; border-left: 1px solid #808080; font-size: 12px" 
+&nbsp;<input id="textBaseFileName"
+                style="width: 80%; border-top: 1px solid #808080; border-right: 1px solid #D4D0C8; border-bottom: 1px solid #D4D0C8; border-left: 1px solid #808080; font-size: 12px"
                 type="text" /><br />
-          <input id="btnGetBase64" type="button" 
-                style="width:45%; height:30px;text-align:center; font-size:12px" 
+          <input id="btnGetBase64" type="button"
+                style="width:45%; height:30px;text-align:center; font-size:12px"
                 value="执行base64编码" onclick="GetBase64Ex()"/> <span style=" font-size:12px;">
-          <input id="btnGetBarcode" type="button" 
-                style="width:45%; height:30px;text-align:center; font-size:12px" 
+          <input id="btnGetBarcode" type="button"
+                style="width:45%; height:30px;text-align:center; font-size:12px"
                 value="条形码/二维码识别" onclick="GetBarCodeEx()"/></span></span><br />
           </div>
         <div class="TabbedPanelsContent"><span class="AccordionPanelContent"> </span><span class="AccordionPanelContent"> </span>
@@ -308,25 +306,25 @@ ul.nav a { zoom: 1; }  /* 缩放属性将为 IE 提供其需要的 hasLayout 触
         <input id="AngleVertical" type="button" style="width:23%;height:30px;text-align:center;font-size:12px" value="上下" onclick="SetDeviceRotation(180)"/>
         <input id="AngleRight" type="button" style="width:23%;height:30px;text-align:center;font-size:12px" value="右转" onclick="SetDeviceRotation(90)"/>
         <input id="AngleDefault" type="button" style="width:23%;height:30px;text-align:center;font-size:12px" value="恢复" onclick="SetDeviceRotation(0)"/>
-      </span></div>  
+      </span></div>
 </div>
     <div id="CollapsiblePanel2" class="CollapsiblePanel" style="width:99%">
         <div class="CollapsiblePanelTab" tabindex="0">切边方式</div>
         <div class="CollapsiblePanelContent"><span id="spryradio3" style="font-size:12px">
-          
+
             <input name="rgCutPageType" type="radio" id="rgCutPageType_0" value="0" checked="checked" onclick="SetCutPageType(0)"/>
             不切边
-          
+
             <input type="radio" name="rgCutPageType" value="1" id="rgCutPageType_1" onclick="SetCutPageType(1)"/>
             自动切边
           <br />
-          
+
             <input type="radio" name="rgCutPageType" value="2" id="rgCutPageType_2" onclick="SetCutPageType(2)"/>
             自定义切边
-           
+
             <input type="radio" name="rgCutPageType" value="3" id="rgCutPageType_3" onclick="SetCutPageType(3)"/>
             人像切边
-			
+
 			<input type="radio" name="rgCutPageType" value="3" id="rgCutPageType_3" onclick="SetCutPageType(4)"/>
             人像即时出图
           <br />
@@ -359,7 +357,7 @@ ul.nav a { zoom: 1; }  /* 缩放属性将为 IE 提供其需要的 hasLayout 触
 		      <li><img id="preview2" alt="" name="pic2" style="width:99%; max-height: 185px"/></li>
 		      <li><img id="preview3" alt="" name="pic3" style="width:99%; max-height: 185px"/></li>
 	       	</ul>
-			
+
   </div>
     <!-- end .sidebar2 --></div>
   <!-- end .container --></div>
