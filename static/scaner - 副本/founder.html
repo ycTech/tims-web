@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+  <title>Web Scan</title>
+  <style type="text/css">
+    .div1 {
+      margin: 0 auto;
+      width: 960px;
+      height: 30px;
+      border: 1px solid #00F;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .div2 {
+      margin: 0 auto;
+      width: 960px;
+      height: 650px;
+      border: 1px solid #00F;
+      font-size: 14px;
+    }
+
+    .div2-1 {
+      float: left;
+      width: 408px;
+      height: 650px;
+      border-right: 1px solid #00F;
+    }
+
+    .div2-2 {
+      float: right;
+      width: 550px;
+      height: 650px;
+      border-left: 0px solid #00F;
+    }
+
+    .input1 {
+      vertical-align: -3px;
+    }
+  </style>
+
+  <script language="javascript" for="FScanX" event="OnRecvMsg(msg)">
+        //alert(msg);//获取图像事件，返回图像名称
+  </script>
+
+  <script type="text/javascript">
+
+    function GetScannerName() {
+      var i = 0;
+      var ScannerCount = FScanX.GetScannerCount();
+      var obj = document.getElementById("ScannerName");
+      obj.options.length = 0;
+      for (i = 0; i < ScannerCount; i++) {
+        var ScannerName = FScanX.GetScannerName(i);
+        var objOption = document.createElement("OPTION");
+        objOption.text = ScannerName;
+        objOption.value = i;
+        obj.options.add(objOption);
+      }
+      SelScanner();
+    }
+    function SelScanner() {
+      var obj = document.getElementById("ScannerName");
+      var index = obj.selectedIndex;
+      var ScannerName = obj.options[index].text;
+      FScanX.SelScannerByName(ScannerName);
+    }
+    function ThumbWH() {
+      FScanX.ThumbWidth = document.getElementById("ThumbWidth").value;
+      FScanX.ThumbHeight = document.getElementById("ThumbHeight").value;
+    }
+    function Scan() {
+      FScanX.ScanShowUI = document.getElementById("ShowUI").value;//1为显示，0为不显示
+      FScanX.ShowThumb = document.getElementById("ShowThumb").value;//1为显示，0为不显示
+      FScanX.ScanSourceType = document.getElementById("SourceType").value;//0为平板，1为ADF正面，2为ADF双面
+      FScanX.ScanPixelType = document.getElementById("PixelType").value;//0为黑白，1为灰度，2为彩色
+      FScanX.ScanResolution = document.getElementById("Resolution").value;//分辨率
+      FScanX.Brightness = document.getElementById("Brightness").value;//亮度
+      FScanX.Contrast = document.getElementById("Contrast").value;//对比度
+      var FilePath = document.getElementById("FilePath").value;//图像保存路径
+      var FilePrefix = document.getElementById("FilePrefix").value;//图像名称前缀
+      var StartIndex = document.getElementById("StartIndex").value;//图像名称起始编号
+      var IndexLength = document.getElementById("IndexLength").value;//图像编号长度
+      FScanX.SetImageName(FilePath, FilePrefix, StartIndex, IndexLength);
+      FScanX.ImageFormat = document.getElementById("ImageFormat").value;
+      FScanX.CompressionRate = document.getElementById("CompressionRate").value;
+      FScanX.TiffCompressType = document.getElementById("TiffCompressType").value;
+      FScanX.PDFCompressType = document.getElementById("PDFCompressType").value;
+      FScanX.Scan();
+      var ScanImageCount = FScanX.GetScanImageCount();
+      document.getElementById("ScanImageCount").value = ScanImageCount;
+      document.getElementById("StartIndex").value = parseInt(StartIndex) + ScanImageCount;
+      /////////////
+      /*var j, k;
+      for (j = 1 ; j < ScanImageCount+1 ; j++) {
+          var BarCount = FScanX.GetBarCount(j);//参数为要识别的是第几页
+          alert("BarCount"+BarCount);
+          var BarData = "";
+          for (var k = 0; k < BarCount; k++) {
+              BarData = BarData + FScanX.GetBarData(k) + "\n";
+          }
+          alert("BarData" + BarData);
+          //document.getElementById("BarData").value = BarData;
+      }*/
+    }
+    function ScanAdd() {//添加扫描,添加到最后一页
+      FScanX.ScanShowUI = document.getElementById("ShowUI").value;//1为显示，0为不显示
+      FScanX.ShowThumb = document.getElementById("ShowThumb").value;//1为显示，0为不显示
+      FScanX.ScanSourceType = document.getElementById("SourceType").value;//0为平板，1为ADF正面，2为ADF双面
+      FScanX.ScanPixelType = document.getElementById("PixelType").value;//0为黑白，1为灰度，2为彩色
+      FScanX.ScanResolution = document.getElementById("Resolution").value;//分辨率
+      FScanX.Brightness = document.getElementById("Brightness").value;//亮度
+      FScanX.Contrast = document.getElementById("Contrast").value;//对比度
+      FScanX.ScanAdd();
+    }
+    function ScanIns() {//插入扫描，添加到选中页的前面
+      FScanX.ScanShowUI = document.getElementById("ShowUI").value;//1为显示，0为不显示
+      FScanX.ShowThumb = document.getElementById("ShowThumb").value;//1为显示，0为不显示
+      FScanX.ScanSourceType = document.getElementById("SourceType").value;//0为平板，1为ADF正面，2为ADF双面
+      FScanX.ScanPixelType = document.getElementById("PixelType").value;//0为黑白，1为灰度，2为彩色
+      FScanX.ScanResolution = document.getElementById("Resolution").value;//分辨率
+      FScanX.Brightness = document.getElementById("Brightness").value;//亮度
+      FScanX.Contrast = document.getElementById("Contrast").value;//对比度
+      FScanX.ScanIns();
+    }
+    function SaveAsPDF() {
+      FScanX.SaveAsPDF("D:\\test.pdf");
+    }
+    function DelOneImg() {
+      FScanX.DelOneImg();
+    }
+    function DelAllImg() {
+      FScanX.DelAllImg();
+    }
+    function ShowUISettings() {
+      FScanX.ShowUISettings();
+    }
+    function GetScanImagePath() {
+      var ImageIndex = document.getElementById("ImageIndex").value;
+      document.getElementById("ScanImagePath").value = FScanX.GetScanImagePath(ImageIndex);
+    }
+    function GetBar() {
+      var BarCount = FScanX.GetBarCount(1);//参数为要识别的是第几页
+      alert(BarCount);
+      var BarData = "";
+      for (var i = 0; i < BarCount; i++) {
+        BarData = BarData + FScanX.GetBarData(i) + "\n";
+      }
+      document.getElementById("BarData").value = BarData;
+    }
+    function GetImageBase64() {
+      document.getElementById("ImageBase64").value = FScanX.GetImageBase64String(document.getElementById("ScanImagePath").value);
+    }
+    function GetSN() {
+      var strSN = FScanX.GetSN("154F", "3202");
+      alert(strSN);
+    }
+    function HttpSendFileEx() {
+      var strrep = FScanX.HttpSendFileEx("D:\test.jpg", "http:\\localhost:8080");
+      alert(strrep);
+    }
+  </script>
+</head>
+
+<body onload="GetScannerName();">
+  <div class="div1">Web Scan</div>
+  <div class="div2">
+    <div class="div2-1">
+      <object classid="clsid:9134F6A9-1FF8-420F-9E9E-DDD374C19715" id="FScanX" width="408" height="650"></object>
+    </div>
+    <div class="div2-2">
+      <br />&nbsp;选择扫描仪
+      <select style="width:300px" id="ScannerName" onchange="SelScanner()"></select>
+      <br />
+      <br />
+
+      <fieldset>
+        <legend>扫描设置</legend>
+        &nbsp;扫描方式
+        <select style="width:95px" id="SourceType">
+          <option value="0">平板</option>
+          <option value="1" selected="selected">ADF正面</option>
+          <option value="2">ADF双面</option>
+        </select>
+        &nbsp;扫描模式
+        <select style="width:95px" id="PixelType">
+          <option value="0">黑白</option>
+          <option value="1" selected="selected">灰阶</option>
+          <option value="2">彩色</option>
+        </select>
+        &nbsp;分辨率
+        <input style="width:95px" type="text" id="Resolution" value="200" />
+        <br />
+        <br /> &nbsp;亮度
+        <input style="width:60px" type="text" id="Brightness" value="0" /> &nbsp;对比度
+        <input style="width:60px" type="text" id="Contrast" value="0" /> &nbsp;显示UI扫描
+        <input style="width:35px" type="text" id="ShowUI" value="0" /> &nbsp;
+        <input style="width:95px" type="button" value="更多设置..." onclick="ShowUISettings();" />
+        <br />
+        <br /> &nbsp;扫描显示缩略图
+        <input style="width:35px" type="text" id="ShowThumb" value="1" /> &nbsp;&nbsp;
+        <input style="width:95px" type="button" value="缩略图宽*高" onclick="ThumbWH();" /> 宽
+        <input style="width:50px" type="text" id="ThumbWidth" value="150" /> 高
+        <input style="width:50px" type="text" id="ThumbHeight" value="150" />
+        <br />
+      </fieldset>
+      <br />
+
+      <fieldset>
+        <legend>图像保存设置</legend>
+        &nbsp;图像路径
+        <input style="width:300px" type="text" id="FilePath" value="D:\test" />
+        <br />
+        <br /> &nbsp;图像前缀
+        <input style="width:100px" type="text" id="FilePrefix" value="img" /> &nbsp;图像起始编号
+        <input style="width:55px" type="text" id="StartIndex" value="1" /> &nbsp;图像编号长度
+        <input style="width:55px" type="text" id="IndexLength" value="5" />
+        <br />
+        <br /> &nbsp;图像格式
+        <select style="width:105px" id="ImageFormat">
+          <option value="0">bmp</option>
+          <option value="1" selected="selected">jpg</option>
+          <option value="2">单页tif</option>
+          <option value="3">单页pdf</option>
+          <option value="4">多页pdf</option>
+        </select>
+        &nbsp;压缩质量
+        <input style="width:55px" type="text" id="CompressionRate" value="70" /> &nbsp;TIFF压缩方式
+        <select style="width:105px" id="TiffCompressType">
+          <option value="0">TIFF_JPEG</option>
+          <option value="1">TIFF_G4FAX</option>
+        </select>
+        <br />
+        <br /> &nbsp;PDF压缩方式
+        <select style="width:105px" id="PDFCompressType">
+          <option value="0">PDF_JPEG</option>
+          <option value="1">PDF_G4FAX</option>
+        </select>
+      </fieldset>
+      <br /> &nbsp;
+
+      <input style="width:95px" type="button" value="扫描" onclick="Scan();" /> &nbsp;本次扫描生成文件数量
+      <input style="width:100px" type="text" id="ScanImageCount" value="0" />
+      <br />
+      <br /> &nbsp;
+      <input style="width:55px" type="button" value="获取" onclick="GetScanImagePath();" /> 第
+      <input style="width:50px" type="text" name="ImageIndex" id="ImageIndex" value="1" />页图像路径
+      <input style="width:290px" type="text" name="ScanImagePath" id="ScanImagePath" value="" />
+      <br />
+      <br /> &nbsp;
+      <input style="width:65px" type="button" value="条码" onclick="GetBar();" />
+      <textarea rows="3" cols="100" id="BarData" style="width:440px"></textarea>
+      <br /> &nbsp;
+      <input style="width:65px" type="button" value="Base64" onclick="GetImageBase64();" />
+      <textarea rows="3" cols="100" id="ImageBase64" style="width:440px"></textarea>
+      <br />
+      <br />
+
+      <!--下面功能按钮不会自动保存图像到本地-->
+      <input style="width:85px" type="button" value="添加扫描" onclick="ScanAdd();" />
+      <input style="width:85px" type="button" value="插入扫描" onclick="ScanIns();" />
+      <input style="width:95px" type="button" value="保存为PDF" onclick="SaveAsPDF();" />
+      <input style="width:95px" type="button" value="删除选中页" onclick="DelOneImg();" />
+      <input style="width:95px" type="button" value="删除所有页" onclick="DelAllImg();" />
+      <input style="width:85px" type="button" value="获取SN" onclick="GetSN();" />
+      <input style="width:85px" type="button" value="上传" onclick="HttpSendFileEx();" />
+
+    </div>
+  </div>
+
+</body>
+
+</html>

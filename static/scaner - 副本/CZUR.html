@@ -1,0 +1,390 @@
+<HTML>
+  <HEAD>
+  <SCRIPT LANGUAGE="JavaScript">
+  
+  function JS_CZUR_CALLBACK(uploadcnt, barcode, httpinfo, imagefile1, imagefile2)
+  {
+    var varInfo = "上传个数: " + uploadcnt + "\n" + "http反馈信息: " + httpinfo + "\n" + "文件1: " + imagefile1 + "\n" + "文件2: " + imagefile2;
+    alert(varInfo);
+  }
+  
+  function JS_CZUR_UPLOAD_CALLBACK(uploadcnt, localfile, errcode, errmsg)
+  {
+    if(0 == uploadcnt)
+    {
+      var varInfo = "本地文件: " + localfile + " 上传失败" + "\n" + "错误代码: " + errcode + "\n" + "错误信息: " + errmsg;
+      alert(varInfo);
+    }
+    else
+    {
+      alert("上传成功");
+    }
+  }
+  
+  function JS_CZUR_PDF_CALLBACK(pdfstatus)
+  {
+    if(0 == pdfstatus)
+    {
+      alert("合成Pdf成功");
+    }
+    else
+    {
+      alert("合成pdf失败");
+    }
+  }
+  
+  function CZUR_Http_URL() {
+  
+      var HttpURL = document.getElementById("HttpURL");
+      var HttpName = document.getElementById("HttpName");
+  
+      EtOcxEx.CZUR_Http_URL(HttpURL.value, HttpName.value);
+  }
+  
+  function CZUR_Http_User_Pwd()
+  {
+      var HttpUser = document.getElementById("HttpUser");
+      var HttpPwd = document.getElementById("HttpPwd");
+  
+      EtOcxEx.CZUR_Http_User_Pwd(HttpUser.value, HttpPwd.value);
+  }
+  
+  function CZUR_Http_Form() {
+  
+      var HttpFormName = document.getElementById("HttpFormName");
+      var HttpContent = document.getElementById("HttpFormContent");
+  
+      EtOcxEx.CZUR_Http_Form(HttpFormName.value, HttpContent.value);
+  }
+  
+  function CZUR_Initialize()
+  {
+      var lInitialize = EtOcxEx.CZUR_Initialize("JS_OCX.log");
+      if (0 == lInitialize) {
+          alert("CZUR_Initialize Failed！");
+      }
+  }
+  
+  function CZUR_Deinitialize()
+  {
+      EtOcxEx.CZUR_Deinitialize();
+  }
+  
+  function CZUR_OpenDevice()
+  {
+      var bOpenDevice = EtOcxEx.CZUR_OpenDevice();
+      if (0 == bOpenDevice) {
+          alert("CZUR_OpenDevice Failed！");
+      }
+    else if(1 == bOpenDevice){
+       alert("CZUR_OpenDevice Success！");
+    }
+    else{
+       alert("请检查设备是否连接或型号是否支持");
+    }
+  }
+  
+  function CZUR_CloseDevice()
+  {
+      EtOcxEx.CZUR_CloseDevice();
+  }
+  
+  function CZUR_GrabSingleImage()
+  {
+      var lSuccess = EtOcxEx.CZUR_GrabSingleImage();
+      if (0 == lSuccess) {
+          alert("CZUR_GrabSingleImage Failed")
+      }
+  }
+  
+  function CZUR_Path()
+  {
+      var imagePath = document.getElementById("Path");
+      EtOcxEx.CZUR_Path(imagePath.value);
+  }
+  
+  function CZUR_Custom()
+  {
+      var imagePrefix  = document.getElementById("Prefix");
+      var imageInitNum = document.getElementById("InitNumber");
+  
+      EtOcxEx.CZUR_Custom(imagePrefix.value, imageInitNum.value);
+  }
+  
+  function CZUR_Zoom()
+  {
+      var xResolut = document.getElementById("cxResolut");
+      var yResolut = document.getElementById("cyResolut");
+  
+      EtOcxEx.CZUR_Zoom(xResolut.value, yResolut.value);
+  }
+  
+  function CZUR_DPI()
+  {
+      var imageDPI = document.getElementById("dpi");
+      EtOcxEx.CZUR_DPI(imageDPI.value);
+  }
+  
+  function CZUR_ClrMode()
+  {
+      var imageClrMode = document.getElementById("ClrMode");
+      EtOcxEx.CZUR_ClrMode(imageClrMode.value);
+  }
+  
+  function CZUR_Rotate()
+  {
+      var rotateAngle = document.getElementById("Angle");
+      EtOcxEx.CZUR_Rotate(rotateAngle.value);
+  }
+  
+  function CZUR_DisplayGrid()
+  {
+    var displayGrid = document.getElementById("DisplayGrid");
+    EtOcxEx.CZUR_DisplayGrid(displayGrid.value);
+  }
+  
+  function CZUR_Original()
+  {
+      EtOcxEx.CZUR_Original();
+  }
+  
+  function CZUR_EdgeCutting()
+  {
+      EtOcxEx.CZUR_EdgeCutting();
+  }
+  
+  function CZUR_CurveFlatten()
+  {
+      var lSplit = document.getElementById("Slpit");
+      EtOcxEx.CZUR_CurveFlatten(lSplit.value);
+  }
+  
+  function CZUR_Format_Bmp()
+  {
+      EtOcxEx.CZUR_Format_Bmp();
+  }
+  
+  function CZUR_Format_Jpg()
+  {
+      var lQuality = document.getElementById("Quality");
+      EtOcxEx.CZUR_Format_Jpg(lQuality.value);
+  }
+  
+  function CZUR_Http_Upload()
+  {
+    var locafile = document.getElementById("LocalFile");
+    var url = document.getElementById("URL");
+    var name = document.getElementById("FormName");
+    var username = document.getElementById("UserName");
+    var password = document.getElementById("Password");
+    
+    var ret = EtOcxEx.CZUR_Http_Upload(locafile.value, url.value, name.value, username.value, password.value);
+    switch(ret)
+    {
+      case 1:
+        {
+          alert("未初始化EtOcxEx资源");
+        }
+        break;
+      case 2:
+        {
+          alert("本地文件不存在");
+        }
+        break;
+      case 3:
+        {
+          alert("失败");
+        }
+        break;
+      case 0:
+        {
+          //成功
+        }
+        break;
+    }
+  }
+  
+  function CZUR_Pdf_Image()
+  {
+    var pdfImage = document.getElementById("PdfImage");
+    
+    if(1 == EtOcxEx.CZUR_Pdf_Image(pdfImage.value))
+    {
+      alert("添加图片失败");
+    }
+  }
+  
+  function CZUR_Pdf_Submit()
+  {
+    var pdfFile = document.getElementById("PdfFile");
+    if(1 == EtOcxEx.CZUR_Pdf_Submit(pdfFile.value))
+    {
+      alert("提交合成pdf任务失败");
+    }
+  }
+  
+  function CZUR_AutoPageDetect()
+  {
+    var autoDetect = document.getElementById("AutoDetect");
+    
+    EtOcxEx.CZUR_AutoPageDetect(autoDetect.value);
+  }
+  
+  function CZUR_SelectType()
+  {
+    var selType = document.getElementById("selType");
+    EtOcxEx.CZUR_SelectType(selType.value);
+  }
+  
+  function CZUR_ClearSelect()
+  {
+    var selClear = document.getElementById("selClear");
+    EtOcxEx.CZUR_ClearSelect(selClear.value);
+  }
+  
+  function CZUR_BlankPageDetect()
+  {
+    var blankpage = document.getElementById("blankpage");
+    EtOcxEx.CZUR_BlankPageDetect(blankpage.value);
+  }
+  
+  </SCRIPT>
+  
+  <SCRIPT type="text/javascript" FOR="EtOcxEx" EVENT="CZUR_CALLBACK(uploadcnt, barcode, httpinfo, imagefile1, imagefile2)" >
+     JS_CZUR_CALLBACK(uploadcnt, barcode, httpinfo, imagefile1, imagefile2);
+  </SCRIPT> 
+  
+  <SCRIPT type="text/javascript" FOR="EtOcxEx" EVENT="CZUR_UPLOAD_CALLBACK(uploadcnt, localfile, errcode, errmsg)" >
+     JS_CZUR_UPLOAD_CALLBACK(uploadcnt, localfile, errcode, errmsg);
+  </SCRIPT> 
+  
+  <SCRIPT type="text/javascript" FOR="EtOcxEx" EVENT="CZUR_PDF_CALLBACK(pdfstatus)" >
+     JS_CZUR_PDF_CALLBACK(pdfstatus);
+  </SCRIPT> 
+  
+  <TITLE>EtOcxExDEMO</TITLE>
+  </HEAD>
+  <BODY>
+    <div>
+      <CENTER><object
+       classid="CLSID:6BA87457-4473-41A1-9A48-6AC45389B971" width=40% height=100% align="left" 
+       id="EtOcxEx">
+      </object>
+    </div>
+  
+    <div style="background:white;float:right;width:58%;border:1px solid #999;padding:3px;">
+      <input type="button" name="btn" value="CZUR_Initialize"   onclick ='CZUR_Initialize()'>
+          <input type="button" name="btn" value="CZUR_Deinitialize" onclick ='CZUR_Deinitialize()'><br>
+  
+          <br><font color="#00AA00" size="2">URL：</font>
+      <input type="text" name="HttpURL" id="HttpURL" value="">
+          <font color="#00AA00" size="2">Name：</font>
+          <input type="text" name="HttpName" id="HttpName" value="">
+      <input type="button" name="btn" value="CZUR_Http_URL" onclick='CZUR_Http_URL()'><br>
+  
+          <br><font color="#00AA00" size="2">用户名：</font>
+      <input type="text" name="HttpUser" id="HttpUser" value="">
+          <font color="#00AA00" size="2">密码：</font>
+          <input type="text" name="HttpPwd" id="HttpPwd" value="">
+      <input type="button" name="btn" value="CZUR_Http_User_Pwd" onclick='CZUR_Http_User_Pwd()'><br>
+  
+          <br><font color="#00AA00" size="2">Name：</font>
+      <input type="text" name="HttpFormName" id="HttpFormName" value="">
+          <font color="#00AA00" size="2">Content：</font>
+          <input type="text" name="HttpFormContent" id="HttpFormContent" value="">
+      <input type="button" name="btn" value="CZUR_Http_Form" onclick='CZUR_Http_Form()'><br>
+  
+      <br><input type="button" name="btn" value="CZUR_OpenDevice"   onclick ='CZUR_OpenDevice()'>
+          <input type="button" name="btn" value="CZUR_CloseDevice" onclick ='CZUR_CloseDevice()'><br>
+    
+          <br><input type="button" name="btn" value="CZUR_GrabSingleImage" onclick ='CZUR_GrabSingleImage()'></br>
+  
+      <br><font color="#00AA00" size="2">本地文件：</font>
+      <input type="text" name="LocalFile" id="LocalFile" value="">
+          <font color="#00AA00" size="2">URL：</font>
+          <input type="text" name="URL" id="URL" value="">
+      <font color="#00AA00" size="2">属性名称：</font>
+          <input type="text" name="FormName" id="FormName" value="">
+      <font color="#00AA00" size="2">用户名：</font>
+          <input type="text" name="UserName" id="UserName" value="">
+      <font color="#00AA00" size="2">密码：</font>
+          <input type="text" name="Password" id="Password" value="">
+      <input type="button" name="btn" value="CZUR_Http_Upload" onclick='CZUR_Http_Upload()'><br>
+      
+      <br><font color="#00AA00" size="2">合成Pdf的图片文件：</font>
+      <input type="text" name="PdfImage" id="PdfImage" value="">
+      <input type="button" name="btn" value="CZUR_Pdf_Image" onclick='CZUR_Pdf_Image()'><br>
+  
+      <br><font color="#00AA00" size="2">Pdf文件：</font>
+      <input type="text" name="PdfFile" id="PdfFile" value="">
+      <input type="button" name="btn" value="CZUR_Pdf_Submit" onclick='CZUR_Pdf_Submit()'><br>
+  
+          <br><font color="#00AA00" size="2">保存路径：</font>
+      <input type="text" name="Path" id="Path">
+      <input type="button" name="btn" value="CZUR_Path" onclick='CZUR_Path()'><br>
+  
+  
+      <br><font color="#00AA00" size="2">命名规则：</font>
+      <input type="text" name="Prefix" id="Prefix" value="image">
+          <input type="text" name="InitNumber" id="InitNumber" value="1">
+      <input type="button" name="btn" value="CZUR_Custom" onclick='CZUR_Custom()'><br>
+  
+      <br><font color="#00AA00" size="2">空白页检测:0(不检测)、1(检测)：</font>
+          <input type="text" name="blankpage" id="blankpage" value="0">
+      <input type="button" name="btn" value="CZUR_BlankPageDetect" onclick='CZUR_BlankPageDetect()'><br>
+    
+          <br><font color="#00AA00" size="2">横向分辨率：</font>
+      <input type="text" name="cxResolut" id="cxResolut" value="0">
+          <font color="#00AA00" size="2">纵向分辨率：</font>
+          <input type="text" name="cyResolut" id="cyResolut" value="0">
+      <input type="button" name="btn" value="CZUR_Zoom" onclick='CZUR_Zoom()'><br>
+  
+          <br><font color="#00AA00" size="2">图片DPI：</font>
+          <input type="text" name="dpi" id="dpi" value="96">
+      <input type="button" name="btn" value="CZUR_DPI" onclick='CZUR_DPI()'><br>
+  
+          <br><font color="#00AA00" size="2">颜色模式：0(无模式)、1(彩色模式)、2(白纸印章模式)、3(证件底纹模式)、4(黑白模式)、5(灰度模式)</font><br>
+          <input type="text" name="ClrMode" id="ClrMode" value="0">
+      <input type="button" name="btn" value="CZUR_ClrMode" onclick='CZUR_ClrMode()'><br>
+  
+          <br><font color="#00AA00" size="2">旋转角度：0(不旋转)、90(顺时针旋转90°)、180(顺时针旋转180°)、270(顺时针旋转270°)</font><br>
+          <input type="text" name="Angle" id="Angle" value="0">
+      <input type="button" name="btn" value="CZUR_Rotate" onclick='CZUR_Rotate()'><br>
+    
+      <br><font color="#00AA00" size="2">网格线：0(不显示网格)、1(显示网格)：</font>
+      <input type="text" name="DisplayGrid" id="DisplayGrid" value="0">
+      <input type="button" name="btn" value="CZUR_DisplayGrid" onclick='CZUR_DisplayGrid()'><br>
+    
+      <br><font color="#00AA00" size="2">翻页检测：0(不检测)、1(检测)</font>
+      <input type="text" name="AutoDetect" id="AutoDetect" value="0">
+      <input type="button" name="btn" value="CZUR_AutoPageDetect" onclick='CZUR_AutoPageDetect()'><br>
+    
+      <br><font color="#00AA00" size="2">框选类型：1(裁剪区域)、2(扫码区域)</font>
+      <input type="text" name="selType" id="selType" value="1">
+      <input type="button" name="btn" value="CZUR_SelectType" onclick='CZUR_SelectType()'><br>
+  
+      <br><font color="#00AA00" size="2">取消区域：1(裁剪区域)、2(扫码区域)、3(所有区域)</font>
+      <input type="text" name="selClear" id="selClear" value="1">
+      <input type="button" name="btn" value="CZUR_ClearSelect" onclick='CZUR_ClearSelect()'><br>
+  
+          <br><font color="#00AA00" size="2">原图不处理：</font>
+      <input type="button" name="btn" value="CZUR_Original" onclick='CZUR_Original()'><br>
+  
+          <br><font color="#00AA00" size="2">单页裁边：</font>
+      <input type="button" name="btn" value="CZUR_EdgeCutting" onclick='CZUR_EdgeCutting()'><br>
+  
+          <br><font color="#00AA00" size="2">书籍展平：</font>
+          <br><font color="#AA0000" size="2">0(不拆分双页)、1(拆分双页)</font>
+          <input type="text" name="Slpit" id="Slpit" value="0">
+      <input type="button" name="btn" value="CZUR_CurveFlatten" onclick='CZUR_CurveFlatten()'><br>
+  
+          <br><font color="#00AA00" size="2">BMP格式：</font>
+      <input type="button" name="btn" value="CZUR_Format_Bmp" onclick='CZUR_Format_Bmp()'><br>
+  
+          <br><font color="#00AA00" size="2">JPG格式：</font>
+          <br><font color="#AA0000" size="2">JPG质量(0~100)：</font>
+          <input type="text" name="Quality" id="Quality" value="70">
+      <input type="button" name="btn" value="CZUR_Format_Jpg" onclick='CZUR_Format_Jpg()'><br>
+    </div> 
+  </BODY>
+  </HTML>

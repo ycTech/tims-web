@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>影像采集系统</title>
+  <link rel="stylesheet" href="./lib/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/scanner-index.css">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+    <script src="./lib/respond.min.js"></script>
+    <script src="./lib/html5shiv.min.js"></script>
+    <script src="./lib/PIE_IE678.js"></script>
+    <script src="./lib/json2.js"></script>
+    <style>
+      label {
+        display: inline;
+        zoom: 1;
+      }
+    </style>
+  <![endif]-->
+  <script src="./lib/PIE_IE9.js"></script>
+</head>
+
+<body>
+  <div class="layout-container">
+    <div class="layout-header container-fluid">
+      <div class="row">
+        <div class="col-sm-6">
+          <h2 class="header-title">影像采集系统</h2>
+        </div>
+        <div class="col-sm-6 text-right">
+          <form class="form-inline">
+            <div class="form-group">
+              <label for="device-select">选择设备</label>
+              <select name="device-type" id="device-select" class="form-control">
+                <option value="czur">CZUR高拍仪</option>
+                <option value="founder">方正扫描仪</option>
+                <option value="zhelin">哲林高拍仪</option>
+              </select>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="layout-sidebar__left">
+    </div>
+    <div class="layout-main">
+      <div id="scanner-iframe">
+        
+      </div>
+    </div>
+    <div class="layout-sidebar__right">
+      <div class="action-button__wrapper">
+        <button type="button" id="action-button__start" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="启动设备">
+          <i class="glyphicon glyphicon-play"></i>
+        </button>
+      </div>
+      <div class="action-button__wrapper">
+        <button type="button" id="action-button__scan" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="扫描设备">
+          <i class="glyphicon glyphicon-camera"></i>
+        </button>
+      </div>
+      <div class="action-button__wrapper">
+        <button type="button" id="action-button__merge" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="合并PDF">
+          <i class="glyphicon glyphicon-book"></i>
+        </button>
+      </div>
+      <div class="action-button__wrapper">
+        <button type="button" id="action-button__upload" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="上传PDF">
+          <i class="glyphicon glyphicon-cloud-upload"></i>
+        </button>
+      </div>
+      <div class="action-button__wrapper">
+        <button type="button" id="action-button__setting" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="设置">
+          <i class="glyphicon glyphicon-cog"></i>
+        </button>
+      </div>
+    </div>
+    <div class="layout-footer"></div>
+  </div>
+
+  <!-- Library JS -->
+  <script src="./lib/jquery/1.9.1/jquery.min.js"></script>
+  <script src="./lib/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="./lib/bootstrap-notify/bootstrap-growl.min.js"></script>
+  <script src="./js/scanner-index.js"></script>
+</body>
+
+</html>
