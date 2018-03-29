@@ -1,10 +1,12 @@
 console.log('founder.js')
+GetScannerName()
 ScannerOcx = {
   start: function () {
-    console.log('founder start')
+    GetScannerName()
   },
   scan: function () {
     console.log('founder scan')
+    Scan()
   },
   merge: function () {
     console.log('founder merge')
@@ -13,7 +15,16 @@ ScannerOcx = {
     console.log('founder upload')
   }
 }
-
+function addEventListeners () {
+  if (window.attachEvent) {
+    document.getElementById('FScanX').attachEvent('OnRecvMsg', OnRecvMsg)
+  } else if (window.addEventListener) {
+    document.getElementById('FScanX').addEventListener('OnRecvMsg', OnRecvMsg, false)
+  }
+}
+function OnRecvMsg (msg) {
+  console.log(JSON.stringify(msg))
+}
 function GetScannerName () {
   var i = 0
   var ScannerCount = window.FScanX.GetScannerCount()
@@ -59,17 +70,6 @@ function Scan () {
   var ScanImageCount = window.FScanX.GetScanImageCount()
   document.getElementById('ScanImageCount').value = ScanImageCount
   document.getElementById('StartIndex').value = parseInt(StartIndex) + ScanImageCount
-
-  // for (j = 1 ; j < ScanImageCount+1 ; j++) {
-  //     var BarCount = window.FScanX.GetBarCount(j);//参数为要识别的是第几页
-  //     alert("BarCount"+BarCount);
-  //     var BarData = "";
-  //     for (var k = 0; k < BarCount; k++) {
-  //         BarData = BarData + window.FScanX.GetBarData(k) + "\n";
-  //     }
-  //     alert("BarData" + BarData);
-  //     //document.getElementById("BarData").value = BarData;
-  // }
 }
 function ScanAdd () { // 添加扫描,添加到最后一页
   window.FScanX.ScanShowUI = document.getElementById('ShowUI').value// 1为显示，0为不显示
@@ -124,6 +124,6 @@ function GetSN () {
   alert(strSN)
 }
 function HttpSendFileEx () {
-  var strrep = window.FScanX.HttpSendFileEx('D:\test.jpg', 'http:\\localhost:8080')
+  var strrep = window.FScanX.HttpSendFileEx('D:\\test.pdf', 'http:\\localhost:8080')
   alert(strrep)
 }

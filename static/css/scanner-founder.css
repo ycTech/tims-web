@@ -8,6 +8,7 @@
   padding: 20px;
   height: 100%;
   margin-left: 400px;
+  overflow: auto;
 }
 .scanner-founder .form-group {
   margin: 10px 0;

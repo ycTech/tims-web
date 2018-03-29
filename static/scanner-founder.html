@@ -1,5 +1,8 @@
 <link rel="stylesheet" href="./css/scanner-founder.css">
 
+<script language="javascript" for="FScanX" event="OnRecvMsg(msg)">
+    //alert(msg);//获取图像事件，返回图像名称
+</script>
 <div class="scanner-wrapper scanner-founder">
   <div class="ocx-wrapper">
       <object
@@ -39,20 +42,20 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="PixelType">分辨率</label>
-          <input class="form-control" type="text" id="Resolution" value="200">
+          <label for="PixelType">分辨率：</label>
+          <input class="form-control" style="width:80" type="text" id="Resolution" value="200">DPI
         </div>
         <div class="form-group">
-          <label for="Brightness">亮度</label>
+          <label for="Brightness">亮度：</label>
           <input class="form-control" type="text" id="Brightness" value="0" />
         </div>
         <div class="form-group">
-          <label for="Contrast">对比度</label>
+          <label for="Contrast">对比度：</label>
           <input class="form-control" type="text" id="Contrast" value="0" />
         </div>
         <div class="form-group">
           <label for="ShowUI">
-            显示UI扫描
+            显示UI扫描：
           </label>
           <input class="form-control" type="text" id="ShowUI" value="0" /> &nbsp;
         </div>
@@ -61,23 +64,103 @@
             更多设置...  
           </button>
         </div>
+        <br>
         <div class="form-group">
           <label for="ShowTumb">
-            扫描显示缩略图
+            扫描显示缩略图：
           </label>
           <input class="form-control" style="width:80px" type="text" id="ShowThumb" value="1" />
         </div>
         <div class="form-group">
-          <label for="ThumbWidth">缩略图宽度</label>
+          <label for="ThumbWidth">缩略图宽度：</label>
           <input class="form-control" style="width:80px" type="text" id="ThumbWidth" value="150" /> 
-          <label for="ThumbHeight">缩略图调试</label>
+          <label for="ThumbHeight">缩略图高度：</label>
           <input class="form-control" style="width:80px" type="text" id="ThumbHeight" value="150" />
           <button type="button" class="btn btn-primary" onclick="ThumbWH();">
             保存
           </button>
         </div>
       </fieldset>
+      <fieldset>
+        <legend>图像保存设置</legend>
+        <div class="form-group">
+          <label for="FilePath">图像路径</label>
+          <input class="form-control" style="width:220px" type="text" id="FilePath" value="D:\test" />
+        </div>
+        <div class="form-group">
+          <label for="FilePrefix">图像前缀</label>
+          <input class="form-control" style="width:100px" type="text" id="FilePrefix" value="img" />
+        </div>
+        <div class="form-group">
+          <label for="StartIndex">图像起始编号</label>
+          <input class="form-control" style="width:80px" type="text" id="StartIndex" value="1" /> 
+        </div>
+        <div class="form-group">
+          <label for="StartIndex">图像编号长度</label>
+          <input class="form-control" style="width:80px" type="text" id="IndexLength" value="5" />
+        </div>
+        <div class="form-group">
+          <label for="ImageFormat">图像格式</label>
+          <select class="form-control" style="width:105px" id="ImageFormat">
+            <option value="0">bmp</option>
+            <option value="1" selected="selected">jpg</option>
+            <option value="2">单页tif</option>
+            <option value="3">单页pdf</option>
+            <option value="4">多页pdf</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="CompressionRate">图像压缩质量：</label>
+          <input class="form-control" style="width:55px" type="text" id="CompressionRate" value="70" />
+        </div>
+        <div class="form-group">
+          <label for="TiffCompressType">TIFF压缩方式</label>
+          <select class="form-control" style="width:105px" id="TiffCompressType">
+            <option value="0">TIFF_JPEG</option>
+            <option value="1">TIFF_G4FAX</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="PDFCompressType"></label>
+          <select class="form-control" style="width:105px" id="PDFCompressType">
+            <option value="0">PDF_JPEG</option>
+            <option value="1">PDF_G4FAX</option>
+          </select>
+        </div>
+      </fieldset>
+      
+      <button type="button" class="btn btn-primary" onclick="Scan();">扫描</button>
+      <div class="form-group">
+        <label for="ScanImageCount">
+          本次扫描生成文件数量
+        </label>
+        <input class="form-control" style="width:100px" type="text" id="ScanImageCount" value="0" />
+      </div>
+      <div class="form-group">
+        <button type="button" class="btn btn-primary" onclick="GetScanImagePath();" >获取</button>
+          第
+          <input class="form-control" style="width:50px" type="text" name="ImageIndex" id="ImageIndex" value="1" />
+          页图像路径
+          <input class="form-control" style="width:290px" type="text" name="ScanImagePath" id="ScanImagePath" value="" />
+      </div>
+      <div class="form-group">
+        <button type="button" class="btn btn-primary" onclick="GetBar();">条码</button>
+        <textarea class="form-control" rows="3" cols="100" id="BarData" style="width:440px"></textarea>
+      </div>
+      <div class="form-group">
+        <button type="button" class="btn btn-primary" onclick="GetImageBase64();">Base64</button>
+        <textarea class="form-control" rows="3" cols="100" id="ImageBase64" style="width:440px"></textarea>
+      </div>
     </form>
+    <div>
+      <button class="btn btn-primary" onclick="ScanAdd()">添加扫描</button>
+      <button class="btn btn-primary" onclick="ScanIns()">插入扫描</button>
+      <button class="btn btn-primary" onclick="SaveAsPDF()">保存为PDF</button>
+      <button class="btn btn-primary" onclick="DelOneImg()">删除选中页</button>
+      <button class="btn btn-primary" onclick="DelAllImg()">删除所有页</button>
+      <button class="btn btn-primary" onclick="GetSN()">获取SN</button>
+      <button class="btn btn-primary" onclick="HttpSendFileEx()">上传</button>
+    </div>
   </div>
 </div>
 
