@@ -1,3 +1,8 @@
 .czur-wrapper {
   height: 100%;
 }
+.layout-sidebar__left {
+  color: rgb(45, 52, 71);
+  line-height: 2;
+  padding: 10px;
+}
