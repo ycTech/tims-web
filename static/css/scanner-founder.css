@@ -1,3 +1,14 @@
-.founder-wrapper {
-  background-color: red;
+.scanner-founder .ocx-wrapper {
+  width: 400px;
+  height: auto;
+  float: left;
+  height: 100%;
+}
+.scanner-founder .control-panel {
+  padding: 20px;
+  height: 100%;
+  margin-left: 400px;
+}
+.scanner-founder .form-group {
+  margin: 10px 0;
 }

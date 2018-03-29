@@ -6,11 +6,78 @@
         id="FScanX"
         wmode="opaque"
         classid="clsid:9134F6A9-1FF8-420F-9E9E-DDD374C19715"
-        width="50%"
+        width="400px"
         height="100%"
         z-index:1;>
         <param name="wmode" value="opaque" />
       </object>
+  </div>
+  <div class="control-panel container-fluid">
+    <form class="form-inline" role="form">
+      <div class="form-group">
+        <label for="ScannerName">选择扫描仪</label>
+        <select class="form-control" id="ScannerName" onchange="SelScanner()">
+          <option value="1">扫描仪1</option>
+        </select>
+      </div>
+      <fieldset>
+        <legend>扫描设置</legend>
+        <div class="form-group">
+          <label for="SourceType">扫描方式</label>
+          <select id="SourceType" class="form-control">
+            <option value="0">平板</option>
+            <option value="1">ADF正面</option>
+            <option value="2">ADF双面</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="PixelType">扫描模式</label>
+          <select id="PixelType" class="form-control">
+            <option value="0">黑白</option>
+            <option value="1">灰阶</option>
+            <option value="2">彩色</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="PixelType">分辨率</label>
+          <input class="form-control" type="text" id="Resolution" value="200">
+        </div>
+        <div class="form-group">
+          <label for="Brightness">亮度</label>
+          <input class="form-control" type="text" id="Brightness" value="0" />
+        </div>
+        <div class="form-group">
+          <label for="Contrast">对比度</label>
+          <input class="form-control" type="text" id="Contrast" value="0" />
+        </div>
+        <div class="form-group">
+          <label for="ShowUI">
+            显示UI扫描
+          </label>
+          <input class="form-control" type="text" id="ShowUI" value="0" /> &nbsp;
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary" type="button"  onclick="ShowUISettings();" >
+            更多设置...  
+          </button>
+        </div>
+        <div class="form-group">
+          <label for="ShowTumb">
+            扫描显示缩略图
+          </label>
+          <input class="form-control" style="width:80px" type="text" id="ShowThumb" value="1" />
+        </div>
+        <div class="form-group">
+          <label for="ThumbWidth">缩略图宽度</label>
+          <input class="form-control" style="width:80px" type="text" id="ThumbWidth" value="150" /> 
+          <label for="ThumbHeight">缩略图调试</label>
+          <input class="form-control" style="width:80px" type="text" id="ThumbHeight" value="150" />
+          <button type="button" class="btn btn-primary" onclick="ThumbWH();">
+            保存
+          </button>
+        </div>
+      </fieldset>
+    </form>
   </div>
 </div>
 
