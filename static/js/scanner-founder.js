@@ -109,7 +109,6 @@ function GetScanImagePath () {
 }
 function GetBar () {
   var BarCount = window.FScanX.GetBarCount(1)// 参数为要识别的是第几页
-  alert(BarCount)
   var BarData = ''
   for (var i = 0; i < BarCount; i++) {
     BarData = BarData + window.FScanX.GetBarData(i) + '\n'
@@ -117,7 +116,54 @@ function GetBar () {
   document.getElementById('BarData').value = BarData
 }
 function GetImageBase64 () {
-  document.getElementById('ImageBase64').value = window.FScanX.GetImageBase64String(document.getElementById('ScanImagePath').value)
+  var base64 = window.FScanX.GetImageBase64String(document.getElementById('ScanImagePath').value)
+  document.getElementById('ImageBase64').value = base64
+  console.log('upload base64')
+  // $.post('/scanner/api/fast/base64/upload', {
+  //   billNo: 'billNo',
+  //   billTypeId: 'billTypeId',
+  //   classifyId: 'classifyId',
+  //   classifyName: 'classifyName',
+  //   imageBase64: 'base64',
+  //   imageName: 'test.jpg'
+  // }, function (resp) {
+  //   console.log('resp success')
+  //   console.log(JSON.stringify(resp))
+  // }).done(function () {
+  //   console.log('second success')
+  // }).fail(function (error) {
+  //   console.log('error')
+  //   console.log(JSON.stringify(error))
+  // }).always(function () {
+  //   console.log('finished')
+  // })
+  var postData = {
+    billNo: 'billNo',
+    billTypeId: 'billTypeId',
+    classifyId: 'classifyId',
+    classifyName: 'classifyName',
+    imageBase64: base64,
+    imageName: 'test.jpg'
+  }
+  console.log(new Date().getTime())
+  $.ajax({
+    type: 'POST',
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    traditional: true,
+    processData: false,
+    url: '/scanner/api/fast/base64/upload',
+    data: JSON.stringify(postData),
+    success: function (resp) {
+      console.log('resp success')
+      console.log(new Date().getTime())
+      console.log(JSON.stringify(resp))
+    },
+    error: function (error) {
+      console.log('error')
+      console.log(JSON.stringify(error))
+    }
+  })
 }
 function GetSN () {
   var strSN = window.FScanX.GetSN('154F', '3202')

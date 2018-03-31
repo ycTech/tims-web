@@ -10,7 +10,17 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/scanner/api': {
+        target: 'http://192.168.0.108:10060/',
+        changeOrigin: true,
+        autoRewrite: true,
+        cookieDomainRewrite: true,
+        pathRewrite: {
+          '^/scanner/api/': '/'
+        }
+      }
+    },
 
     // Various Dev Server settings
     host: '0.0.0.0', // can be overwritten by process.env.HOST

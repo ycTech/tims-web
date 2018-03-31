@@ -23,7 +23,7 @@ $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 
   // 默认加载成者高拍仪
-  loadHtml(ScannerTypeMap['founder'])
+  loadHtml(ScannerTypeMap['zhelin'])
 })
 
 function initEventListening () {

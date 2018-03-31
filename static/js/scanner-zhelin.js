@@ -1,26 +1,9 @@
 console.log('zhelin.js')
-ScannerOcx = {
-  start: function () {
-    console.log('zhelin start')
-    StartDevice()
-  },
-  scan: function () {
-    console.log('zhelin scan')
-  },
-  merge: function () {
-    console.log('zhelin merge')
-  },
-  upload: function () {
-    console.log('zhelin upload')
-  }
-}
 
 var szDeviceIndex = '0' // 设备的编号；   0：文档摄像头;1：人像摄像头
 var iColorMode = '0' // 设定获取的图像的色彩模式；   0: 彩色，1: 灰度，2: 黑白。
 var nDpi = 200 // 设定拍照后图像存档的DPI;
 var szPostfix = '.jpg'
-var Capture // 必须得获取object对象
-var Content
 var imgeId = 0
 var ResSelect // 必须取得分辨率标签对象
 var strMergeSource1 // 合并图像源文件1
@@ -38,6 +21,43 @@ var iCutPageType = -1
 var iWaterMarkType = -1
 var iVideoType = 0
 
+ScannerOcx = {
+  start: function () {
+    console.log('zhelin start')
+    CaptureInitDevice()
+    console.log(CaptureGetDeviceCount())
+    // 启动指定设备：0：文档设备，1：人像设备，2：附加设备（第二人像设备）
+    StartDevice('0')
+  },
+  scan: function () {
+    console.log('zhelin scan')
+  },
+  merge: function () {
+    console.log('zhelin merge')
+  },
+  upload: function () {
+    console.log('zhelin upload')
+  }
+}
+
+function CaptureInitDevice () {
+  console.log('初始化设备 CaptureInitDevice')
+  var res = window.Capture.InitDevice()
+  if (res != 0) {
+    console.log('初始化设备失败' + res)
+    return false
+  } else {
+    console.log('设备初始化成功！')
+    return true
+  }
+}
+
+function CaptureGetDeviceCount () {
+  console.log('获取设备数量')
+  var count = window.Capture.GetDeviceCount()
+  console.log(count)
+  return count
+}
 // 打开设备
 function StartDevice (value) {
   var iType = parseInt(value)
@@ -46,9 +66,9 @@ function StartDevice (value) {
     if (iDx == iType) {
       continue
     }
-    Capture.StopDevice(iDx.toString())
+    window.Capture.StopDevice(iDx.toString())
   }
-  if (Capture.StartDevice(szDeviceIndex) == 0) {
+  if (window.Capture.StartDevice(szDeviceIndex) == 0) {
     WriteInfomation('启动设备' + iType.toString() + '成功')
     FillInRes()
   } else {
@@ -62,7 +82,7 @@ function FillInRes () {
   for (var i = 0; i < iResVecLenth; i++) {
     ResSelect.options.remove(0) // 清除分辨率select选项内容
   }
-  var strResolutions = JSON.parse(Capture.GetResolution(szDeviceIndex))
+  var strResolutions = JSON.parse(window.Capture.GetResolution(szDeviceIndex))
   for (var i = 0; i < strResolutions.Resolution.length; i++) {
     var resopp = new Option(strResolutions.Resolution[i].toString(), i.toString())
     ResSelect.add(resopp)
@@ -71,17 +91,17 @@ function FillInRes () {
 
 // 关闭设备
 function StopDevice () {
-  Capture.StopDevice(szDeviceIndex)
+  window.Capture.StopDevice(szDeviceIndex)
 }
 // 获取控件版本信息
 function GetOcxVersion () {
-  WriteInfomation('控件产品版本:' + Capture.GetVersion())
+  WriteInfomation('控件产品版本:' + window.Capture.GetVersion())
 }
 
 // 设置切边类型
 function SetCutPageType (value) {
   var iType = parseInt(value)
-  if (Capture.SetCutPageType(szDeviceIndex, iType.toString()) == 0) {
+  if (window.Capture.SetCutPageType(szDeviceIndex, iType.toString()) == 0) {
     WriteInfomation('设置切边方式为' + iType)
   } else {
     WriteInfomation('设置切边方式失败')
@@ -99,15 +119,15 @@ function SetColorMode (value) {
   switch (iType) {
     case 0:
       iColorMode = 0
-      Capture.SetColorMode(szDeviceIndex, '0')
+      window.Capture.SetColorMode(szDeviceIndex, '0')
       break
     case 1:
       iColorMode = 1
-      Capture.SetColorMode(szDeviceIndex, '1')
+      window.Capture.SetColorMode(szDeviceIndex, '1')
       break
     case 2:
       iColorMode = 2
-      Capture.SetColorMode(szDeviceIndex, '2')
+      window.Capture.SetColorMode(szDeviceIndex, '2')
       break
     default:
       break
@@ -145,7 +165,7 @@ function SetResIndex (value) {
   var szResSel = ResSelect.options[iIndex].text.split('*')
   var iW = parseInt(szResSel[0])
   var iH = parseInt(szResSel[1])
-  if (Capture.SetResolution(szDeviceIndex, iW.toString(), iH.toString()) == 0) {
+  if (window.Capture.SetResolution(szDeviceIndex, iW.toString(), iH.toString()) == 0) {
     WriteInfomation('设置分辨率成功,将重新打开设备')
   } else {
     WriteInfomation('设置分辨率失败')
@@ -160,7 +180,7 @@ function SetDPI (iDPIValue) {
   }
   if (isDigit(iDPIValue)) {
     var iDpi = parseInt(iDPIValue)
-    if (Capture.SetImagePara(szDeviceIndex, '0', iDpi.toString()) == 0) {
+    if (window.Capture.SetImagePara(szDeviceIndex, '0', iDpi.toString()) == 0) {
       WriteInfomation('DPI设置成功')
     } else {
       WriteInfomation('DPI设置失败')
@@ -183,15 +203,15 @@ function isDigit (iVal) {
 function CaptureToFile () {
   var strFileName
   strFileName = strFilePath + imgeId.toString() + szPostfix
-  Capture.CaptureImage(szDeviceIndex, strFileName)
+  window.Capture.CaptureImage(szDeviceIndex, strFileName)
   alert('文件保存为当前目录下的' + strFileName)
   if (checkMultiSource.checked) {
-    Capture.MakeMultiPageFile(strFileName, imgeId.toString(), '0')
+    window.Capture.MakeMultiPageFile(strFileName, imgeId.toString(), '0')
   }
   if (szPostfix != '.pdf' && szPostfix != '.tif') {
     // strFileNames.push(strFileName);
     // Preview(0);
-    strFileNames.push(Capture.EncodeBase64(strFileName))
+    strFileNames.push(window.Capture.EncodeBase64(strFileName))
     Preview(1)
   }
   var strBarcodeContent = ''
@@ -200,7 +220,7 @@ function CaptureToFile () {
 // 条形码/二维码识别
 function GetBarCodeEx () {
   var strFileName = textBaseFileName.value
-  var strBarCode = Capture.RecognizeBarcode(strFileName)
+  var strBarCode = window.Capture.RecognizeBarcode(strFileName)
   if (strFileName == '') {
     WriteInfomation('当前图像读码结果为：\r\n' + strBarCode)
   } else {
@@ -210,7 +230,7 @@ function GetBarCodeEx () {
 // 获取base64字符串
 function GetBase64Ex () {
   var strFileName = textBaseFileName.value
-  var strBase64 = Capture.EncodeBase64(strFileName)// 获取图像的Base64字符流;
+  var strBase64 = window.Capture.EncodeBase64(strFileName)// 获取图像的Base64字符流;
   // alert(strBase64);
 
   /// ///////////////////////////////////////////////////////////////////////////////
@@ -235,15 +255,15 @@ function GetBase64Ex () {
 function SetDeviceRotation (rotation) {
   var nRotation = parseInt(rotation)
   if (nRotation % 90 != 0) {
-    Capture.SetDeviceAngle(szDeviceIndex, '0')// 不能被90整除的默认不旋转
+    window.Capture.SetDeviceAngle(szDeviceIndex, '0')// 不能被90整除的默认不旋转
   }
   // alert(rotation);
-  Capture.SetDeviceAngle(szDeviceIndex, nRotation.toString())
+  window.Capture.SetDeviceAngle(szDeviceIndex, nRotation.toString())
 }
 
 // 设置jpg图片质量
 function SetJPGQuality (iQuality) {
-  if (isDigit(iQuality)) { Capture.SetImagePara(szDeviceIndex, '3', parseInt(iQuality).toString()) } else alert('请输入数字')
+  if (isDigit(iQuality)) { window.Capture.SetImagePara(szDeviceIndex, '3', parseInt(iQuality).toString()) } else alert('请输入数字')
 }
 
 // 正则判断文本框中的内容是否为数字
@@ -256,10 +276,10 @@ function isDigit (iVal) {
 }
 
 function BtnCreateMultiPageFile () {
-  if (Capture.MakeMultiPageFile('d:\\DocImage\\CreatePdf.pdf', '0', '3') == 0) {
+  if (window.Capture.MakeMultiPageFile('d:\\DocImage\\CreatePdf.pdf', '0', '3') == 0) {
     alert('d:\\DocImage\\CreatePdf.pdf创建成功')
   }
-  if (Capture.MakeMultiPageFile('d:\\DocImage\\CreateTIF.tif', '0', '3') == 0) {
+  if (window.Capture.MakeMultiPageFile('d:\\DocImage\\CreateTIF.tif', '0', '3') == 0) {
     alert('d:\\DocImage\\CreateTIF.tif创建成功')
   }
 }
@@ -285,14 +305,14 @@ function SetVideoType (value) {
   iVideoType = parseInt(value)
 }
 function StartRecordingVideo () {
-  if (Capture.StartRecordingVideo(szDeviceIndex, 'D:\\Test.asf') == 0) {
+  if (window.Capture.StartRecordingVideo(szDeviceIndex, 'D:\\Test.asf') == 0) {
     WriteInfomation('开始录制视频, 视频保存在D:\\Test.asf')
   } else {
     WriteInfomation('启动录制视频失败')
   }
 }
 function StopRecordingVideo () {
-  if (Capture.StopRecordingVideo(szDeviceIndex) == 0) {
+  if (window.Capture.StopRecordingVideo(szDeviceIndex) == 0) {
     WriteInfomation('录制视频完成')
   } else {
     WriteInfomation('停止录制视频失败')
@@ -385,32 +405,32 @@ function ShowPreview (strFileName, PreviewWinsowsNo) {
 
 // 获取设备硬件码
 function BtnHID () {
-  var strHID = Capture.GetDeviceDetails()
+  var strHID = window.Capture.GetDeviceDetails()
   WriteInfomation('设备信息为' + strHID)
 }
 
 function Init () {
-  Capture.InitDevice()
+  window.Capture.InitDevice()
   StartDevice(0)
 }
 
 function FaceVertify () {
-  if (Capture.ReadIDCard('d:\\DocImage\\IDCard.jpg') == '') {
+  if (window.Capture.ReadIDCard('d:\\DocImage\\IDCard.jpg') == '') {
     WriteInfomation('读取二代证信息失败')
     return
   }
 
-  var iResult = Capture.CaptureImage(szDeviceIndex, 'd:\\DocImage\\face.jpg')
+  var iResult = window.Capture.CaptureImage(szDeviceIndex, 'd:\\DocImage\\face.jpg')
   if (iResult != 0) {
     WriteInfomation('获取人脸图片失败，错误代码' + iResult)
     return
   }
 
-  strFileNames.push(Capture.EncodeBase64('d:\\DocImage\\IDCard.jpg'))
+  strFileNames.push(window.Capture.EncodeBase64('d:\\DocImage\\IDCard.jpg'))
   Preview(1)
-  strFileNames.push(Capture.EncodeBase64('d:\\DocImage\\face.jpg'))
+  strFileNames.push(window.Capture.EncodeBase64('d:\\DocImage\\face.jpg'))
   Preview(1)
-  iResult = Capture.FaceVertify('d:\\DocImage\\IDCard.jpg', 'd:\\DocImage\\face.jpg')
+  iResult = window.Capture.FaceVertify('d:\\DocImage\\IDCard.jpg', 'd:\\DocImage\\face.jpg')
   WriteInfomation('人证比对相似度为' + iResult)
 }
 
@@ -423,12 +443,12 @@ function CatchButtonMessage (iButtonType) {
 }
 
 function CatchInitFinishedMessage () {
-  Capture.InitDevice()
+  window.Capture.InitDevice()
   // StartDevice(0);
 }
 
 function ReadIDCard () {
-  var strIDCardJSONStr = Capture.ReadIDCard('d:\\DocImage\\IDCard.jpg')
+  var strIDCardJSONStr = window.Capture.ReadIDCard('d:\\DocImage\\IDCard.jpg')
   var strIDCardJSON = JSON.parse(strIDCardJSONStr)
   var strIDCardContent = strIDCardJSON.IDCardInfo.name + '\r\n' +
     strIDCardJSON.IDCardInfo.sex + '\r\n' +
