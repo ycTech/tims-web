@@ -13,6 +13,8 @@ ScannerOcx = {
   },
   upload: function () {
     console.log('founder upload')
+  },
+  setting: function () {
   }
 }
 function addEventListeners () {

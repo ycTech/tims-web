@@ -15,15 +15,17 @@ ScannerOcx = {
   },
   upload: function () {
     alert('上传失败：设备未启动！')
+  },
+  setting: function () {
+    alert('打开设置失败，请检查控件是否已加载，设备是否正确连接！')
   }
 }
 $(function () {
   // 初始化事件监听
   initEventListening()
   $('[data-toggle="tooltip"]').tooltip()
-
   // 默认加载成者高拍仪
-  loadHtml(ScannerTypeMap['zhelin'])
+  loadHtml(ScannerTypeMap['founder'])
 })
 
 function initEventListening () {
@@ -52,8 +54,34 @@ function onActionButtonClick () {
     e.preventDefault()
     ScannerOcx.upload()
   })
+
+  $('#action-button__setting').click(function (e) { 
+    e.preventDefault()  
+    toggleScannerConfig()
+    ScannerOcx.setting()
+  })
 }
 
+function onCloseConfig () {
+  showImagePreview()
+}
+
+// 切换设备配置面板
+function toggleScannerConfig () {
+  $('.image-preview__wrapper,.scanner-setting__wrapper').toggle()
+}
+// 显示图片预览
+function showImagePreview () {
+  $('.image-preview__wrapper').show()
+  $('.scanner-setting__wrapper').hide()
+}
+// 显示扫描设备配置项
+function showScannerConfig () {
+  $('.image-preview__wrapper').hide()
+  $('.scanner-setting__wrapper').show()
+}
+
+// 监听设备类型改变事件
 function onDeviceTypeChange () {
   $('#device-select').change(function (e) {
     e.preventDefault()
@@ -63,8 +91,10 @@ function onDeviceTypeChange () {
   })
 }
 
+// 加载不同扫描设备的面板
 function loadHtml (htmlPath) {
   $.get(htmlPath, function (data) {
-    $('#scanner-iframe').html(data)
+    $('#scanner-iframe').empty().html(data)
+    showImagePreview()
   })
 }

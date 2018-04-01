@@ -23,11 +23,8 @@ var iVideoType = 0
 
 ScannerOcx = {
   start: function () {
-    console.log('zhelin start')
     CaptureInitDevice()
-    console.log(CaptureGetDeviceCount())
-    // 启动指定设备：0：文档设备，1：人像设备，2：附加设备（第二人像设备）
-    StartDevice('0')
+    CaptureStartDevice()
   },
   scan: function () {
     console.log('zhelin scan')
@@ -37,9 +34,19 @@ ScannerOcx = {
   },
   upload: function () {
     console.log('zhelin upload')
+  },
+  setting: function () {
+    console.log('zhelin setting')
+    $('#modal-scanner-zhelin').modal('show')
   }
 }
 
+function WriteInfomation (strInfo) {
+  console.log(strInfo)
+  // Content.value += ("\r\n" + strInfo);
+}
+
+// 1. 初始化设备
 function CaptureInitDevice () {
   console.log('初始化设备 CaptureInitDevice')
   var res = window.Capture.InitDevice()
@@ -52,14 +59,9 @@ function CaptureInitDevice () {
   }
 }
 
-function CaptureGetDeviceCount () {
-  console.log('获取设备数量')
-  var count = window.Capture.GetDeviceCount()
-  console.log(count)
-  return count
-}
-// 打开设备
-function StartDevice (value) {
+// 2. 启动指定设备 0：文档设备，1：人像设备，2：附加设备
+function CaptureStartDevice (value) {
+  value = value || szDeviceIndex
   var iType = parseInt(value)
   szDeviceIndex = iType.toString()
   for (var iDx = 0; iDx < 3; iDx++) {
@@ -70,14 +72,42 @@ function StartDevice (value) {
   }
   if (window.Capture.StartDevice(szDeviceIndex) == 0) {
     WriteInfomation('启动设备' + iType.toString() + '成功')
-    FillInRes()
+    CaptureFillInRes()
   } else {
     WriteInfomation('启动设备' + iType.toString() + '失败')
   }
 }
 
+// 3. 停用当前设备
+function CaptureStopDevice () {
+  window.Capture.StopDevice(szDeviceIndex)
+  WriteInfomation('停用当前设备')
+}
+
+// 4. 释放设备，退出程序之前，必须调用此方法，保证设备被正确释放
+function CaptureReleaseDevice () {
+  window.Capture.ReleaseDevice()
+  WriteInfomation('释放设备')
+}
+
+// 5. 获取设备数量
+// 返回值：
+//    1：有且只有文档设备
+//    2：有文档设备和人像设备
+//    3：有文档设备、人像设备和附加设备（第二人像设备）
+function CaptureGetDeviceCount () {
+  var count = window.Capture.GetDeviceCount()
+  WriteInfomation('获取设备数量：' + count)
+  return count
+}
+
+// 6. 获取控件版本信息
+function CaptureGetOcxVersion () {
+  WriteInfomation('控件产品版本:' + window.Capture.GetVersion())
+}
+
 // 读取分辨率列表
-function FillInRes () {
+function CaptureFillInRes () {
   var iResVecLenth = ResSelect.options.length
   for (var i = 0; i < iResVecLenth; i++) {
     ResSelect.options.remove(0) // 清除分辨率select选项内容
@@ -89,28 +119,19 @@ function FillInRes () {
   }
 }
 
-// 关闭设备
-function StopDevice () {
-  window.Capture.StopDevice(szDeviceIndex)
-}
-// 获取控件版本信息
-function GetOcxVersion () {
-  WriteInfomation('控件产品版本:' + window.Capture.GetVersion())
-}
-
-// 设置切边类型
-function SetCutPageType (value) {
+// 10. 设置切边类型
+//    0:  完整图幅
+//    1： 自动校正去边
+//    2： 自定义切边
+//    3： 人脸捕捉
+//    4： 人脸捕捉并自动出图
+function CaptureSetCutPageType (value) {
   var iType = parseInt(value)
   if (window.Capture.SetCutPageType(szDeviceIndex, iType.toString()) == 0) {
     WriteInfomation('设置切边方式为' + iType)
   } else {
     WriteInfomation('设置切边方式失败')
   }
-}
-
-function WriteInfomation (strInfo) {
-  console.log(strInfo)
-  // Content.value += ("\r\n" + strInfo);
 }
 
 // 设置颜色模式
@@ -407,59 +428,4 @@ function ShowPreview (strFileName, PreviewWinsowsNo) {
 function BtnHID () {
   var strHID = window.Capture.GetDeviceDetails()
   WriteInfomation('设备信息为' + strHID)
-}
-
-function Init () {
-  window.Capture.InitDevice()
-  StartDevice(0)
-}
-
-function FaceVertify () {
-  if (window.Capture.ReadIDCard('d:\\DocImage\\IDCard.jpg') == '') {
-    WriteInfomation('读取二代证信息失败')
-    return
-  }
-
-  var iResult = window.Capture.CaptureImage(szDeviceIndex, 'd:\\DocImage\\face.jpg')
-  if (iResult != 0) {
-    WriteInfomation('获取人脸图片失败，错误代码' + iResult)
-    return
-  }
-
-  strFileNames.push(window.Capture.EncodeBase64('d:\\DocImage\\IDCard.jpg'))
-  Preview(1)
-  strFileNames.push(window.Capture.EncodeBase64('d:\\DocImage\\face.jpg'))
-  Preview(1)
-  iResult = window.Capture.FaceVertify('d:\\DocImage\\IDCard.jpg', 'd:\\DocImage\\face.jpg')
-  WriteInfomation('人证比对相似度为' + iResult)
-}
-
-function CatchGetFaceImage (szFileName) {
-  WriteInfomation('获取实时人脸图片' + szFileName)
-}
-
-function CatchButtonMessage (iButtonType) {
-  alert(iButtonType)
-}
-
-function CatchInitFinishedMessage () {
-  window.Capture.InitDevice()
-  // StartDevice(0);
-}
-
-function ReadIDCard () {
-  var strIDCardJSONStr = window.Capture.ReadIDCard('d:\\DocImage\\IDCard.jpg')
-  var strIDCardJSON = JSON.parse(strIDCardJSONStr)
-  var strIDCardContent = strIDCardJSON.IDCardInfo.name + '\r\n' +
-    strIDCardJSON.IDCardInfo.sex + '\r\n' +
-    strIDCardJSON.IDCardInfo.nation + '\r\n' +
-    strIDCardJSON.IDCardInfo.birthday + '\r\n' +
-    strIDCardJSON.IDCardInfo.address + '\r\n' +
-    strIDCardJSON.IDCardInfo.cardID + '\r\n' +
-    strIDCardJSON.IDCardInfo.issueOrgan + '\r\n' +
-    strIDCardJSON.IDCardInfo.validStart + '\r\n' +
-    strIDCardJSON.IDCardInfo.validEnd
-  strFileNames.push(strIDCardJSON.IDCardInfo.picBase64)
-  Preview(1)
-  WriteInfomation(strIDCardContent)
 }

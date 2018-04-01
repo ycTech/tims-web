@@ -29,6 +29,9 @@ $(function () {
     close: function () {
       console.log('czur close')
       czurOcxCloseDevice()
+    },
+    setting: function () {
+      console.log('czur setting')
     }
   }
   addEventListeners()
