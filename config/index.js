@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/scanner/api': {
-        target: 'http://192.168.0.108:10060/',
+        target: 'http://192.168.1.104:10060/',
         changeOrigin: true,
         autoRewrite: true,
         cookieDomainRewrite: true,

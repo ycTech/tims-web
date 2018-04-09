@@ -1,8 +1,5 @@
 <link rel="stylesheet" href="./css/scanner-founder.css">
 
-<script language="javascript" for="FScanX" event="OnRecvMsg(msg)">
-    //alert(msg);//获取图像事件，返回图像名称
-</script>
 <div class="scanner-wrapper scanner-founder">
   <div class="ocx-wrapper">
     <object 
@@ -24,13 +21,17 @@
     <!-- <button class="btn btn-primary" onclick="HttpSendFileEx()">上传</button> -->
   </div>
   <div class="image-preview__wrapper">
-    方正高速扫描仪 图片预览
   </div>
+  
+  
   <div class="scanner-setting__wrapper container-fluid">
-    <form class="form-inline" role="form">
+    <button type="button" class="btn btn-primary" onclick="getFormData()">表单测试</button>
+    <form class="form-inline" role="form" id="FounderScanner" name="FounderScanner">
       <div class="form-group">
         <label for="ScannerName">选择扫描仪</label>
-        <select class="form-control" id="ScannerName" onchange="SelScanner()">
+        <select style="width: 220px;" class="form-control"
+          id="ScannerName" name="ScannerName"
+          onchange="SelScanner()">
           <option value="1">扫描仪1</option>
         </select>
       </div>
@@ -38,7 +39,11 @@
         <legend>扫描设置</legend>
         <div class="form-group">
           <label for="SourceType">扫描方式</label>
-          <select id="SourceType" class="form-control" style="width: 80px">
+          <select
+            style="width: 120px;"
+            class="form-control"
+            id="SourceType"
+            name="SourceType">
             <option value="0">平板</option>
             <option value="1">ADF正面</option>
             <option value="2">ADF双面</option>
@@ -46,7 +51,11 @@
         </div>
         <div class="form-group">
           <label for="PixelType">扫描模式</label>
-          <select id="PixelType" class="form-control"  style="width: 80px">
+          <select 
+            style="width: 120px;"
+            class="form-control"
+            id="PixelType"
+            name="PixelType">
             <option value="0">黑白</option>
             <option value="1">灰阶</option>
             <option value="2">彩色</option>
@@ -54,21 +63,49 @@
         </div>
         <div class="form-group">
           <label for="PixelType">分辨率：</label>
-          <input class="form-control" style="width:80px" type="text" id="Resolution" value="200">DPI
+          <input
+            class="form-control"
+            style="width:80px"
+            type="text"
+            id="Resolution"
+            name="Resolution"
+            value="200"
+          />DPI
         </div>
         <div class="form-group">
           <label for="Brightness">亮度：</label>
-          <input class="form-control" style="width:80px" type="text" id="Brightness" value="0" />
+          <input
+            class="form-control"
+            style="width:80px"
+            type="text"
+            id="Brightness"
+            name="Brightness"
+            value="0"
+          />
         </div>
         <div class="form-group">
           <label for="Contrast">对比度：</label>
-          <input class="form-control" style="width:80px" type="text" id="Contrast" value="0" />
+          <input
+            class="form-control"
+            style="width:80px"
+            type="text"
+            id="Contrast"
+            name="Contrast"
+            value="0"
+          />
         </div>
         <div class="form-group" style="display:none;">
           <label for="ShowUI">
             显示UI扫描：
           </label>
-          <input class="form-control" style="width:80px" type="text" id="ShowUI" value="0" /> &nbsp;
+          <input
+            class="form-control"
+            style="width:80px"
+            type="text"
+            id="ShowUI"
+            name="ShowUI"
+            value="0"
+          />
         </div>
         <div class="form-group">
           <button class="btn btn-primary" type="button" onclick="ShowUISettings();">
@@ -80,13 +117,34 @@
           <label for="ShowTumb">
             扫描显示缩略图：
           </label>
-          <input class="form-control" style="width:80px" type="text" id="ShowThumb" value="1" />
+          <input
+            class="form-control"
+            style="width:80px"
+            type="text"
+            id="ShowThumb"
+            name="ShowThumb"
+            value="1"
+          />
         </div>
         <div class="form-group">
           <label for="ThumbWidth">缩略图宽度：</label>
-          <input class="form-control" style="width:80px" type="text" id="ThumbWidth" value="150" />
+          <input
+            class="form-control"
+            style="width:80px"
+            type="text"
+            id="ThumbWidth"
+            name="ThumbWidth"
+            value="150"
+          />
           <label for="ThumbHeight">缩略图高度：</label>
-          <input class="form-control" style="width:80px" type="text" id="ThumbHeight" value="150" />
+          <input
+            class="form-control"
+            style="width:80px"
+            type="text"
+            id="ThumbHeight"
+            name="ThumbHeight"
+            value="150"
+          />
           <button type="button" class="btn btn-primary" onclick="ThumbWH();">
             保存
           </button>
@@ -112,7 +170,7 @@
         </div>
         <div class="form-group">
           <label for="ImageFormat">图像格式</label>
-          <select class="form-control" style="width:105px" id="ImageFormat">
+          <select class="form-control" style="width:160px" id="ImageFormat">
             <option value="0">bmp</option>
             <option value="1" selected="selected">jpg</option>
             <option value="2">单页tif</option>
@@ -126,14 +184,14 @@
         </div>
         <div class="form-group">
           <label for="TiffCompressType">TIFF压缩方式</label>
-          <select class="form-control" style="width:105px" id="TiffCompressType">
+          <select class="form-control" style="width:160px" id="TiffCompressType">
             <option value="0">TIFF_JPEG</option>
             <option value="1">TIFF_G4FAX</option>
           </select>
         </div>
         <div class="form-group">
-          <label for="PDFCompressType"></label>
-          <select class="form-control" style="width:105px" id="PDFCompressType">
+          <label for="PDFCompressType">PDF压缩方式</label>
+          <select class="form-control" style="width:160px" id="PDFCompressType">
             <option value="0">PDF_JPEG</option>
             <option value="1">PDF_G4FAX</option>
           </select>

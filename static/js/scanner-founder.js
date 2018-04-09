@@ -1,5 +1,7 @@
 console.log('founder.js')
 GetScannerName()
+
+// {"code":200,"msg":"\u64cd\u4f5c\u6210\u529f","data":"http://192.168.1.195/group1/M00/00/00/wKgBw1rKJ-SAZZKoAAAEX-4DxsU348.jpg"}
 ScannerOcx = {
   start: function () {
     GetScannerName()
@@ -24,7 +26,17 @@ function addEventListeners () {
     document.getElementById('FScanX').addEventListener('OnRecvMsg', OnRecvMsg, false)
   }
 }
+function getFormData () {
+  var dataArray = $('#FounderScanner').serializeArray()
+  var formData = {}
+  for (var i = 0; i < dataArray.length; i++) {
+    formData[dataArray[i].name] = dataArray[i].value
+  }
+  console.log(JSON.stringify(formData))
+  return formData
+}
 function OnRecvMsg (msg) {
+  alert(msg)
   console.log(JSON.stringify(msg))
 }
 function GetScannerName () {

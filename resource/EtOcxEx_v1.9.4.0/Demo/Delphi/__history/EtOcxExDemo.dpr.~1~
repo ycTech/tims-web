@@ -1,0 +1,15 @@
+program EtOcxExDemo;
+
+uses
+  Forms,
+  Unit1 in '..\7.0\Imports\Unit1.pas' {Form1},
+  EtOcxExLib_TLB in '..\7.0\Imports\EtOcxExLib_TLB.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm1, Form1);
+  Application.Run;
+end.
