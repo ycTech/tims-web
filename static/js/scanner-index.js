@@ -63,8 +63,8 @@ ScannerHome = {
       }
     })
   },
-  uploadImageFilePreview: function () {
-  },
+
+  // 上传Base64格式的PDF文件
   uploadPdfBase64: function (fileName, base64, callback) {
     var postData = {
       vsystem: getQueryString('vsystem'),
@@ -99,14 +99,28 @@ ScannerHome = {
       }
     })
   },
-  uploadPdfFile: function () {
-  },
+
+  // 上传Base64格式的图片文件
   uploadImageBase64: function () {
   },
-  uploadImageFile: function () {
+
+  clearImageThumbsNails: function () {
+  },
+
+  closeImagePreview: function () {
+
+  },
+
+  // 设置图片预览图片的Src
+  setImagePreviewSrc: function () {
+
+  },
+
+  //
+  resetImagePreviewSrc: function () {
+
   }
 }
-
 $(function () {
   initEventListening()
   // 初始化
@@ -155,7 +169,7 @@ $(function () {
     // 设置
     $('#action-button__setting').click(function (e) {
       e.preventDefault()
-      toggleScannerConfig()
+      toggleScannerConfigPanel()
       ScannerOcx.setting()
     })
   }
@@ -205,15 +219,15 @@ function initJsTree () {
 
 // 关闭配置面板
 function onCloseConfig () {
-  showImagePreview()
+  showImagePreviewPanel()
 }
 
 // 切换设备配置面板
-function toggleScannerConfig () {
+function toggleScannerConfigPanel () {
   $('.image-preview__wrapper,.scanner-setting__wrapper').toggle()
 }
 // 显示图片预览
-function showImagePreview () {
+function showImagePreviewPanel () {
   $('.image-preview__wrapper').show()
   $('.scanner-setting__wrapper').hide()
 }
@@ -236,8 +250,8 @@ function onDeviceTypeChange () {
 function loadHtml (htmlPath) {
   $.get(htmlPath, function (data) {
     $('#scanner-iframe').empty().html(data)
-    console.log('showImagePreview')
-    showImagePreview()
+    console.log('showImagePreviewPanel')
+    showImagePreviewPanel()
   })
 }
 function AddImagePreview (fileUrl, thumbImageUrl) {
@@ -276,7 +290,7 @@ function AddImagePreview (fileUrl, thumbImageUrl) {
       .empty()
       .append($imagePreviewContent)
 
-    showImagePreview()
+    showImagePreviewPanel()
   })
   var $imageThumbWrapper = $('<div/>')
     .addClass('image-thumbnail-wrapper')

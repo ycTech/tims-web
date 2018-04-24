@@ -1,37 +1,55 @@
-console.log('czur.js')
 var fileDirect = null // 扫描后文件的存放路径
 var defaultFileName = null
 var imageUrlList = []
 var imageFilePathList = []
+
 $(function () {
   window.ScannerOcx = {
     start: function () {
-      console.log('czur start')
-      imageFilePathList = []
+      if (!isOcxInstalled()) {
+        return false
+      }
       czurOcxStartDevice()
     },
     scan: function () {
-      console.log('czur scan')
+      if (!isOcxInstalled()) {
+        return false
+      }
       czurOcxScan()
     },
     merge: function () {
-      console.log('czur merge')
+      if (!isOcxInstalled()) {
+        return false
+      }
       czurOcxMergeImageToPdf()
     },
     upload: function () {
-      console.log('czur upload')
+      if (!isOcxInstalled()) {
+        return false
+      }
       czurHttpUpload()
     },
     close: function () {
-      console.log('czur close')
+      if (!isOcxInstalled()) {
+        return false
+      }
       czurOcxCloseDevice()
-    },
-    setting: function () {
-      console.log('czur setting')
     }
   }
   addEventListeners()
+  ScannerOcx.start()
 })
+
+// 检测Ocx控件是否安装
+function isOcxInstalled () {
+  if (!window.CZUROcx || !window.CZUROcx.CZUR_Initialize) {
+    $notify('CZUR高拍仪Ocx控件未正确加载，请确保在IE8~IE11环境下，并且Ocx控件已正确加载，如有任何问题，请联系管理员！', 'danger')
+    return false
+  }
+
+  return true
+}
+
 function addEventListeners () {
   if (window.attachEvent) {
     document.getElementById('CZUROcx').attachEvent('CZUR_CALLBACK', JS_CZUR_CALLBACK)

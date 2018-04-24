@@ -1,25 +1,46 @@
-$(function() {
-  GetScannerName()
-})
 
 // {"code":200,"msg":"\u64cd\u4f5c\u6210\u529f","data":"http://192.168.1.195/group1/M00/00/00/wKgBw1rKJ-SAZZKoAAAEX-4DxsU348.jpg"}
 ScannerOcx = {
   start: function () {
+    if (!isOcxInstalled()) {
+      return false
+    }
+
     GetScannerName()
   },
   scan: function () {
-    console.log('founder scan')
+    if (!isOcxInstalled()) {
+      return false
+    }
+
     Scan()
   },
   merge: function () {
+    if (!isOcxInstalled()) {
+      return false
+    }
+
     SaveAsPDF()
-    console.log('founder merge')
   },
   upload: function () {
-    console.log('founder upload')
-  },
-  setting: function () {
+    if (!isOcxInstalled()) {
+      return false
+    }
+
+    // TODO: Upload PdfFile
   }
+}
+
+$(function () {
+  ScannerOcx.start()
+})
+
+function isOcxInstalled () {
+  if (!window.FScanX || !window.FScanX.Scan) {
+    $notify('方正扫描仪Ocx控件未正确加载，请确保在IE8~IE11环境下，并且Ocx控件已正确加载，如有任何问题，请联系管理员！', 'danger')
+    return false
+  }
+  return true
 }
 function addEventListeners () {
   if (window.attachEvent) {
@@ -136,7 +157,7 @@ function GetBar () {
   document.getElementById('BarData').value = BarData
 }
 function uploadPdf () {
-  var base64 = window.FScanX.HttpSendFileEx("D:\\test.pdf", "http:\\localhost:8080");
+  var base64 = window.FScanX.HttpSendFileEx('D:\\test.pdf', 'http:\\localhost:8080')
 }
 function GetImageBase64 () {
   var base64 = window.FScanX.GetImageBase64String(document.getElementById('ScanImagePath').value)
@@ -175,7 +196,7 @@ function GetImageBase64 () {
     dataType: 'json',
     traditional: true,
     processData: false,
-    url: '/scanner/api/fast/base64/upload',
+    url: '/fast/base64/upload',
     data: JSON.stringify(postData),
     success: function (resp) {
       console.log('resp success')

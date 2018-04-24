@@ -2,7 +2,7 @@
  * @Author: qingbin_bai@163.com
  * @Date: 2018-04-24 23:52:07
  * @Last Modified by: qingbin_bai@163.com
- * @Last Modified time: 2018-04-25 01:56:03
+ * @Last Modified time: 2018-04-25 02:14:20
  * TODO:
  *  1. 用户可配置文件保存路径
  *  2. Cookie中保存用户的配置文件
@@ -105,8 +105,6 @@ function isOcxInstalled () {
     return false
   }
 
-  console.log(window.Capture.GetVersion)
-  console.log(window.Capture.GetVersion())
   return true
 }
 
