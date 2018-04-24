@@ -51,6 +51,9 @@ ScannerHome = {
       async: false,
       data: JSON.stringify(postData),
       success: function (resp) {
+        if (!resp.data || !resp.data.fileUrl) {
+          return false
+        }
         var res = resp.data
         var fileUrl = res.fileUrl
         var thumbImageUrl = res.thumbImageUrl
@@ -122,10 +125,13 @@ ScannerHome = {
   }
 }
 $(function () {
-  initEventListening()
-  // 初始化
-  initLayout()
   initJsTree()
+  initLayout()
+  initEventListening()
+  if (!isBrowserSupport()) {
+    return false
+  }
+  // 初始化
   function initLayout () {
     // 初始化工具栏按钮提示框
     $('[data-toggle="tooltip"]').tooltip()
@@ -145,32 +151,31 @@ $(function () {
     // 启动设备
     $('#action-button__start').click(function (e) {
       e.preventDefault()
-      ScannerOcx.start()
+      isBrowserSupport() && ScannerOcx.start()
     })
 
     // 开始扫描
     $('#action-button__scan').click(function (e) {
       e.preventDefault()
-      ScannerOcx.scan()
+      isBrowserSupport() && ScannerOcx.scan()
     })
 
     // 合并PDF
     $('#action-button__merge').click(function (e) {
       e.preventDefault()
-      ScannerOcx.merge()
+      isBrowserSupport() && ScannerOcx.merge()
     })
 
     // 上传PDF
     $('#action-button__upload').click(function (e) {
       e.preventDefault()
-      ScannerOcx.upload()
+      isBrowserSupport() && ScannerOcx.upload()
     })
 
     // 设置
     $('#action-button__setting').click(function (e) {
       e.preventDefault()
       toggleScannerConfigPanel()
-      ScannerOcx.setting()
     })
   }
 })
@@ -184,6 +189,10 @@ function initJsTree () {
     dataType: 'json',
     data: JSON.stringify(urlQuery),
     success: function (res) {
+      if (!res.data || !res.data.file) {
+        $notify('暂时获取不到单据相关文件！', 'warning')
+        return false
+      }
       var treeData = res.data.file
       var fileArray = res.data.fileStoreList
       $('#jstree').jstree({
@@ -312,4 +321,29 @@ function AddImagePreview (fileUrl, thumbImageUrl) {
       $imageThumb.css('width', '100%')
     }
   }, 0)
+}
+function isBrowserSupport () {
+  var IEVersion = CheckIEVersion()
+  if (IEVersion < 8) {
+    alert('您的IE版本过低，请使用IE8及以上浏览器！')
+    return false
+  }
+  if (IEVersion > 11) {
+    alert('非IE浏览器无法使用扫描功能，请使用IE8及以上浏览器！')
+    return false
+  }
+  return true
+}
+
+function CheckIEVersion () {
+  var iDx = 6
+  var b = document.createElement('b')
+  for (; iDx < 12; iDx++) {
+    b.innerHTML = '<!--[if IE ' + iDx + ']><i></i><![endif]-->'
+
+    if (b.getElementsByTagName('i').length === 1) {
+      break
+    }
+  }
+  return iDx
 }

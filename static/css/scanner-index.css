@@ -43,6 +43,7 @@
   width: 100%;
   background-color: #fff;
   color: #666;
+  position: relative;
 }
 .scanner-wrapper .ocx-wrapper {
   position: absolute;
