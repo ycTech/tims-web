@@ -1,5 +1,6 @@
-console.log('founder.js')
-GetScannerName()
+$(function() {
+  GetScannerName()
+})
 
 // {"code":200,"msg":"\u64cd\u4f5c\u6210\u529f","data":"http://192.168.1.195/group1/M00/00/00/wKgBw1rKJ-SAZZKoAAAEX-4DxsU348.jpg"}
 ScannerOcx = {
@@ -11,6 +12,7 @@ ScannerOcx = {
     Scan()
   },
   merge: function () {
+    SaveAsPDF()
     console.log('founder merge')
   },
   upload: function () {
@@ -41,17 +43,21 @@ function OnRecvMsg (msg) {
 }
 function GetScannerName () {
   var i = 0
-  var ScannerCount = window.FScanX.GetScannerCount()
-  var obj = document.getElementById('ScannerName')
-  obj.options.length = 0
-  for (i = 0; i < ScannerCount; i++) {
-    var ScannerName = window.FScanX.GetScannerName(i)
-    var objOption = document.createElement('OPTION')
-    objOption.text = ScannerName
-    objOption.value = i
-    obj.options.add(objOption)
+  try {
+    var ScannerCount = window.FScanX.GetScannerCount()
+    var obj = document.getElementById('ScannerName')
+    obj.options.length = 0
+    for (i = 0; i < ScannerCount; i++) {
+      var ScannerName = window.FScanX.GetScannerName(i)
+      var objOption = document.createElement('OPTION')
+      objOption.text = ScannerName
+      objOption.value = i
+      obj.options.add(objOption)
+    }
+    SelScanner()
+  } catch (error) {
+    console.log(error)
   }
-  SelScanner()
 }
 function SelScanner () {
   var obj = document.getElementById('ScannerName')
@@ -128,6 +134,9 @@ function GetBar () {
     BarData = BarData + window.FScanX.GetBarData(i) + '\n'
   }
   document.getElementById('BarData').value = BarData
+}
+function uploadPdf () {
+  var base64 = window.FScanX.HttpSendFileEx("D:\\test.pdf", "http:\\localhost:8080");
 }
 function GetImageBase64 () {
   var base64 = window.FScanX.GetImageBase64String(document.getElementById('ScanImagePath').value)

@@ -2,20 +2,169 @@
 
 <div class="scanner-wrapper scanner-zhelin">
   <div class="ocx-wrapper">
-    <object
-      id="Capture"
-      wmode="opaque"
-      type="application/ZCaptureVideo"
-      style="width: 100%; height: 100%; z-index:1;">
+    <object id="Capture" wmode="opaque" type="application/ZCaptureVideo" style="width: 100%; height: 100%; z-index:1;">
       <param name="wmode" value="opaque" />
-      
+
     </object>
   </div>
   <div class="image-preview__wrapper">
   </div>
   <div class="scanner-setting__wrapper">
-    <div class="text-center">
-      <button type="button" class="btn btn-default" onclick="onCloseConfig()">关闭</button>
+
+    <form class="form-inline" role="form">
+
+      <fieldset>
+        <div class="form-group">
+
+          <button type="button" class="btn btn-primary" onclick="StartDevice(CammeraType.value)">打开</button>
+          <select class="form-control" name="CammeraType" id="CammeraType" style="width: 220px;">
+            <option value="0" selected="selected">文档摄像头</option>
+            <option value="1">人像摄像头</option>
+          </select>
+
+          <button type="button" class="btn btn-primary" onclick="CaptureToFile()">拍摄</button>
+
+          <button type="button" class="btn btn-danger" onclick="StopDevice()">关闭</button>
+
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <div class="form-group">
+          <label for="Resolution_Select" class="control-label">分辨率</label>
+          <select
+            id="Resolution_Select"
+            name="Resolution"
+            style="width:120px;"
+            class="form-control"
+            onclick="SetResIndex(Resolution_Select.value)">
+          </select>
+        </div>
+        <br>
+        <!-- <div class="form-group">
+          <label for="checkMultiSource" class="control-label">标记为多页源</label>
+          <input
+            type="checkbox"
+            name="checkMultiSource"
+            id="checkMultiSource"
+          >
+          <button
+            id="btnMakeMultiPage"
+            name="btnMakeMultiPage"
+            type="button"
+            class="btn btn-primary"
+            onclick="BtnCreateMultiPageFile()">
+            生成
+          </button>
+        </div> -->
+      </fieldset>
+      <fieldset>
+        <div class="form-group">
+          <label for="rgFileType" class="control-label">保存格式</label>
+          <select
+            id="rgFileType"
+            name="rgFileType"
+            style="width:120px;"
+            class="form-control"
+            onclick="SetFileType(rgFileType.value)">
+            <option value="0" selected="selected">jpg</option>
+            <option value="1">bmp</option>
+            <option value="2">png</option>
+            <!-- <option value="3">tif</option>
+            <option value="4">pdf</option> -->
+          </select>
+        </div>
+      </fieldset>
+      <fieldset>
+        <div class="form-group">
+          <label for="rgColorMode" class="control-label">色彩模式</label>
+          <select
+            id="rgColorMode"
+            name="rgColorMode"
+            style="width:120px;"
+            class="form-control"
+            onclick="SetColorMode(rgColorMode.value)">
+            <option value="0" selected="selected">彩色</option>
+            <option value="1">灰度</option>
+            <option value="2">黑白</option>
+          </select>
+        </div>
+      </fieldset>
+      <fieldset>
+        <div class="form-group">
+          <label for="rgCutPageType" class="control-label">切边方式</label>
+          <select
+            id="rgCutPageType"
+            name="rgCutPageType"
+            style="width:120px;"
+            class="form-control"
+            onclick="SetCutPageType(rgCutPageType.value)">
+            <option value="0">不切边</option>
+            <option value="1" selected="selected">自动切边</option>
+            <option value="2">自定义切边</option>
+            <option value="3">人像切边</option>
+            <option value="4">人像即时出图</option>
+          </select>
+        </div>
+      </fieldset>
+      <fieldset>
+        <div class="form-group">
+          <label for="DPI" class="control-label">DPI</label>
+          <input
+            type="text"
+            name="DPI"
+            id="DPI"
+            align="center"
+            valign="middle" 
+            class="form-control"
+            style="width: 120px;"
+            value="150" size="4"
+            onclick="SetDPI(DPI.value)"
+          />
+          <label for="DPI" class="control-label">JPG质量</label>
+          <input
+            type="text"
+            name="JPGQuality"
+            id="JPGQuality"
+            align="center"
+            valign="middle" 
+            class="form-control"
+            style="width: 120px;"
+            value="70" size="4"
+            onclick="SetJPGQuality(JPGQuality.value)"
+          />
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend style="margin-top: 20px; margin-bottom: 10px;">图像旋转</legend>
+        <div class="form-group">
+            
+          <button
+            type="button"
+            class="btn btn-primary"
+            onclick="SetDeviceRotation(270)">左转
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            onclick="SetDeviceRotation(90)">右转
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            onclick="SetDeviceRotation(180)">180度
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            onclick="SetDeviceRotation(0)">恢复
+          </button>
+        </div>
+      </fieldset>
+    </form>
+
+    <div class="text-center" style="margin-top: 15px;">
+      <button type="button" class="btn btn-danger" onclick="onCloseConfig()">关闭</button>
       <button type="button" class="btn btn-primary" onclick="onSaveScannerConfigZhelin()">确定</button>
     </div>
   </div>

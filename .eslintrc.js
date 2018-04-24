@@ -28,6 +28,7 @@ module.exports = {
     "vue/html-indent": "off",
     "vue/no-parsing-error": "off",
     "vue/max-attributes-per-line": "off",
+    "no-undef": "off",
     // allow async-await
     'generator-star-spacing': 'off',
     'no-unused-vars': 'off',

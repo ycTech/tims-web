@@ -1,0 +1,1 @@
+scanner-index.html?vsystem=vsystem&pk_corp=pk_corp&user_code=user_code&pk_billtype=pk_billtype&billtypename=billtypename&billid=billid&vbillno=vbillno&path=%2fSA15%2f12423423532%2f%e5%90%88%e5%90%8c

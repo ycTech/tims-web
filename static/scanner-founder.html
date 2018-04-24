@@ -2,14 +2,10 @@
 
 <div class="scanner-wrapper scanner-founder">
   <div class="ocx-wrapper">
-    <object 
-      id="FScanX"
-      wmode="transparent"
-      classid="clsid:9134F6A9-1FF8-420F-9E9E-DDD374C19715"
-      style="position: relative; width:100%; height:100%;z-index:0;">
+    <object id="FScanX" wmode="transparent" classid="clsid:9134F6A9-1FF8-420F-9E9E-DDD374C19715" style="position: relative; width:100%; height:100%;z-index:0;">
       <param name="wmode" value="transparent" />
     </object>
-    
+
   </div>
   <div class="scanner-toolbar">
     <button class="btn btn-primary" onclick="ScanAdd()">添加扫描</button>
@@ -22,16 +18,14 @@
   </div>
   <div class="image-preview__wrapper">
   </div>
-  
-  
-  <div class="scanner-setting__wrapper container-fluid">
+
+
+  <div class="scanner-setting__wrapper container-fluid" style="display: none;">
     <button type="button" class="btn btn-primary" onclick="getFormData()">表单测试</button>
     <form class="form-inline" role="form" id="FounderScanner" name="FounderScanner">
       <div class="form-group">
         <label for="ScannerName">选择扫描仪</label>
-        <select style="width: 220px;" class="form-control"
-          id="ScannerName" name="ScannerName"
-          onchange="SelScanner()">
+        <select style="width: 220px;" class="form-control" id="ScannerName" name="ScannerName" onchange="SelScanner()">
           <option value="1">扫描仪1</option>
         </select>
       </div>
@@ -39,11 +33,7 @@
         <legend>扫描设置</legend>
         <div class="form-group">
           <label for="SourceType">扫描方式</label>
-          <select
-            style="width: 120px;"
-            class="form-control"
-            id="SourceType"
-            name="SourceType">
+          <select style="width: 120px;" class="form-control" id="SourceType" name="SourceType">
             <option value="0">平板</option>
             <option value="1">ADF正面</option>
             <option value="2">ADF双面</option>
@@ -51,11 +41,7 @@
         </div>
         <div class="form-group">
           <label for="PixelType">扫描模式</label>
-          <select 
-            style="width: 120px;"
-            class="form-control"
-            id="PixelType"
-            name="PixelType">
+          <select style="width: 120px;" class="form-control" id="PixelType" name="PixelType">
             <option value="0">黑白</option>
             <option value="1">灰阶</option>
             <option value="2">彩色</option>
@@ -63,49 +49,21 @@
         </div>
         <div class="form-group">
           <label for="PixelType">分辨率：</label>
-          <input
-            class="form-control"
-            style="width:80px"
-            type="text"
-            id="Resolution"
-            name="Resolution"
-            value="200"
-          />DPI
+          <input class="form-control" style="width:80px" type="text" id="Resolution" name="Resolution" value="200" />DPI
         </div>
         <div class="form-group">
           <label for="Brightness">亮度：</label>
-          <input
-            class="form-control"
-            style="width:80px"
-            type="text"
-            id="Brightness"
-            name="Brightness"
-            value="0"
-          />
+          <input class="form-control" style="width:80px" type="text" id="Brightness" name="Brightness" value="0" />
         </div>
         <div class="form-group">
           <label for="Contrast">对比度：</label>
-          <input
-            class="form-control"
-            style="width:80px"
-            type="text"
-            id="Contrast"
-            name="Contrast"
-            value="0"
-          />
+          <input class="form-control" style="width:80px" type="text" id="Contrast" name="Contrast" value="0" />
         </div>
         <div class="form-group" style="display:none;">
           <label for="ShowUI">
             显示UI扫描：
           </label>
-          <input
-            class="form-control"
-            style="width:80px"
-            type="text"
-            id="ShowUI"
-            name="ShowUI"
-            value="0"
-          />
+          <input class="form-control" style="width:80px" type="text" id="ShowUI" name="ShowUI" value="0" />
         </div>
         <div class="form-group">
           <button class="btn btn-primary" type="button" onclick="ShowUISettings();">
@@ -113,38 +71,17 @@
           </button>
         </div>
         <br>
-        <div class="form-group"  style="display:none;">
+        <div class="form-group" style="display:none;">
           <label for="ShowTumb">
             扫描显示缩略图：
           </label>
-          <input
-            class="form-control"
-            style="width:80px"
-            type="text"
-            id="ShowThumb"
-            name="ShowThumb"
-            value="1"
-          />
+          <input class="form-control" style="width:80px" type="text" id="ShowThumb" name="ShowThumb" value="1" />
         </div>
         <div class="form-group">
           <label for="ThumbWidth">缩略图宽度：</label>
-          <input
-            class="form-control"
-            style="width:80px"
-            type="text"
-            id="ThumbWidth"
-            name="ThumbWidth"
-            value="150"
-          />
+          <input class="form-control" style="width:80px" type="text" id="ThumbWidth" name="ThumbWidth" value="150" />
           <label for="ThumbHeight">缩略图高度：</label>
-          <input
-            class="form-control"
-            style="width:80px"
-            type="text"
-            id="ThumbHeight"
-            name="ThumbHeight"
-            value="150"
-          />
+          <input class="form-control" style="width:80px" type="text" id="ThumbHeight" name="ThumbHeight" value="150" />
           <button type="button" class="btn btn-primary" onclick="ThumbWH();">
             保存
           </button>
@@ -197,7 +134,7 @@
           </select>
         </div>
       </fieldset>
-  
+
       <button style="display:none;" type="button" class="btn btn-primary" onclick="Scan();">扫描</button>
       <div class="form-group">
         <label for="ScanImageCount">
@@ -219,7 +156,16 @@
         <button type="button" class="btn btn-primary" onclick="GetImageBase64();">Base64</button>
         <textarea class="form-control" rows="3" cols="100" id="ImageBase64" style="width:440px"></textarea>
       </div>
+      <div class="form-group">
+        <input type="text" name="uploadPdf" id="uploadPdf" class="form-control" value="">
+        <button type="button" class="btn btn-primary" onclick="uploadPdf()">上传PDF</button>
+      </div>
     </form>
+
+    <div class="text-center">
+      <button type="button" class="btn btn-default" onclick="onCloseConfig()">关闭</button>
+      <button type="button" class="btn btn-primary" onclick="onSaveScannerConfigZhelin()">确定</button>
+    </div>
   </div>
 </div>
 <script src="./js/scanner-founder.js"></script>

@@ -1,10 +1,6 @@
 console.log('czur.js')
 var fileDirect = null // 扫描后文件的存放路径
 var defaultFileName = null
-function $notify (msg, type) {
-  console.log(msg)
-  $.growl(msg)
-}
 var imageUrlList = []
 var imageFilePathList = []
 $(function () {

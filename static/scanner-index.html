@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="./lib/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="./css/common.css">
   <link rel="stylesheet" href="./css/scanner-index.css">
+  <link rel="stylesheet" href="./lib/jstree/themes/default/style.min.css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
     <script src="./lib/respond.min.js"></script>
@@ -24,7 +25,7 @@
   <![endif]-->
 </head>
 
-<body>
+<body onBeforeUnload="onBeforeUnload()">
   <div class="layout-container">
     <div class="layout-header container-fluid">
       <div class="row">
@@ -46,15 +47,7 @@
       </div>
     </div>
     <div class="layout-sidebar__left">
-      <h4>单据文件列表</h4>
-      <ol>
-        <a href="#"><li>file0001.pdf</li></a>
-        <a href="#"><li>file0001.pdf</li></a>
-        <a href="#"><li>file0001.pdf</li></a>
-        <a href="#"><li>file0001.pdf</li></a>
-        <a href="#"><li>file0001.pdf</li></a>
-        <a href="#"><li>file0001.pdf</li></a>
-      </ol>
+      <div id="jstree"></div>
     </div>
     <div class="layout-main">
       <div id="scanner-iframe">
@@ -67,7 +60,7 @@
         </button>
       </div>
       <div class="action-button__wrapper">
-        <button type="button" id="action-button__scan" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="扫描设备">
+        <button type="button" id="action-button__scan" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="开始扫描">
           <i class="glyphicon glyphicon-camera"></i>
         </button>
       </div>
@@ -88,14 +81,8 @@
       </div>
     </div>
     <div class="layout-footer">
-      <div class="img-thumbnail__wrapper">
-        <img src="img/timg.jpg" alt="缩略图" class="img-thumbnail">
-      </div>
-      <div class="img-thumbnail__wrapper">
-        <img src="img/timg.jpg" alt="缩略图" class="img-thumbnail">
-      </div>
-      <div class="img-thumbnail__wrapper">
-        <img src="img/timg.jpg" alt="缩略图" class="img-thumbnail">
+      <div class="image-thumbnails">
+        
       </div>
     </div>
   </div>
@@ -104,6 +91,8 @@
   <script src="./lib/jquery/1.9.1/jquery.min.js"></script>
   <script src="./lib/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="./lib/bootstrap-notify/bootstrap-growl.min.js"></script>
+  <script src="./lib/jstree/jstree.min.js"></script>
+  <script src="./js/utils.js"></script>
   <script src="./js/scanner-index.js"></script>
 </body>
 

@@ -22,6 +22,7 @@
   left: 0;
   width: 220px;
   bottom: 100px;
+  overflow: auto;
   background-color: #f1f2f3;
 }
 .layout-main {
@@ -87,6 +88,20 @@
   background-color:rgb(238, 238, 238);
   border-right: 3px solid  #2c3448;
 }
+.image-preview-content {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  overflow: hidden;
+  background-color: #2c3448;
+  overflow-y: auto;
+}
+
 .scanner-toolbar {
   position: absolute;
   left: 0;
@@ -120,17 +135,19 @@
 .action-button__wrapper button:hover {
   background-color: rgba(200, 210, 220, .6);
 }
-.img-thumbnail__wrapper {
+.image-thumbnail-wrapper {
   float: left;
   width: 80px;
   height: 80px;
   margin: 8px 10px;
   border: 2px solid #fff;
   padding: 0;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
   cursor: pointer;
 }
-.img-thumbnail__wrapper img.img-thumbnail{
-  width: 80px;
+.image-thumbnail-wrapper img.image-thumbnail{
   border: 0;
 }
 
@@ -143,5 +160,14 @@
   background-color: #f1f2f3;
   padding: 20px;
   border-right: 3px solid  #2c3448;
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.scanner-wrapper .control-panel {
+  padding: 20px;
+  height: 100%;
+  overflow: auto;
+}
+.scanner-wrapper .form-group {
+  margin: 10px 0;
 }

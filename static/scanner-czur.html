@@ -1,17 +1,79 @@
 <link rel="stylesheet" href="./css/scanner-czur.css">
 <div class="scanner-wrapper scanner-czur">
   <div class="ocx-wrapper">
-    <object
-      id="CZUROcx"
-      wmode="opaque"
-      classid="CLSID:6BA87457-4473-41A1-9A48-6AC45389B971"
-      style="width: 100%; height: 100%; z-index:1;">
+    <object id="CZUROcx" wmode="opaque" classid="CLSID:6BA87457-4473-41A1-9A48-6AC45389B971" style="width: 100%; height: 100%; z-index:1;">
       <param name="wmode" value="opaque" />
     </object>
   </div>
   <div class="image-preview__wrapper">
   </div>
   <div class="scanner-setting__wrapper">
+
+    
+    <form class="form-inline" role="form">
+      <fieldset>
+        <div class="form-group">
+          <label for="ScannerName">选择扫描仪</label>
+          <select
+            name="ScannerName"
+            id="ScannerName"
+            class="form-control"
+            style="width: 220px;"
+            onchange="SelScanner()"
+          >
+          </select>
+        </div>
+      </fieldset>
+      <fieldset>
+        <div class="form-group">
+          <label for="">图片保存路径：</label>
+          <input
+            type="text"
+            class="form-control"
+            id="Path"
+            name="Path"
+            value="D:\CZUR_Images"
+            onchange="CZUR_Path()"
+          >
+        </div>
+        <div class="form-group">
+          <label for="">图片名称前缀：</label>
+          <input
+            type="text"
+            class="form-control"
+            id="Prefix"
+            name="Prefix"
+            value="image"
+          >
+        </div>
+      </fieldset>
+      <div class="form-group">
+        <label for="">label</label>
+        <input
+          type="text"
+          class="form-control"
+          id=""
+          name=""
+        >
+      </div>
+      <div class="form-group">
+        <label for="">label</label>
+        <input
+          type="text"
+          class="form-control"
+          id=""
+          name=""
+        >
+      </div>
+    
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    
+
+    <div class="text-center">
+      <button type="button" class="btn btn-default" onclick="onCloseConfig()">关闭</button>
+      <button type="button" class="btn btn-primary" onclick="onSaveScannerConfigZhelin()">确定</button>
+    </div>
   </div>
 </div>
 <script src="./js/scanner-czur.js"></script>

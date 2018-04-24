@@ -1,0 +1,40 @@
+{
+    "id": 1,
+    "text": "node-1",
+    "icon": "glyphicon glyphicon-folder-open",
+    "data": "www.baidu.com",
+    "state": {
+        "opened": true,
+        "disabled": false,
+        "selected": false
+    },
+    "children": [
+        {
+            "id": 10,
+            "text": "node-1-1",
+            "icon": "glyphicon glyphicon-leaf",
+            "state": {
+                "disabled": false,
+                "selected": false
+            }
+        },
+        {
+            "id": 11,
+            "text": "node-1-2",
+            "icon": "glyphicon glyphicon-leaf",
+            "state": {
+                "disabled": false,
+                "selected": false
+            }
+        },
+        {
+            "id": 12,
+            "text": "node-1-2",
+            "icon": "glyphicon glyphicon-leaf",
+            "state": {
+                "disabled": false,
+                "selected": false
+            }
+        }
+    ]
+}
