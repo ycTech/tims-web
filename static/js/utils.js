@@ -2,7 +2,14 @@
 var baseUrl = '/'
 
 function $notify (msg, type) {
-  $.growl(msg)
+  $.growl({
+    message: msg
+  }, {
+    type: type || 'info',
+    placement: {
+      align: 'center'
+    }
+  })
 }
 
 // 获取location参数

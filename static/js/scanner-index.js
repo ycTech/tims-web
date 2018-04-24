@@ -14,7 +14,7 @@ var urlQuery = {
   isFolder: getQueryString('isFolder'),
   path: getQueryString('path')
 }
-console.log(JSON.stringify(urlQuery))
+
 var ScannerOcx = {
   start: function () {
     alert('请选择设备并启动该设备，请确保已正确安装驱动！')

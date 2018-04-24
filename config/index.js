@@ -11,13 +11,13 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/scanner/api': {
-        target: 'http://192.168.1.104:10060/',
+      '/': {
+        target: 'http://hy.nfox.ml:10060/',
         changeOrigin: true,
         autoRewrite: true,
         cookieDomainRewrite: true,
         pathRewrite: {
-          '^/scanner/api/': '/'
+          '^/': '/'
         }
       }
     },
