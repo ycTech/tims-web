@@ -1,4 +1,3 @@
-
 // {"code":200,"msg":"\u64cd\u4f5c\u6210\u529f","data":"http://192.168.1.195/group1/M00/00/00/wKgBw1rKJ-SAZZKoAAAEX-4DxsU348.jpg"}
 ScannerOcx = {
   start: function () {

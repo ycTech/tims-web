@@ -1,8 +1,8 @@
 /*
  * @Author: qingbin_bai@163.com
  * @Date: 2018-04-24 23:52:07
- * @Last Modified by: qingbin_bai@163.com
- * @Last Modified time: 2018-04-25 03:36:14
+ * @Last Modified by: baiqb@histudy.com
+ * @Last Modified time: 2018-04-25 16:02:35
  * TODO:
  *  1. 用户可配置文件保存路径
  *  2. Cookie中保存用户的配置文件
@@ -10,13 +10,11 @@
 
 var szDeviceIndex = '0' // 设备的编号；   0：文档摄像头;1：人像摄像头
 var iColorMode = '0' // 设定获取的图像的色彩模式；   0: 彩色，1: 灰度，2: 黑白。
-var nDpi = 200 // 设定拍照后图像存档的DPI;
 var szPostfix = '.jpg' // 默认图片文件后缀为jpg
 var imgeId = 0 // 图片默认起始ID（也用于预览）
 var strMergeSource1 // 合并图像源文件1 strMergeSource2 // 合并图像源文件2
 var strFileDirectory = 'D:\\DocImage\\'
 
-var strFileNames = []
 var imageFiles = []
 var szTifFileName
 var szAddInFileName
