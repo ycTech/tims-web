@@ -124,6 +124,7 @@ ScannerHome = {
 
   }
 }
+
 $(function () {
   if (!isBrowserSupport()) {
     return false
@@ -137,7 +138,11 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 
     // 加载默认设备对应的OCX控件及配置界面
-    var type = $('#device-select').children('option:selected').val()
+    var storedDeviceType = store.get('scannerType')
+    var type = store.get('scannerType') || 'zhelin'
+    store.set('scannerType', type)
+    $('#device-select').val(type)
+
     loadHtml(ScannerTypeMap[type])
   }
 
@@ -251,6 +256,7 @@ function onDeviceTypeChange () {
   $('#device-select').change(function (e) {
     e.preventDefault()
     var type = $('#device-select').children('option:selected').val()
+    store.set('scannerType', type)
     loadHtml(ScannerTypeMap[type])
   })
 }
