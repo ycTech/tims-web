@@ -2,7 +2,7 @@
  * @Author: qingbin_bai@163.com
  * @Date: 2018-04-24 23:52:07
  * @Last Modified by: baiqb@histudy.com
- * @Last Modified time: 2018-04-25 16:02:35
+ * @Last Modified time: 2018-05-01 21:47:59
  * TODO:
  *  1. 用户可配置文件保存路径
  *  2. Cookie中保存用户的配置文件
@@ -165,6 +165,7 @@ function BtnUploadPdfFiles () {
     WriteInfomation('上传PDF中，请稍候...')
     setTimeout(function () {
       ScannerHome.uploadPdfBase64(gPdfName, base64, function (fileUrl) {
+        ScannerHome.reloadFileList()
         WriteInfomation('上传PDF成功！' + fileUrl)
       })
     }, 0)

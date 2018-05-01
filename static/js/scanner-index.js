@@ -122,14 +122,18 @@ ScannerHome = {
   //
   resetImagePreviewSrc: function () {
 
+  },
+
+  reloadFileList: function () {
+    initJsTree()
   }
 }
 
 $(function () {
-  if (!isBrowserSupport()) {
-    return false
-  }
   initJsTree()
+  // if (!isBrowserSupport()) {
+  //   return false
+  // }
   initLayout()
   initEventListening()
   // 初始化
@@ -140,10 +144,7 @@ $(function () {
     // 加载默认设备对应的OCX控件及配置界面
     var storedDeviceType = store.get('scannerType')
     var type = store.get('scannerType') || 'zhelin'
-    store.set('scannerType', type)
-    $('#device-select').val(type)
-
-    loadHtml(ScannerTypeMap[type])
+    loadDeviceHtml(type)
   }
 
   // 初始化事件监听
@@ -205,6 +206,15 @@ function initJsTree () {
           data: parseTreeData(treeData)
         }
       })
+
+      $('#jstree').on('changed.jstree', function (e, data) {
+        if (data.node && data.node.li_attr && data.node.li_attr.fileUrl) {
+          var hostname = window.location.hostname
+          var search = window.location.search || '?t=' + new Date().getTime()
+          search = search + '&fileId=' + data.node.id
+          window.open('http://' + hostname + ':8012/index?' + search)
+        }
+      })
     },
     error: function (error) {
       console.log(JSON.stringify(error))
@@ -256,9 +266,14 @@ function onDeviceTypeChange () {
   $('#device-select').change(function (e) {
     e.preventDefault()
     var type = $('#device-select').children('option:selected').val()
-    store.set('scannerType', type)
-    loadHtml(ScannerTypeMap[type])
+    loadDeviceHtml(type)
   })
+}
+
+// 加载设备对应HTML
+function loadDeviceHtml (deviceType) {
+  store.set('scannerType', deviceType)
+  loadHtml(ScannerTypeMap[deviceType])
 }
 
 // 加载不同扫描设备的面板
@@ -374,4 +389,8 @@ function CheckIEVersion () {
   } else {
     return -1// 不是ie浏览器
   }
+}
+
+function toggleSidebar () {
+  $('.layui-layout.layui-layout-admin').toggleClass('collapsed')
 }

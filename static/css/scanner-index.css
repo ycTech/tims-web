@@ -5,11 +5,6 @@
   min-height: 600px;
   background-color: #2c3448;
 }
-.layout-header {
-  color: #f1f2f3;
-  height: 60px;
-  line-height: 50px;
-}
 .layout-header h2 {
   margin: 0;
   padding: 0;
@@ -18,7 +13,7 @@
 }
 .layout-sidebar__left {
   position: absolute;
-  top: 60px;
+  top: 0px;
   left: 0;
   width: 220px;
   bottom: 100px;
@@ -27,10 +22,10 @@
 }
 .layout-main {
   position: absolute;
-  top: 60px;
+  top: 0px;
   right: 96px;
   bottom: 100px;
-  left: 220px;
+  left: 0px;
   background: #f1f2f3;
 }
 #scanner-iframe {
@@ -58,9 +53,9 @@
 }
 .layout-sidebar__right {
   position: absolute;
-  top: 60px;
+  top: 0px;
   right: 0;
-  bottom: 100px;
+  bottom: 0px;
   width: 96px;
   color: rgb(44, 52, 72);
   background-color: #f1f2f3;
@@ -127,14 +122,13 @@
   text-align: center;
   border: 0;
   color: rgb(44, 52, 72);
-  background-color: rgba(200, 210, 220, .3);
 }
 .action-button__wrapper button i {
   font-size: 24px;
   line-height: 48px;
 }
 .action-button__wrapper button:hover {
-  background-color: rgba(200, 210, 220, .6);
+  background-color: rgb(200, 210, 220);
 }
 .image-thumbnail-wrapper {
   float: left;
@@ -171,4 +165,32 @@
 }
 .scanner-wrapper .form-group {
   margin: 10px 0;
+}
+
+
+.menu-hamburger {
+  padding: 0 15px;
+  color: #f1f2f3;
+  font-size: 24px;
+  line-height: 60px;
+  position: absolute;
+  cursor: pointer;
+  z-index: 999;
+}
+.layui-body, .layui-side, .layui-footer{
+  -webkit-transition: all .2s linear;
+  -moz-transition: all .2s linear;
+  -ms-transition: all .2s linear;
+  -o-transition: all .2s linear;
+  transition: all .2s linear;
+}
+
+.layui-layout-admin.collapsed .layui-side {
+  width: 0;
+}
+.layui-layout-admin.collapsed .layui-body {
+  left: 0;
+}
+.layui-layout-admin.collapsed .layui-footer {
+  left:0;
 }
