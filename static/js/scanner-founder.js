@@ -36,7 +36,7 @@ $(function () {
 
 function isOcxInstalled () {
   try {
-    if (!window.FScanX || !window.FScanX.GetScanImagePath) {
+    if (!window.FScanX) {
       $notify('方正扫描仪Ocx控件未正确加载，请确保在IE8~IE11环境下，并且Ocx控件已正确加载，如有任何问题，请联系管理员！', 'danger')
       return false
     }

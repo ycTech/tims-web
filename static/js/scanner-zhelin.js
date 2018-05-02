@@ -1,8 +1,8 @@
 /*
  * @Author: qingbin_bai@163.com
  * @Date: 2018-04-24 23:52:07
- * @Last Modified by: baiqb@histudy.com
- * @Last Modified time: 2018-05-01 21:47:59
+ * @Last Modified by: qingbin_bai@163.com
+ * @Last Modified time: 2018-05-02 21:28:42
  * TODO:
  *  1. 用户可配置文件保存路径
  *  2. Cookie中保存用户的配置文件
@@ -73,7 +73,7 @@ ScannerOcx = {
       return false
     }
     gImagePrefix = urlQuery.vbillno || 'image'
-    CaptureToFile(imagePrefix + '_')
+    CaptureToFile(gImagePrefix + '_')
   },
 
   // 合并PDF
@@ -101,12 +101,12 @@ function isOcxInstalled () {
     $notify('哲林高拍仪控件未加载，请先安装Ocx控件，如有任何问题，请联系管理员', 'danger')
     return false
   }
-  console.log(window.Capture)
-  console.log(JSON.stringify(window.Capture))
-  if (!window.Capture.GetVersion) {
-    $notify('哲林高拍仪未连接到您的电脑上，请先连接设备，如有任何问题，请联系管理员', 'danger')
-    return false
-  }
+  // console.log(window.Capture)
+  // console.log(JSON.stringify(window.Capture))
+  // if (!window.Capture.GetVersion) {
+  //   $notify('哲林高拍仪未连接到您的电脑上，请先连接设备，如有任何问题，请联系管理员', 'danger')
+  //   return false
+  // }
   return true
 }
 

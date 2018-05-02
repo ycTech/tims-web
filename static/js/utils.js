@@ -7,7 +7,12 @@ function $notify (msg, type) {
   }, {
     type: type || 'info',
     placement: {
-      align: 'center'
+      from: 'top',
+      align: 'right'
+    },
+    offset: {
+      x: 120,
+      y: 70
     }
   })
 }

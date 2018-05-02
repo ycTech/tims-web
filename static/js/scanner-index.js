@@ -279,9 +279,12 @@ function loadDeviceHtml (deviceType) {
 // 加载不同扫描设备的面板
 function loadHtml (htmlPath) {
   $.get(htmlPath, function (data) {
-    $('#scanner-iframe').empty().html(data)
-    console.log('showImagePreviewPanel')
-    showImagePreviewPanel()
+    $('object').remove()
+    $('#scanner-iframe').empty()
+    setTimeout(function () {
+      $('#scanner-iframe').html(data)
+      showImagePreviewPanel()
+    }, 100)
   })
 }
 function AddImagePreview (fileUrl, thumbImageUrl) {

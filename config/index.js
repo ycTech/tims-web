@@ -13,7 +13,7 @@ module.exports = {
     proxyTable: {
       '/': {
         // target: 'http://hy.nfox.ml:10060/',
-        target: 'http://localhost:10060/',
+        target: 'http://192.168.1.93:10060/',
         changeOrigin: true,
         autoRewrite: true,
         cookieDomainRewrite: true,
