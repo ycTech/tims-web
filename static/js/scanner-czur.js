@@ -43,7 +43,7 @@ $(function () {
 // 检测Ocx控件是否安装
 function isOcxInstalled () {
   try {
-    if (!window.CZUROcx) {
+    if (!window.EtOcxEx) {
       $notify('CZUR高拍仪Ocx控件未正确加载，请确保在IE8~IE11环境下，并且Ocx控件已正确加载，如有任何问题，请联系管理员！', 'danger')
       return false
     }
@@ -56,13 +56,13 @@ function isOcxInstalled () {
 
 function addEventListeners () {
   if (window.attachEvent) {
-    document.getElementById('CZUROcx').attachEvent('CZUR_CALLBACK', JS_CZUR_CALLBACK)
-    document.getElementById('CZUROcx').attachEvent('CZUR_UPLOAD_CALLBACK', JS_CZUR_UPLOAD_CALLBACK)
-    document.getElementById('CZUROcx').attachEvent('CZUR_PDF_CALLBACK', JS_CZUR_PDF_CALLBACK)
+    document.getElementById('EtOcxEx').attachEvent('CZUR_CALLBACK', JS_CZUR_CALLBACK)
+    document.getElementById('EtOcxEx').attachEvent('CZUR_UPLOAD_CALLBACK', JS_CZUR_UPLOAD_CALLBACK)
+    document.getElementById('EtOcxEx').attachEvent('CZUR_PDF_CALLBACK', JS_CZUR_PDF_CALLBACK)
   } else if (window.addEventListener) {
-    document.getElementById('CZUROcx').addEventListener('CZUR_CALLBACK', JS_CZUR_CALLBACK, false)
-    document.getElementById('CZUROcx').addEventListener('CZUR_UPLOAD_CALLBACK', JS_CZUR_UPLOAD_CALLBACK, false)
-    document.getElementById('CZUROcx').addEventListener('CZUR_PDF_CALLBACK', JS_CZUR_PDF_CALLBACK, false)
+    document.getElementById('EtOcxEx').addEventListener('CZUR_CALLBACK', JS_CZUR_CALLBACK, false)
+    document.getElementById('EtOcxEx').addEventListener('CZUR_UPLOAD_CALLBACK', JS_CZUR_UPLOAD_CALLBACK, false)
+    document.getElementById('EtOcxEx').addEventListener('CZUR_PDF_CALLBACK', JS_CZUR_PDF_CALLBACK, false)
   }
 }
 function czurOcxStartDevice () {
@@ -104,7 +104,7 @@ function czurOcxMergeImageToPdf () {
 }
 
 function czurInitialize () {
-  var lInitialize = window.CZUROcx.CZUR_Initialize('JS_OCX.log')
+  var lInitialize = window.EtOcxEx.CZUR_Initialize('JS_OCX.log')
   if (lInitialize === 0) {
     $notify('设备初始化失败！')
     return false
@@ -115,7 +115,7 @@ function czurInitialize () {
 // 打开设备 0：失败，1：成功，2：设备未连接或型号不支持（不支持ET16、ET18U）
 function czurOpenDevice () {
   console.log('打开设备')
-  var bOpenDevice = window.CZUROcx.CZUR_OpenDevice()
+  var bOpenDevice = window.EtOcxEx.CZUR_OpenDevice()
   if (bOpenDevice === 0) {
     $notify('打开设备失败！请确认设备是否已启动，如未启动，请再次点击启动按钮或刷新页面；如果设备已启动，无需重复点击。')
     return false
@@ -129,7 +129,7 @@ function czurOpenDevice () {
 }
 // 触发设备进行拍照 0：失败，1：成功
 function czurGrabSingleImage () {
-  var res = window.CZUROcx.CZUR_GrabSingleImage()
+  var res = window.EtOcxEx.CZUR_GrabSingleImage()
   if (res === 0) {
     $notify('扫描图像失败！')
     return false
@@ -139,7 +139,7 @@ function czurGrabSingleImage () {
 }
 // 关闭设备
 function czurCloseDevice () {
-  var res = window.CZUROcx.CZUR_CloseDevice()
+  var res = window.EtOcxEx.CZUR_CloseDevice()
   if (res === 0) {
     $notify('关闭设备失败')
   } else {
@@ -149,49 +149,49 @@ function czurCloseDevice () {
 // 设置扫描幅面，0：A3幅面，1：A4幅面，默认A3幅面
 function czurScanBreadth (breadth) {
   console.log('设置扫描幅面：' + (breadth === 0 ? 'A3幅面' : 'A4幅面'))
-  window.CZUROcx.CZUR_ScanBreadth(breadth)
+  window.EtOcxEx.CZUR_ScanBreadth(breadth)
   return true
 }
 // 是否开启边缘检测，0：关闭，1：开启
 function czurEdgeDetect (detect) {
   console.log((detect === 0 ? '关闭' : '开启') + '边缘检测')
-  window.CZUROcx.CZUR_EdgeDetect(detect)
+  window.EtOcxEx.CZUR_EdgeDetect(detect)
   return true
 }
 // 清除Ocx资源
 function czurDeinitialize () {
   console.log('清除控件内存资源')
-  window.CZUROcx.CZUR_Deinitialize()
+  window.EtOcxEx.CZUR_Deinitialize()
 }
 // 设置图片保存路径
 function czurPath (path) {
   console.log('设置图片保存路径', path)
-  window.CZUROcx.CZUR_Path(path)
+  window.EtOcxEx.CZUR_Path(path)
 }
 // 自定义图片命名规则
 function czurCustom (prefix, initNumber) {
   initNumber = initNumber || 1
   console.log('自定义图片命名规则', '前缀：' + prefix + ', 图片起始序号：' + initNumber)
-  window.CZUROcx.CZUR_Custom(prefix, initNumber)
+  window.EtOcxEx.CZUR_Custom(prefix, initNumber)
 }
 function czurHttpUrl () {
   var url = 'http://192.168.1.112:10060/fast/upload?billNo=1111&billTypeId=2222&classifyId=33333'
   var name = 'file'
-  window.CZUROcx.CZUR_Http_URL(url, name)
+  window.EtOcxEx.CZUR_Http_URL(url, name)
   return true
 }
 function czurHttpForm (name, content) {
-  window.CZUROcx.CZUR_Http_Form(name, content)
+  window.EtOcxEx.CZUR_Http_Form(name, content)
 }
 //  自动对图片进行裁边处理
 function czurEdgeCutting () {
   console.log('自动对图片进行裁边处理')
-  window.CZUROcx.CZUR_EdgeCutting()
+  window.EtOcxEx.CZUR_EdgeCutting()
   return true
 }
 // 添加用于合成pdf的图片文件
 function czurPdfImage (filePath) {
-  var res = window.CZUROcx.CZUR_Pdf_Image(filePath)
+  var res = window.EtOcxEx.CZUR_Pdf_Image(filePath)
   if (res === 0) {
     console.log('添加用于合成PDF的图片文件添加成功' + '图片路径：' + filePath)
     return true
@@ -204,7 +204,7 @@ function czurPdfSubmit (filePath) {
   var defaultPath = fileDirect || 'D:'
   defaultFileName = 'CZUR_' + getDateTimeString() + '.pdf'
   filePath = filePath || defaultPath + '\\' + defaultFileName
-  var res = window.CZUROcx.CZUR_Pdf_Submit(filePath)
+  var res = window.EtOcxEx.CZUR_Pdf_Submit(filePath)
   if (res === 0) {
     $notify('合成pdf成功' + '正在生成pdf并保存到本地：' + filePath)
   } else {
@@ -218,7 +218,7 @@ function czurHttpUpload () {
   var name = 'file'
   var username = ''
   var password = ''
-  var res = window.CZUROcx.CZUR_Http_Upload(localfile, url, name, username, password)
+  var res = window.EtOcxEx.CZUR_Http_Upload(localfile, url, name, username, password)
   if (res == 1) {
     $notify('未初始化EtOcxEx资源')
     return false
@@ -236,7 +236,7 @@ function czurHttpUpload () {
   }
 }
 function czurBase64 (iamgePath) {
-  var base64 = window.CZUROcx.CZUR_Base64(iamgePath)
+  var base64 = window.EtOcxEx.CZUR_Base64(iamgePath)
   showImage(base64)
 }
 
@@ -256,13 +256,30 @@ function addImgUrlToPreview (imageUrl) {
   $('.layout-footer').append($img)
 }
 
+// 设置图片路径
+function CZUR_Path (needNofity) {
+  var imagePath = $('#Path').val()
+  EtOcxEx.CZUR_Path('图片保存路径：' + imagePath)
+  console.log(imagePath)
+  needNofity && $notify('图片路径设置为：' + imagePath)
+}
+
+// 设置图片前缀
+function CZUR_Custom (needNofity) {
+  var prefix = $('#Prefix').val()
+  EtOcxEx.CZUR_Custom()
+  console.log('图片前缀：' + prefix)
+  needNofity && $notify('图片前缀设置为：' + prefix)
+}
+
+// 设置图片旋转
 function CZUR_Rotate (angle) {
-  if (angle == 0) {
-    gAngle = 0
-  } else {
-    gAngle = (gAngle + angle) % 360
-  }
-  EtOcxEx.CZUR_Rotate(gAngle)
+  EtOcxEx.CZUR_Rotate(angle)
+  $notify('设置旋转：' + angle + '度')
+}
+
+function CZUR_SelectType (selType) {
+  EtOcxEx.CZUR_SelectType(selType)
 }
 
 function JS_CZUR_CALLBACK (uploadcnt, barcode, httpinfo, imagefile1, imagefile2) {

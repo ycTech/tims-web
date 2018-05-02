@@ -29,6 +29,7 @@ module.exports = {
     "vue/no-parsing-error": "off",
     "vue/max-attributes-per-line": "off",
     "no-undef": "off",
+    "camelcase": "off",
     // allow async-await
     'generator-star-spacing': 'off',
     'no-unused-vars': 'off',

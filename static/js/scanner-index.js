@@ -93,7 +93,9 @@ ScannerHome = {
       data: JSON.stringify(postData),
       success: function (resp) {
         var fileUrl = resp.data
+        console.log('上传PDF成功')
         console.log(JSON.stringify(resp))
+        ScannerHome.reloadFileList()
         callback(fileUrl)
       },
       error: function (error) {
@@ -231,7 +233,37 @@ function initJsTree () {
         item.icon = 'glyphicon glyphicon-folder-open'
         item.children = parseTreeData(item.children)
       } else {
-        item.icon = 'glyphicon glyphicon-file'
+        var suffix = item.name.split('.').pop()
+        switch (suffix) {
+          case 'jpg':
+          case 'gif':
+            item.icon = 'iconfont icon-filepicture'
+            break
+          case 'png':
+            item.icon = 'iconfont icon-geshi_tupianpng'
+            break
+          case 'pdf':
+            item.icon = 'iconfont icon-pdf1'
+            break
+          case 'wps':
+          case 'doc':
+            item.icon = 'iconfont icon-icondoc'
+            break
+          case 'docx':
+            item.icon = 'iconfont icon-geshi_wendangdocx'
+            break
+          case 'xls':
+          case 'xlsx':
+            item.icon = 'iconfont icon-excelbangongruanjianbiaoge'
+            break
+          default:
+            item.icon = 'glyphicon glyphicon-file'
+            break
+        }
+        var IEVersion = CheckIEVersion()
+        if (IEVersion == 8) {
+          item.icon = 'glyphicon glyphicon-file'
+        }
         item.li_attr = {
           fileUrl: item.url
         }
