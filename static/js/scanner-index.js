@@ -262,8 +262,13 @@ function initJsTree () {
         }
         var IEVersion = CheckIEVersion()
         if (IEVersion == 8) {
-          item.icon = 'glyphicon glyphicon-file'
+          if (suffix == 'jpg' || suffix == 'png' || suffix == 'gif') {
+            item.icon = 'glyphicon glyphicon-picture'
+          } else {
+            item.icon = 'glyphicon glyphicon-file'
+          }
         }
+        console.log(item.icon)
         item.li_attr = {
           fileUrl: item.url
         }
@@ -360,6 +365,7 @@ function AddImagePreview (fileUrl, thumbImageUrl) {
   var $imageThumbWrapper = $('<div/>')
     .addClass('image-thumbnail-wrapper')
     .append($imageThumb)
+  $('.image-thumbnail-default').hide()
   $('.image-thumbnails')
     .append($imageThumbWrapper)
   setTimeout(function () {
