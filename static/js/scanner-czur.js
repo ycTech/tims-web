@@ -2,7 +2,7 @@ var fileDirect = null // 扫描后文件的存放路径
 var defaultFileName = null
 var imageUrlList = []
 var imageFilePathList = []
-
+var gAngle = 0
 $(function () {
   window.ScannerOcx = {
     start: function () {
@@ -255,6 +255,16 @@ function addImgUrlToPreview (imageUrl) {
   // var $wrapper = $('<div/>').addClass('img-thumbnail__wrapper').append($img)
   $('.layout-footer').append($img)
 }
+
+function CZUR_Rotate (angle) {
+  if (angle == 0) {
+    gAngle = 0
+  } else {
+    gAngle = (gAngle + angle) % 360
+  }
+  EtOcxEx.CZUR_Rotate(gAngle)
+}
+
 function JS_CZUR_CALLBACK (uploadcnt, barcode, httpinfo, imagefile1, imagefile2) {
   $notify('图片已保存到本地' + imagefile1)
   if (uploadcnt && httpinfo) {

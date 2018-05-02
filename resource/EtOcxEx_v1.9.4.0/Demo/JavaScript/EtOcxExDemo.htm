@@ -4,7 +4,7 @@
 
 function JS_CZUR_CALLBACK(uploadcnt, barcode, httpinfo, imagefile1, imagefile2)
 {
-	var varInfo = "ÉÏ´«¸öÊı: " + uploadcnt + "\n" + "http·´À¡ĞÅÏ¢: " + httpinfo + "\n" + "ÎÄ¼ş1: " + imagefile1 + "\n" + "ÎÄ¼ş2: " + imagefile2;
+	var varInfo = "ä¸Šä¼ ä¸ªæ•°: " + uploadcnt + "\n" + "httpåé¦ˆä¿¡æ¯: " + httpinfo + "\n" + "æ–‡ä»¶1: " + imagefile1 + "\n" + "æ–‡ä»¶2: " + imagefile2;
 	alert(varInfo);
 }
 
@@ -12,12 +12,12 @@ function JS_CZUR_UPLOAD_CALLBACK(uploadcnt, localfile, errcode, errmsg)
 {
 	if(0 == uploadcnt)
 	{
-		var varInfo = "±¾µØÎÄ¼ş: " + localfile + " ÉÏ´«Ê§°Ü" + "\n" + "´íÎó´úÂë: " + errcode + "\n" + "´íÎóĞÅÏ¢: " + errmsg;
+		var varInfo = "æœ¬åœ°æ–‡ä»¶: " + localfile + " ä¸Šä¼ å¤±è´¥" + "\n" + "é”™è¯¯ä»£ç : " + errcode + "\n" + "é”™è¯¯ä¿¡æ¯: " + errmsg;
 		alert(varInfo);
 	}
 	else
 	{
-		alert("ÉÏ´«³É¹¦");
+		alert("ä¸Šä¼ æˆåŠŸ");
 	}
 }
 
@@ -25,11 +25,11 @@ function JS_CZUR_PDF_CALLBACK(pdfstatus)
 {
 	if(0 == pdfstatus)
 	{
-		alert("ºÏ³ÉPdf³É¹¦");
+		alert("åˆæˆPdfæˆåŠŸ");
 	}
 	else
 	{
-		alert("ºÏ³ÉpdfÊ§°Ü");
+		alert("åˆæˆpdfå¤±è´¥");
 	}
 }
 
@@ -61,7 +61,7 @@ function CZUR_Initialize()
 {
     var lInitialize = EtOcxEx.CZUR_Initialize("JS_OCX.log");
     if (0 == lInitialize) {
-        alert("CZUR_Initialize Failed£¡");
+        alert("CZUR_Initialize Failedï¼");
     }
 }
 
@@ -74,13 +74,13 @@ function CZUR_OpenDevice()
 {
     var bOpenDevice = EtOcxEx.CZUR_OpenDevice();
     if (0 == bOpenDevice) {
-        alert("CZUR_OpenDevice Failed£¡");
+        alert("CZUR_OpenDevice Failedï¼");
     }
 	else if(1 == bOpenDevice){
-		 alert("CZUR_OpenDevice Success£¡");
+		 alert("CZUR_OpenDevice Successï¼");
 	}
 	else{
-		 alert("Çë¼ì²éÉè±¸ÊÇ·ñÁ¬½Ó»òĞÍºÅÊÇ·ñÖ§³Ö");
+		 alert("è¯·æ£€æŸ¥è®¾å¤‡æ˜¯å¦è¿æ¥æˆ–å‹å·æ˜¯å¦æ”¯æŒ");
 	}
 }
 
@@ -177,28 +177,28 @@ function CZUR_Http_Upload()
 	var name = document.getElementById("FormName");
 	var username = document.getElementById("UserName");
 	var password = document.getElementById("Password");
-	
+
 	var ret = EtOcxEx.CZUR_Http_Upload(locafile.value, url.value, name.value, username.value, password.value);
 	switch(ret)
 	{
 		case 1:
 			{
-				alert("Î´³õÊ¼»¯EtOcxEx×ÊÔ´");
+				alert("æœªåˆå§‹åŒ–EtOcxExèµ„æº");
 			}
 			break;
 		case 2:
 			{
-				alert("±¾µØÎÄ¼ş²»´æÔÚ");
+				alert("æœ¬åœ°æ–‡ä»¶ä¸å­˜åœ¨");
 			}
 			break;
 		case 3:
 			{
-				alert("Ê§°Ü");
+				alert("å¤±è´¥");
 			}
 			break;
 		case 0:
 			{
-				//³É¹¦
+				//æˆåŠŸ
 			}
 			break;
 	}
@@ -207,10 +207,10 @@ function CZUR_Http_Upload()
 function CZUR_Pdf_Image()
 {
 	var pdfImage = document.getElementById("PdfImage");
-	
+
 	if(1 == EtOcxEx.CZUR_Pdf_Image(pdfImage.value))
 	{
-		alert("Ìí¼ÓÍ¼Æ¬Ê§°Ü");
+		alert("æ·»åŠ å›¾ç‰‡å¤±è´¥");
 	}
 }
 
@@ -219,14 +219,14 @@ function CZUR_Pdf_Submit()
 	var pdfFile = document.getElementById("PdfFile");
 	if(1 == EtOcxEx.CZUR_Pdf_Submit(pdfFile.value))
 	{
-		alert("Ìá½»ºÏ³ÉpdfÈÎÎñÊ§°Ü");
+		alert("æäº¤åˆæˆpdfä»»åŠ¡å¤±è´¥");
 	}
 }
 
 function CZUR_AutoPageDetect()
 {
 	var autoDetect = document.getElementById("AutoDetect");
-	
+
 	EtOcxEx.CZUR_AutoPageDetect(autoDetect.value);
 }
 
@@ -252,22 +252,22 @@ function CZUR_BlankPageDetect()
 
 <SCRIPT type="text/javascript" FOR="EtOcxEx" EVENT="CZUR_CALLBACK(uploadcnt, barcode, httpinfo, imagefile1, imagefile2)" >
    JS_CZUR_CALLBACK(uploadcnt, barcode, httpinfo, imagefile1, imagefile2);
-</SCRIPT> 
+</SCRIPT>
 
 <SCRIPT type="text/javascript" FOR="EtOcxEx" EVENT="CZUR_UPLOAD_CALLBACK(uploadcnt, localfile, errcode, errmsg)" >
    JS_CZUR_UPLOAD_CALLBACK(uploadcnt, localfile, errcode, errmsg);
-</SCRIPT> 
+</SCRIPT>
 
 <SCRIPT type="text/javascript" FOR="EtOcxEx" EVENT="CZUR_PDF_CALLBACK(pdfstatus)" >
    JS_CZUR_PDF_CALLBACK(pdfstatus);
-</SCRIPT> 
+</SCRIPT>
 
 <TITLE>EtOcxExDEMO</TITLE>
 </HEAD>
 <BODY>
 	<div>
 		<CENTER><object
-		 classid="CLSID:6BA87457-4473-41A1-9A48-6AC45389B971" width=40% height=100% align="left" 
+		 classid="CLSID:6BA87457-4473-41A1-9A48-6AC45389B971" width=40% height=100% align="left"
 		 id="EtOcxEx">
 	  </object>
 	</div>
@@ -276,115 +276,114 @@ function CZUR_BlankPageDetect()
 		<input type="button" name="btn" value="CZUR_Initialize"   onclick ='CZUR_Initialize()'>
         <input type="button" name="btn" value="CZUR_Deinitialize" onclick ='CZUR_Deinitialize()'><br>
 
-        <br><font color="#00AA00" size="2">URL£º</font>
+        <br><font color="#00AA00" size="2">URLï¼š</font>
 		<input type="text" name="HttpURL" id="HttpURL" value="">
-        <font color="#00AA00" size="2">Name£º</font>
+        <font color="#00AA00" size="2">Nameï¼š</font>
         <input type="text" name="HttpName" id="HttpName" value="">
 		<input type="button" name="btn" value="CZUR_Http_URL" onclick='CZUR_Http_URL()'><br>
 
-        <br><font color="#00AA00" size="2">ÓÃ»§Ãû£º</font>
+        <br><font color="#00AA00" size="2">ç”¨æˆ·åï¼š</font>
 		<input type="text" name="HttpUser" id="HttpUser" value="">
-        <font color="#00AA00" size="2">ÃÜÂë£º</font>
+        <font color="#00AA00" size="2">å¯†ç ï¼š</font>
         <input type="text" name="HttpPwd" id="HttpPwd" value="">
 		<input type="button" name="btn" value="CZUR_Http_User_Pwd" onclick='CZUR_Http_User_Pwd()'><br>
 
-        <br><font color="#00AA00" size="2">Name£º</font>
+        <br><font color="#00AA00" size="2">Nameï¼š</font>
 		<input type="text" name="HttpFormName" id="HttpFormName" value="">
-        <font color="#00AA00" size="2">Content£º</font>
+        <font color="#00AA00" size="2">Contentï¼š</font>
         <input type="text" name="HttpFormContent" id="HttpFormContent" value="">
 		<input type="button" name="btn" value="CZUR_Http_Form" onclick='CZUR_Http_Form()'><br>
 
 		<br><input type="button" name="btn" value="CZUR_OpenDevice"   onclick ='CZUR_OpenDevice()'>
         <input type="button" name="btn" value="CZUR_CloseDevice" onclick ='CZUR_CloseDevice()'><br>
-	
+
         <br><input type="button" name="btn" value="CZUR_GrabSingleImage" onclick ='CZUR_GrabSingleImage()'></br>
 
-		<br><font color="#00AA00" size="2">±¾µØÎÄ¼ş£º</font>
+		<br><font color="#00AA00" size="2">æœ¬åœ°æ–‡ä»¶ï¼š</font>
 		<input type="text" name="LocalFile" id="LocalFile" value="">
-        <font color="#00AA00" size="2">URL£º</font>
+        <font color="#00AA00" size="2">URLï¼š</font>
         <input type="text" name="URL" id="URL" value="">
-		<font color="#00AA00" size="2">ÊôĞÔÃû³Æ£º</font>
+		<font color="#00AA00" size="2">å±æ€§åç§°ï¼š</font>
         <input type="text" name="FormName" id="FormName" value="">
-		<font color="#00AA00" size="2">ÓÃ»§Ãû£º</font>
+		<font color="#00AA00" size="2">ç”¨æˆ·åï¼š</font>
         <input type="text" name="UserName" id="UserName" value="">
-		<font color="#00AA00" size="2">ÃÜÂë£º</font>
+		<font color="#00AA00" size="2">å¯†ç ï¼š</font>
         <input type="text" name="Password" id="Password" value="">
 		<input type="button" name="btn" value="CZUR_Http_Upload" onclick='CZUR_Http_Upload()'><br>
-		
-		<br><font color="#00AA00" size="2">ºÏ³ÉPdfµÄÍ¼Æ¬ÎÄ¼ş£º</font>
+
+		<br><font color="#00AA00" size="2">åˆæˆPdfçš„å›¾ç‰‡æ–‡ä»¶ï¼š</font>
 		<input type="text" name="PdfImage" id="PdfImage" value="">
 		<input type="button" name="btn" value="CZUR_Pdf_Image" onclick='CZUR_Pdf_Image()'><br>
 
-		<br><font color="#00AA00" size="2">PdfÎÄ¼ş£º</font>
+		<br><font color="#00AA00" size="2">Pdfæ–‡ä»¶ï¼š</font>
 		<input type="text" name="PdfFile" id="PdfFile" value="">
 		<input type="button" name="btn" value="CZUR_Pdf_Submit" onclick='CZUR_Pdf_Submit()'><br>
 
-        <br><font color="#00AA00" size="2">±£´æÂ·¾¶£º</font>
+        <br><font color="#00AA00" size="2">ä¿å­˜è·¯å¾„ï¼š</font>
 		<input type="text" name="Path" id="Path">
 		<input type="button" name="btn" value="CZUR_Path" onclick='CZUR_Path()'><br>
 
-
-		<br><font color="#00AA00" size="2">ÃüÃû¹æÔò£º</font>
+		<br><font color="#00AA00" size="2">å‘½åè§„åˆ™ï¼š</font>
 		<input type="text" name="Prefix" id="Prefix" value="image">
         <input type="text" name="InitNumber" id="InitNumber" value="1">
 		<input type="button" name="btn" value="CZUR_Custom" onclick='CZUR_Custom()'><br>
 
-		<br><font color="#00AA00" size="2">¿Õ°×Ò³¼ì²â:0(²»¼ì²â)¡¢1(¼ì²â)£º</font>
+		<br><font color="#00AA00" size="2">ç©ºç™½é¡µæ£€æµ‹:0(ä¸æ£€æµ‹)ã€1(æ£€æµ‹)ï¼š</font>
         <input type="text" name="blankpage" id="blankpage" value="0">
 		<input type="button" name="btn" value="CZUR_BlankPageDetect" onclick='CZUR_BlankPageDetect()'><br>
-	
-        <br><font color="#00AA00" size="2">ºáÏò·Ö±æÂÊ£º</font>
+
+        <br><font color="#00AA00" size="2">æ¨ªå‘åˆ†è¾¨ç‡ï¼š</font>
 		<input type="text" name="cxResolut" id="cxResolut" value="0">
-        <font color="#00AA00" size="2">×İÏò·Ö±æÂÊ£º</font>
+        <font color="#00AA00" size="2">çºµå‘åˆ†è¾¨ç‡ï¼š</font>
         <input type="text" name="cyResolut" id="cyResolut" value="0">
 		<input type="button" name="btn" value="CZUR_Zoom" onclick='CZUR_Zoom()'><br>
 
-        <br><font color="#00AA00" size="2">Í¼Æ¬DPI£º</font>
+        <br><font color="#00AA00" size="2">å›¾ç‰‡DPIï¼š</font>
         <input type="text" name="dpi" id="dpi" value="96">
 		<input type="button" name="btn" value="CZUR_DPI" onclick='CZUR_DPI()'><br>
 
-        <br><font color="#00AA00" size="2">ÑÕÉ«Ä£Ê½£º0(ÎŞÄ£Ê½)¡¢1(²ÊÉ«Ä£Ê½)¡¢2(°×Ö½Ó¡ÕÂÄ£Ê½)¡¢3(Ö¤¼şµ×ÎÆÄ£Ê½)¡¢4(ºÚ°×Ä£Ê½)¡¢5(»Ò¶ÈÄ£Ê½)</font><br>
+        <br><font color="#00AA00" size="2">é¢œè‰²æ¨¡å¼ï¼š0(æ— æ¨¡å¼)ã€1(å½©è‰²æ¨¡å¼)ã€2(ç™½çº¸å°ç« æ¨¡å¼)ã€3(è¯ä»¶åº•çº¹æ¨¡å¼)ã€4(é»‘ç™½æ¨¡å¼)ã€5(ç°åº¦æ¨¡å¼)</font><br>
         <input type="text" name="ClrMode" id="ClrMode" value="0">
 		<input type="button" name="btn" value="CZUR_ClrMode" onclick='CZUR_ClrMode()'><br>
 
-        <br><font color="#00AA00" size="2">Ğı×ª½Ç¶È£º0(²»Ğı×ª)¡¢90(Ë³Ê±ÕëĞı×ª90¡ã)¡¢180(Ë³Ê±ÕëĞı×ª180¡ã)¡¢270(Ë³Ê±ÕëĞı×ª270¡ã)</font><br>
+        <br><font color="#00AA00" size="2">æ—‹è½¬è§’åº¦ï¼š0(ä¸æ—‹è½¬)ã€90(é¡ºæ—¶é’ˆæ—‹è½¬90Â°)ã€180(é¡ºæ—¶é’ˆæ—‹è½¬180Â°)ã€270(é¡ºæ—¶é’ˆæ—‹è½¬270Â°)</font><br>
         <input type="text" name="Angle" id="Angle" value="0">
 		<input type="button" name="btn" value="CZUR_Rotate" onclick='CZUR_Rotate()'><br>
-	
-		<br><font color="#00AA00" size="2">Íø¸ñÏß£º0(²»ÏÔÊ¾Íø¸ñ)¡¢1(ÏÔÊ¾Íø¸ñ)£º</font>
+
+		<br><font color="#00AA00" size="2">ç½‘æ ¼çº¿ï¼š0(ä¸æ˜¾ç¤ºç½‘æ ¼)ã€1(æ˜¾ç¤ºç½‘æ ¼)ï¼š</font>
 		<input type="text" name="DisplayGrid" id="DisplayGrid" value="0">
 		<input type="button" name="btn" value="CZUR_DisplayGrid" onclick='CZUR_DisplayGrid()'><br>
-	
-		<br><font color="#00AA00" size="2">·­Ò³¼ì²â£º0(²»¼ì²â)¡¢1(¼ì²â)</font>
+
+		<br><font color="#00AA00" size="2">ç¿»é¡µæ£€æµ‹ï¼š0(ä¸æ£€æµ‹)ã€1(æ£€æµ‹)</font>
 		<input type="text" name="AutoDetect" id="AutoDetect" value="0">
 		<input type="button" name="btn" value="CZUR_AutoPageDetect" onclick='CZUR_AutoPageDetect()'><br>
-	
-		<br><font color="#00AA00" size="2">¿òÑ¡ÀàĞÍ£º1(²Ã¼ôÇøÓò)¡¢2(É¨ÂëÇøÓò)</font>
+
+		<br><font color="#00AA00" size="2">æ¡†é€‰ç±»å‹ï¼š1(è£å‰ªåŒºåŸŸ)ã€2(æ‰«ç åŒºåŸŸ)</font>
 		<input type="text" name="selType" id="selType" value="1">
 		<input type="button" name="btn" value="CZUR_SelectType" onclick='CZUR_SelectType()'><br>
 
-		<br><font color="#00AA00" size="2">È¡ÏûÇøÓò£º1(²Ã¼ôÇøÓò)¡¢2(É¨ÂëÇøÓò)¡¢3(ËùÓĞÇøÓò)</font>
+		<br><font color="#00AA00" size="2">å–æ¶ˆåŒºåŸŸï¼š1(è£å‰ªåŒºåŸŸ)ã€2(æ‰«ç åŒºåŸŸ)ã€3(æ‰€æœ‰åŒºåŸŸ)</font>
 		<input type="text" name="selClear" id="selClear" value="1">
 		<input type="button" name="btn" value="CZUR_ClearSelect" onclick='CZUR_ClearSelect()'><br>
 
-        <br><font color="#00AA00" size="2">Ô­Í¼²»´¦Àí£º</font>
+        <br><font color="#00AA00" size="2">åŸå›¾ä¸å¤„ç†ï¼š</font>
 		<input type="button" name="btn" value="CZUR_Original" onclick='CZUR_Original()'><br>
 
-        <br><font color="#00AA00" size="2">µ¥Ò³²Ã±ß£º</font>
+        <br><font color="#00AA00" size="2">å•é¡µè£è¾¹ï¼š</font>
 		<input type="button" name="btn" value="CZUR_EdgeCutting" onclick='CZUR_EdgeCutting()'><br>
 
-        <br><font color="#00AA00" size="2">Êé¼®Õ¹Æ½£º</font>
-        <br><font color="#AA0000" size="2">0(²»²ğ·ÖË«Ò³)¡¢1(²ğ·ÖË«Ò³)</font>
+        <br><font color="#00AA00" size="2">ä¹¦ç±å±•å¹³ï¼š</font>
+        <br><font color="#AA0000" size="2">0(ä¸æ‹†åˆ†åŒé¡µ)ã€1(æ‹†åˆ†åŒé¡µ)</font>
         <input type="text" name="Slpit" id="Slpit" value="0">
 		<input type="button" name="btn" value="CZUR_CurveFlatten" onclick='CZUR_CurveFlatten()'><br>
 
-        <br><font color="#00AA00" size="2">BMP¸ñÊ½£º</font>
+        <br><font color="#00AA00" size="2">BMPæ ¼å¼ï¼š</font>
 		<input type="button" name="btn" value="CZUR_Format_Bmp" onclick='CZUR_Format_Bmp()'><br>
 
-        <br><font color="#00AA00" size="2">JPG¸ñÊ½£º</font>
-        <br><font color="#AA0000" size="2">JPGÖÊÁ¿(0~100)£º</font>
+        <br><font color="#00AA00" size="2">JPGæ ¼å¼ï¼š</font>
+        <br><font color="#AA0000" size="2">JPGè´¨é‡(0~100)ï¼š</font>
         <input type="text" name="Quality" id="Quality" value="70">
 		<input type="button" name="btn" value="CZUR_Format_Jpg" onclick='CZUR_Format_Jpg()'><br>
-	</div> 
+	</div>
 </BODY>
 </HTML>

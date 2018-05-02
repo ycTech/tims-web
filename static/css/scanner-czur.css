@@ -6,3 +6,9 @@
   line-height: 2;
   padding: 10px;
 }
+.layui-form-label {
+  width: 135px;
+}
+.layui-input-block {
+  margin-left: 135px;
+}

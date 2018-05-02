@@ -8,72 +8,149 @@
   <div class="image-preview__wrapper">
   </div>
   <div class="scanner-setting__wrapper">
-
-    
-    <form class="form-inline" role="form">
-      <fieldset>
-        <div class="form-group">
-          <label for="ScannerName">选择扫描仪</label>
-          <select
-            name="ScannerName"
-            id="ScannerName"
-            class="form-control"
-            style="width: 220px;"
-            onchange="SelScanner()"
-          >
+    <form class="layui-form" role="form">
+      <div class="layui-form-item">
+        <label class="layui-form-label">选择扫描仪：</label>
+        <div class="layui-input-block">
+          <select name="ScannerName" id="ScannerName" onchange="SelScanner()" lay-verify="">
+            <option value="">请选择扫描仪</option>
+            <option value="1">扫描仪1</option>
+            <option value="2">扫描仪2</option>
           </select>
         </div>
-      </fieldset>
-      <fieldset>
-        <div class="form-group">
-          <label for="">图片保存路径：</label>
-          <input
-            type="text"
-            class="form-control"
-            id="Path"
-            name="Path"
-            value="D:\CZUR_Images"
-            onchange="CZUR_Path()"
-          >
-        </div>
-        <div class="form-group">
-          <label for="">图片名称前缀：</label>
-          <input
-            type="text"
-            class="form-control"
-            id="Prefix"
-            name="Prefix"
-            value="image"
-          >
-        </div>
-      </fieldset>
-      <div class="form-group">
-        <label for="">label</label>
-        <input
-          type="text"
-          class="form-control"
-          id=""
-          name=""
-        >
       </div>
-      <div class="form-group">
-        <label for="">label</label>
-        <input
-          type="text"
-          class="form-control"
-          id=""
-          name=""
-        >
+      <div class="layui-form-item">
+        <label for="" class="layui-form-label">图片保存路径：</label>
+        <div class="layui-input-block">
+          <input type="text" id="Path" name="Path" class="layui-input" value="D:\CZUR_Images" onchange="CZUR_Path()">
+        </div>
       </div>
-    
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <div class="layui-form-item">
+        <label for="" class="layui-form-label">图片名称前缀：</label>
+        <div class="layui-input-block">
+          <input type="text" id="Prefix" class="layui-input" name="Prefix" value="image">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label for="" class="layui-form-label">空白页检测：</label>
+        <div class="layui-input-block">
+          <Select name="blankpage" id="blankpage" onchange="CZUR_BlankPageDetect()">
+            <option value="0">不检测</option>
+            <option value="1">检测</option>
+          </Select>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label for="" class="layui-form-label">横向分辨率：</label>
+        <div class="layui-input-block">
+          <input type="text" class="layui-input" name="cxResolut" id="cxResolut" value="0" onchange="CZUR_Zoom()">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label for="" class="layui-form-label">纵向分辨率：</label>
+        <div class="layui-input-block">
+          <input type="text" class="layui-input" name="cyResolut" id="cyResolut" value="0" onchange="CZUR_Zoom()">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label for="" class="layui-form-label">图片DPI：</label>
+        <div class="layui-input-block">
+          <input type="text" class="layui-input" name="dpi" id="dpi" value="96" onchange="CZUR_DPI()">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label for="" class="layui-form-label">颜色模式：</label>
+        <div class="layui-input-block">
+          <select name="ClrMode" id="ClrMode"
+            onchange="CZUR_ClrMode()">
+            <option value="0">无模式</option>
+            <option value="1">彩色模式</option>
+            <option value="2">白纸印章模式</option>
+            <option value="3">证件底纹模式</option>
+            <option value="4">黑白模式</option>
+            <option value="5">灰度模式</option>
+          </select>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label for="" class="layui-form-label">旋转角度：</label>
+        <div class="layui-input-block">
+          <input type="text" name="Angle" id="Angle" value="0" style="display: none;">
+          <button class="layui-btn layui-btn-primary" onclick="CZUR_Rotate(270)">左转90</button>
+          <button class="layui-btn layui-btn-primary" onclick="CZUR_Rotate(90)">右转90</button>
+          <button class="layui-btn layui-btn-primary" onclick="CZUR_Rotate(180)">180旋转</button>
+          <button class="layui-btn layui-btn-primary" onclick="CZUR_Rotate(0)">恢复</button>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label for="" class="layui-form-label">网格线：0(不显示网格)、1(显示网格)：</label>
+        <div class="layui-input-block">
+          <input type="text" name="DisplayGrid" id="DisplayGrid" value="0">
+          <input type="button" name="btn" value="CZUR_DisplayGrid" onclick='CZUR_DisplayGrid()'>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label for="" class="layui-form-label">翻页检测：0(不检测)、1(检测)</label>
+        <div class="layui-input-block">
+          <input type="text" name="AutoDetect" id="AutoDetect" value="0">
+          <input type="button" name="btn" value="CZUR_AutoPageDetect" onclick='CZUR_AutoPageDetect()'>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label for="" class="layui-form-label">框选类型：1(裁剪区域)、2(扫码区域)</label>
+        <div class="layui-input-block">
+          <input type="text" name="selType" id="selType" value="1">
+          <input type="button" name="btn" value="CZUR_SelectType" onclick='CZUR_SelectType()'>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-input-block">
+          <label for="" class="layui-form-label">取消区域：1(裁剪区域)、2(扫码区域)、3(所有区域)</label>
+          <input type="text" name="selClear" id="selClear" value="1">
+          <input type="button" name="btn" value="CZUR_ClearSelect" onclick='CZUR_ClearSelect()'>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label for="" class="layui-form-label">原图不处理：</label>
+        <div class="layui-input-block">
+          <input type="button" name="btn" value="CZUR_Original" onclick='CZUR_Original()'>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label for="" class="layui-form-label">单页裁边：</label>
+        <div class="layui-input-block">
+          <input type="button" name="btn" value="CZUR_EdgeCutting" onclick='CZUR_EdgeCutting()'>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label for="" class="layui-form-label">书籍展平：</label>
+        <div class="layui-input-block">
+          <label for="" class="layui-form-label">0(不拆分双页)、1(拆分双页)</label>
+          <input type="text" name="Slpit" id="Slpit" value="0">
+          <input type="button" name="btn" value="CZUR_CurveFlatten" onclick='CZUR_CurveFlatten()'>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-input-block">
+          <label for="" class="layui-form-label">BMP格式：</label>
+          <input type="button" name="btn" value="CZUR_Format_Bmp" onclick='CZUR_Format_Bmp()'>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label for="" class="layui-form-label">JPG格式：</label>
+        <div class="layui-input-block">
+          <label for="" class="layui-form-label">JPG质量(0~100)：</label>
+          <input type="text" name="Quality" id="Quality" value="70">
+          <input type="button" name="btn" value="CZUR_Format_Jpg" onclick='CZUR_Format_Jpg()'>
+        </div>
+      </div>
     </form>
-    
 
     <div class="text-center">
       <button type="button" class="btn btn-default" onclick="onCloseConfig()">关闭</button>
-      <button type="button" class="btn btn-primary" onclick="onSaveScannerConfigZhelin()">确定</button>
+      <!-- <button type="button" class="btn btn-primary" onclick="onSaveScannerConfigZhelin()">确定</button> -->
     </div>
   </div>
 </div>
+<script src="./lib/layui/layui.all.js"></script>
 <script src="./js/scanner-czur.js"></script>
