@@ -1,4 +1,13 @@
-// {"code":200,"msg":"\u64cd\u4f5c\u6210\u529f","data":"http://192.168.1.195/group1/M00/00/00/wKgBw1rKJ-SAZZKoAAAEX-4DxsU348.jpg"}
+/*
+ * @Author: qingbin_bai@163.com
+ * @Date: 2018-05-03 20:19:10
+ * @Last Modified by: qingbin_bai@163.com
+ * @Last Modified time: 2018-05-03 21:04:06
+ */
+var gImagePath = 'D:\\FouderImages'
+var gPdfDir = 'D:\\FounderImages'
+var gPdfFullPath = gPdfDir + '\\' + '108768998776.pdf'
+
 ScannerOcx = {
   start: function () {
     if (!isOcxInstalled()) {
@@ -26,14 +35,17 @@ ScannerOcx = {
       return false
     }
 
-    // TODO: Upload PdfFile
+    uploadPdf()
   }
 }
 
 $(function () {
   ScannerOcx.start()
+  addEventListeners()
 })
 
+// 判断OCX是否已安装
+// TODO: 优化判断方法
 function isOcxInstalled () {
   try {
     if (!window.FScanX) {
@@ -46,6 +58,8 @@ function isOcxInstalled () {
   }
   return true
 }
+
+// 添加OCX控件的事件监听
 function addEventListeners () {
   if (window.attachEvent) {
     document.getElementById('FScanX').attachEvent('OnRecvMsg', OnRecvMsg)
@@ -53,19 +67,13 @@ function addEventListeners () {
     document.getElementById('FScanX').addEventListener('OnRecvMsg', OnRecvMsg, false)
   }
 }
-function getFormData () {
-  var dataArray = $('#FounderScanner').serializeArray()
-  var formData = {}
-  for (var i = 0; i < dataArray.length; i++) {
-    formData[dataArray[i].name] = dataArray[i].value
-  }
-  console.log(JSON.stringify(formData))
-  return formData
-}
+
+// 接收OCX的消息后的回调函数
 function OnRecvMsg (msg) {
-  alert(msg)
   console.log(JSON.stringify(msg))
 }
+
+// 获取扫描仪名称
 function GetScannerName () {
   var i = 0
   try {
@@ -84,16 +92,20 @@ function GetScannerName () {
     console.log(error)
   }
 }
+
+// 选择扫描仪
 function SelScanner () {
   var obj = document.getElementById('ScannerName')
   var index = obj.selectedIndex
   var ScannerName = obj.options[index].text
   window.FScanX.SelScannerByName(ScannerName)
 }
+
 function ThumbWH () {
   window.FScanX.ThumbWidth = document.getElementById('ThumbWidth').value
   window.FScanX.ThumbHeight = document.getElementById('ThumbHeight').value
 }
+
 function Scan () {
   window.FScanX.ScanShowUI = document.getElementById('ShowUI').value// 1为显示，0为不显示
   window.FScanX.ShowThumb = document.getElementById('ShowThumb').value// 1为显示，0为不显示
@@ -136,22 +148,34 @@ function ScanIns () { // 插入扫描，添加到选中页的前面
   window.FScanX.Contrast = document.getElementById('Contrast').value// 对比度
   window.FScanX.ScanIns()
 }
-function SaveAsPDF () {
-  window.FScanX.SaveAsPDF('D:\\test.pdf')
+function SaveAsPDF (path) {
+  $notify('开始保存PDF...')
+  gPdfDir = path || gPdfDir
+  var fileName = urlQuery.billNo + '.pdf'
+  var fullPath = gPdfDir + '\\' + fileName
+  console.log(fullPath)
+  var res = window.FScanX.SaveAsPDF(fullPath)
+  gPdfFullPath = fullPath
+  $notify('PDF成功保存，保存位置：' + gPdfFullPath)
 }
+
 function DelOneImg () {
   window.FScanX.DelOneImg()
 }
 function DelAllImg () {
   window.FScanX.DelAllImg()
 }
+
 function ShowUISettings () {
   window.FScanX.ShowUISettings()
 }
-function GetScanImagePath () {
-  var ImageIndex = document.getElementById('ImageIndex').value
-  document.getElementById('ScanImagePath').value = window.FScanX.GetScanImagePath(ImageIndex)
+
+function GetScanImagePath (imageIndex) {
+  var path = window.FScanX.GetScanImagePath(ImageIndex)
+  console.log(path)
+  return path
 }
+
 function GetBar () {
   var BarCount = window.FScanX.GetBarCount(1)// 参数为要识别的是第几页
   var BarData = ''
@@ -160,31 +184,29 @@ function GetBar () {
   }
   document.getElementById('BarData').value = BarData
 }
-function uploadPdf () {
-  var base64 = window.FScanX.HttpSendFileEx('D:\\test.pdf', 'http:\\localhost:8080')
+function uploadPdf (pdfPath) {
+  pdfPath = pdfPath || gPdfFullPath
+  var protocol = window.location.protocol
+  var hostname = window.location.hostname
+  var port = window.location.port
+  var search = window.location.search
+  hostname = '192.68.1.93'
+  port = '10060'
+  console.log(protocol)
+  console.log(hostname)
+  console.log(port)
+  console.log(search)
+  var url = protocol + '//' + hostname + ':' + port + '/smfile/upload' + search
+  $notify('开始上传PDF...')
+  console.log(url)
+  console.log(pdfPath)
+  var resp = window.FScanX.HttpSendFileEx(url, pdfPath)
+  console.log(resp)
 }
 function GetImageBase64 () {
   var base64 = window.FScanX.GetImageBase64String(document.getElementById('ScanImagePath').value)
   document.getElementById('ImageBase64').value = base64
   console.log('upload base64')
-  // $.post('/scanner/api/fast/base64/upload', {
-  //   billNo: 'billNo',
-  //   billTypeId: 'billTypeId',
-  //   classifyId: 'classifyId',
-  //   classifyName: 'classifyName',
-  //   imageBase64: 'base64',
-  //   imageName: 'test.jpg'
-  // }, function (resp) {
-  //   console.log('resp success')
-  //   console.log(JSON.stringify(resp))
-  // }).done(function () {
-  //   console.log('second success')
-  // }).fail(function (error) {
-  //   console.log('error')
-  //   console.log(JSON.stringify(error))
-  // }).always(function () {
-  //   console.log('finished')
-  // })
   var postData = {
     billNo: 'billNo',
     billTypeId: 'billTypeId',
@@ -216,8 +238,4 @@ function GetImageBase64 () {
 function GetSN () {
   var strSN = window.FScanX.GetSN('154F', '3202')
   alert(strSN)
-}
-function HttpSendFileEx () {
-  var strrep = window.FScanX.HttpSendFileEx('D:\\test.pdf', 'http:\\localhost:8080')
-  alert(strrep)
 }

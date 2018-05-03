@@ -1,7 +1,16 @@
 var ScannerTypeMap = {
-  czur: 'scanner-czur.html',
-  founder: 'scanner-founder.html',
-  zhelin: 'scanner-zhelin.html'
+  czur: {
+    name: 'CZUR高拍仪',
+    url: 'scanner-czur.html'
+  },
+  founder: {
+    name: '方正扫描仪',
+    url: 'scanner-founder.html'
+  },
+  zhelin: {
+    name: '哲林高拍仪',
+    url: 'scanner-zhelin.html'
+  }
 }
 var urlQuery = {
   vsystem: getQueryString('vsystem'),
@@ -310,7 +319,8 @@ function onDeviceTypeChange () {
 // 加载设备对应HTML
 function loadDeviceHtml (deviceType) {
   store.set('scannerType', deviceType)
-  loadHtml(ScannerTypeMap[deviceType])
+  $('.layui-nav-item.selected-device-name').html(ScannerTypeMap[deviceType].name)
+  loadHtml(ScannerTypeMap[deviceType].url)
 }
 
 // 加载不同扫描设备的面板
