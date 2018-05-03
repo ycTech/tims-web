@@ -2,11 +2,12 @@
  * @Author: qingbin_bai@163.com
  * @Date: 2018-05-03 20:19:10
  * @Last Modified by: qingbin_bai@163.com
- * @Last Modified time: 2018-05-03 21:04:06
+ * @Last Modified time: 2018-05-03 21:35:17
  */
 var gImagePath = 'D:\\FouderImages'
 var gPdfDir = 'D:\\FounderImages'
-var gPdfFullPath = gPdfDir + '\\' + '108768998776.pdf'
+var gPdfName = '108768998776.pdf'
+var gPdfFullPath = gPdfDir + '\\' + gPdfName
 
 ScannerOcx = {
   start: function () {
@@ -91,6 +92,7 @@ function GetScannerName () {
   } catch (error) {
     console.log(error)
   }
+  $notify('设备启动成功！')
 }
 
 // 选择扫描仪
@@ -124,9 +126,9 @@ function Scan () {
   window.FScanX.TiffCompressType = document.getElementById('TiffCompressType').value
   window.FScanX.PDFCompressType = document.getElementById('PDFCompressType').value
   window.FScanX.Scan()
-  var ScanImageCount = window.FScanX.GetScanImageCount()
-  document.getElementById('ScanImageCount').value = ScanImageCount
-  document.getElementById('StartIndex').value = parseInt(StartIndex) + ScanImageCount
+  // var ScanImageCount = window.FScanX.GetScanImageCount()
+  // document.getElementById('ScanImageCount').value = ScanImageCount
+  // document.getElementById('StartIndex').value = parseInt(StartIndex) + ScanImageCount
 }
 function ScanAdd () { // 添加扫描,添加到最后一页
   window.FScanX.ScanShowUI = document.getElementById('ShowUI').value// 1为显示，0为不显示
@@ -151,11 +153,9 @@ function ScanIns () { // 插入扫描，添加到选中页的前面
 function SaveAsPDF (path) {
   $notify('开始保存PDF...')
   gPdfDir = path || gPdfDir
-  var fileName = urlQuery.billNo + '.pdf'
-  var fullPath = gPdfDir + '\\' + fileName
-  console.log(fullPath)
-  var res = window.FScanX.SaveAsPDF(fullPath)
-  gPdfFullPath = fullPath
+  gPdfName = urlQuery.billNo + '.pdf'
+  gPdfFullPath = gPdfDir + '\\' + gPdfName
+  var res = window.FScanX.SaveAsPDF(gPdfFullPath)
   $notify('PDF成功保存，保存位置：' + gPdfFullPath)
 }
 
@@ -184,24 +184,19 @@ function GetBar () {
   }
   document.getElementById('BarData').value = BarData
 }
-function uploadPdf (pdfPath) {
-  pdfPath = pdfPath || gPdfFullPath
-  var protocol = window.location.protocol
-  var hostname = window.location.hostname
-  var port = window.location.port
-  var search = window.location.search
-  hostname = '192.68.1.93'
-  port = '10060'
-  console.log(protocol)
-  console.log(hostname)
-  console.log(port)
-  console.log(search)
-  var url = protocol + '//' + hostname + ':' + port + '/smfile/upload' + search
-  $notify('开始上传PDF...')
-  console.log(url)
-  console.log(pdfPath)
-  var resp = window.FScanX.HttpSendFileEx(url, pdfPath)
-  console.log(resp)
+function uploadPdf () {
+  var base64 = GetPdfBase64(gPdfFullPath)
+  setTimeout(function () {
+    ScannerHome.uploadPdfBase64(gPdfName, base64, function (fileUrl) {
+      ScannerHome.reloadFileList()
+      $notify('上传PDF成功！' + fileUrl)
+    })
+  }, 0)
+}
+
+function GetPdfBase64 (path) {
+  var base64 = window.FScanX.GetImageBase64String(path)
+  return base64
 }
 function GetImageBase64 () {
   var base64 = window.FScanX.GetImageBase64String(document.getElementById('ScanImagePath').value)

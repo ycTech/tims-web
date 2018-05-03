@@ -2,7 +2,7 @@
  * @Author: qingbin_bai@163.com
  * @Date: 2018-04-24 23:52:07
  * @Last Modified by: qingbin_bai@163.com
- * @Last Modified time: 2018-05-02 21:28:42
+ * @Last Modified time: 2018-05-03 21:39:33
  * TODO:
  *  1. 用户可配置文件保存路径
  *  2. Cookie中保存用户的配置文件
@@ -72,7 +72,7 @@ ScannerOcx = {
     if (!isOcxInstalled()) {
       return false
     }
-    gImagePrefix = urlQuery.vbillno || 'image'
+    gImagePrefix = urlQuery.billNo || 'image'
     CaptureToFile(gImagePrefix + '_')
   },
 
@@ -81,7 +81,7 @@ ScannerOcx = {
     if (!isOcxInstalled()) {
       return false
     }
-    var pdfPrefix = urlQuery.vbillno || ''
+    var pdfPrefix = urlQuery.billNo || ''
     BtnCreateMultiPageFile(pdfPrefix + '_')
   },
 

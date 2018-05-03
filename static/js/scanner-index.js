@@ -136,7 +136,9 @@ ScannerHome = {
   },
 
   reloadFileList: function () {
-    initJsTree()
+    console.log('reloadFileList')
+    window.location.reload()
+    // initJsTree()
   }
 }
 
@@ -199,6 +201,7 @@ $(function () {
 
 // 初始化JsTree
 function initJsTree () {
+  console.log('initJsTree')
   $.ajax({
     type: 'POST',
     url: baseUrl + 'bill/file/list',
@@ -223,7 +226,7 @@ function initJsTree () {
           var hostname = window.location.hostname
           var search = window.location.search || '?t=' + new Date().getTime()
           search = search + '&fileId=' + data.node.id
-          window.open('http://' + hostname + ':8012/index?' + search)
+          window.open('http://' + hostname + ':10060/preview' + search)
         }
       })
     },
@@ -277,7 +280,6 @@ function initJsTree () {
             item.icon = 'glyphicon glyphicon-file'
           }
         }
-        console.log(item.icon)
         item.li_attr = {
           fileUrl: item.url
         }
