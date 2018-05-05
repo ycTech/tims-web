@@ -1,8 +1,9 @@
 var fileDirect = null // 扫描后文件的存放路径
 var defaultFileName = null
 var imageUrlList = []
-var imageFilePathList = []
+var imageFileList = []
 var gAngle = 0
+
 $(function () {
   window.ScannerOcx = {
     start: function () {
@@ -15,7 +16,7 @@ $(function () {
       if (!isOcxInstalled()) {
         return false
       }
-      czurOcxScan()
+      CZUR_GrabSingleImage()
     },
     merge: function () {
       if (!isOcxInstalled()) {
@@ -27,7 +28,8 @@ $(function () {
       if (!isOcxInstalled()) {
         return false
       }
-      czurHttpUpload()
+      uploadPdfBase64()
+      // CZUR_Http_Upload()
     },
     close: function () {
       if (!isOcxInstalled()) {
@@ -36,6 +38,7 @@ $(function () {
       czurOcxCloseDevice()
     }
   }
+
   addEventListeners()
   ScannerOcx.start()
 })
@@ -65,15 +68,18 @@ function addEventListeners () {
     document.getElementById('EtOcxEx').addEventListener('CZUR_PDF_CALLBACK', JS_CZUR_PDF_CALLBACK, false)
   }
 }
+
 function czurOcxStartDevice () {
   var breadth = 0 // A3幅面
   var detect = 1 // 边缘检测
-  var res = czurInitialize() &&
-    czurScanBreadth(breadth) &&
-    czurEdgeDetect(detect) &&
-    czurEdgeCutting() &&
-    czurHttpUrl() &&
-    czurOpenDevice()
+  var res = CZUR_Initialize() &&
+    CZUR_ScanBreadth(breadth) &&
+    CZUR_EdgeDetect(detect) &&
+    CZUR_EdgeCutting() &&
+    CZUR_Zoom(1600, 1200) &&
+    CZUR_Format_Jpg(50) &&
+    CZUR_DPI(72) &&
+    CZUR_OpenDevice()
 
   if (res) {
     var breadthLabel = breadth === 0 ? 'A3幅面' : 'A4幅面'
@@ -81,29 +87,26 @@ function czurOcxStartDevice () {
     console.log('启动设备成功,扫描幅面：' + detectLabel + '；边缘检测:' + breadthLabel + '；开启自动裁边;')
   }
 }
-function initCzurParams (breadth, detect) {
-  czurScanBreadth(breadth)
-  czurEdgeDetect(detect)
-  czurEdgeCutting()
-  czurHttpUrl()
-  return true
-}
+
 function czurOcxScan () {
-  czurGrabSingleImage()
-}
-function czurOcxCloseDevice () {
-  czurCloseDevice()
-  czurDeinitialize()
-}
-function czurOcxMergeImageToPdf () {
-  imageFilePathList = imageFilePathList || []
-  for (var i = 0; i < imageFilePathList.length; i++) {
-    czurPdfImage(imageFilePathList[i])
-  }
-  czurPdfSubmit()
+  CZUR_GrabSingleImage()
 }
 
-function czurInitialize () {
+function czurOcxCloseDevice () {
+  CZUR_CloseDevice()
+  CZUR_Deinitialize()
+}
+
+function czurOcxMergeImageToPdf () {
+  imageFileList = imageFileList || []
+  for (var i = 0; i < imageFileList.length; i++) {
+    console.log(JSON.stringify(imageFileList[i]))
+    CZUR_Pdf_Image(imageFileList[i].filePath)
+  }
+  CZUR_Pdf_Submit()
+}
+
+function CZUR_Initialize () {
   var lInitialize = window.EtOcxEx.CZUR_Initialize('JS_OCX.log')
   if (lInitialize === 0) {
     $notify('设备初始化失败！')
@@ -113,8 +116,7 @@ function czurInitialize () {
   return true
 }
 // 打开设备 0：失败，1：成功，2：设备未连接或型号不支持（不支持ET16、ET18U）
-function czurOpenDevice () {
-  console.log('打开设备')
+function CZUR_OpenDevice () {
   var bOpenDevice = window.EtOcxEx.CZUR_OpenDevice()
   if (bOpenDevice === 0) {
     $notify('打开设备失败！请确认设备是否已启动，如未启动，请再次点击启动按钮或刷新页面；如果设备已启动，无需重复点击。')
@@ -128,7 +130,7 @@ function czurOpenDevice () {
   }
 }
 // 触发设备进行拍照 0：失败，1：成功
-function czurGrabSingleImage () {
+function CZUR_GrabSingleImage () {
   var res = window.EtOcxEx.CZUR_GrabSingleImage()
   if (res === 0) {
     $notify('扫描图像失败！')
@@ -138,7 +140,7 @@ function czurGrabSingleImage () {
   return true
 }
 // 关闭设备
-function czurCloseDevice () {
+function CZUR_CloseDevice () {
   var res = window.EtOcxEx.CZUR_CloseDevice()
   if (res === 0) {
     $notify('关闭设备失败')
@@ -147,50 +149,50 @@ function czurCloseDevice () {
   }
 }
 // 设置扫描幅面，0：A3幅面，1：A4幅面，默认A3幅面
-function czurScanBreadth (breadth) {
+function CZUR_ScanBreadth (breadth) {
   console.log('设置扫描幅面：' + (breadth === 0 ? 'A3幅面' : 'A4幅面'))
   window.EtOcxEx.CZUR_ScanBreadth(breadth)
   return true
 }
 // 是否开启边缘检测，0：关闭，1：开启
-function czurEdgeDetect (detect) {
+function CZUR_EdgeDetect (detect) {
   console.log((detect === 0 ? '关闭' : '开启') + '边缘检测')
   window.EtOcxEx.CZUR_EdgeDetect(detect)
   return true
 }
 // 清除Ocx资源
-function czurDeinitialize () {
+function CZUR_Deinitialize () {
   console.log('清除控件内存资源')
   window.EtOcxEx.CZUR_Deinitialize()
 }
 // 设置图片保存路径
-function czurPath (path) {
+function CZUR_Path (path) {
   console.log('设置图片保存路径', path)
   window.EtOcxEx.CZUR_Path(path)
 }
 // 自定义图片命名规则
-function czurCustom (prefix, initNumber) {
+function CZUR_Custom (prefix, initNumber) {
   initNumber = initNumber || 1
   console.log('自定义图片命名规则', '前缀：' + prefix + ', 图片起始序号：' + initNumber)
   window.EtOcxEx.CZUR_Custom(prefix, initNumber)
 }
-function czurHttpUrl () {
+function CZUR_Http_URL () {
   var url = 'http://192.168.1.112:10060/fast/upload?billNo=1111&billTypeId=2222&classifyId=33333'
   var name = 'file'
   window.EtOcxEx.CZUR_Http_URL(url, name)
   return true
 }
-function czurHttpForm (name, content) {
+function CZUR_Http_Form (name, content) {
   window.EtOcxEx.CZUR_Http_Form(name, content)
 }
 //  自动对图片进行裁边处理
-function czurEdgeCutting () {
+function CZUR_EdgeCutting () {
   console.log('自动对图片进行裁边处理')
   window.EtOcxEx.CZUR_EdgeCutting()
   return true
 }
 // 添加用于合成pdf的图片文件
-function czurPdfImage (filePath) {
+function CZUR_Pdf_Image (filePath) {
   var res = window.EtOcxEx.CZUR_Pdf_Image(filePath)
   if (res === 0) {
     console.log('添加用于合成PDF的图片文件添加成功' + '图片路径：' + filePath)
@@ -199,8 +201,26 @@ function czurPdfImage (filePath) {
   $notify('添加图片失败' + filePath)
   return false
 }
+
+// 设置分辨率（长*宽）
+function CZUR_Zoom (xResolut, yResolut) {
+  EtOcxEx.CZUR_Zoom(xResolut.value, yResolut.value)
+  return true
+}
+
+// 设置图片压缩质量（1-100）
+function CZUR_Format_Jpg (quality) {
+  EtOcxEx.CZUR_Format_Jpg(quality)
+  return true
+}
+
+function CZUR_DPI (dpi) {
+  EtOcxEx.CZUR_DPI(dpi || 96)
+  return true
+}
+
 // 将添加的图片文件合成PDF文档
-function czurPdfSubmit (filePath) {
+function CZUR_Pdf_Submit (filePath) {
   var defaultPath = fileDirect || 'D:'
   defaultFileName = 'CZUR_' + getDateTimeString() + '.pdf'
   filePath = filePath || defaultPath + '\\' + defaultFileName
@@ -211,7 +231,22 @@ function czurPdfSubmit (filePath) {
     $notify('合成PDF失败')
   }
 }
-function czurHttpUpload () {
+function uploadPdfBase64 () {
+  var localfile = fileDirect + '\\' + defaultFileName
+  $notify('准备上传PDF中...')
+  setTimeout(function () {
+    var base64 = CZUR_Base64(localfile)
+    $notify('上传PDF中，请稍候...')
+    setTimeout(function () {
+      ScannerHome.uploadPdfBase64(defaultFileName, base64, function (fileUrl) {
+        $notify('上传PDF成功！' + fileUrl)
+        ScannerHome.reloadFileList()
+      })
+    }, 0)
+  }, 0)
+}
+
+function CZUR_Http_Upload () {
   var localfile = fileDirect + '\\' + defaultFileName
   console.log(localfile)
   var url = 'http://192.168.1.112:10060/fast/upload?billNo=1111&billTypeId=2222&classifyId=33333'
@@ -235,41 +270,11 @@ function czurHttpUpload () {
     return true
   }
 }
-function czurBase64 (iamgePath) {
+
+// 获取图片的Base64的值
+function CZUR_Base64 (iamgePath) {
   var base64 = window.EtOcxEx.CZUR_Base64(iamgePath)
-  showImage(base64)
-}
-
-function showImage (base64) {
-  console.log('showImage')
-  $('#image-preview').attr('src', 'data:image/png;base64, ' + base64)
-}
-function addImgUrlToPreview (imageUrl) {
-  imageUrlList.push(imageUrl)
-  console.log(imageUrl)
-  var $img = $('<img/>').attr('src', imageUrl).addClass('img-thumbnail').attr('width', '80px')
-    .bind('click', function () {
-      var imgUrl = $(this).attr('src')
-      $('#czur-image-preview').attr('src', imgUrl)
-    })
-  // var $wrapper = $('<div/>').addClass('img-thumbnail__wrapper').append($img)
-  $('.layout-footer').append($img)
-}
-
-// 设置图片路径
-function CZUR_Path (needNofity) {
-  var imagePath = $('#Path').val()
-  EtOcxEx.CZUR_Path('图片保存路径：' + imagePath)
-  console.log(imagePath)
-  needNofity && $notify('图片路径设置为：' + imagePath)
-}
-
-// 设置图片前缀
-function CZUR_Custom (needNofity) {
-  var prefix = $('#Prefix').val()
-  EtOcxEx.CZUR_Custom()
-  console.log('图片前缀：' + prefix)
-  needNofity && $notify('图片前缀设置为：' + prefix)
+  return base64
 }
 
 // 设置图片旋转
@@ -288,21 +293,38 @@ function JS_CZUR_CALLBACK (uploadcnt, barcode, httpinfo, imagefile1, imagefile2)
     console.log(httpinfo)
     var res = JSON.parse(httpinfo)
     console.log(res.data)
-    if (res.code == 200) {
-      addImgUrlToPreview(res.data)
-    }
   }
-  fileDirect = imagefile1.slice(0, imagefile1.lastIndexOf('\\'))
-  imageFilePathList.push(imagefile1)
+  addThumbnail(imagefile1)
   if (imagefile2) {
-    imageFilePathList.push(imagefile2)
+    addThumbnail(imagefile2)
   }
-  console.log(fileDirect)
 }
+
+function addThumbnail (filePath) {
+  fileDirect = filePath.slice(0, filePath.lastIndexOf('\\'))
+  var fileName = filePath.slice(filePath.lastIndexOf('\\') + 1)
+  console.log(fileDirect)
+  console.log(fileName)
+  var base64 = CZUR_Base64(filePath)
+  ScannerHome.uploadImageBase64Preview(base64, fileName, filePath,
+    function (fileUrl, thumbImageUrl) {
+      imageFileList.push({
+        imageId: new Date().getTime(),
+        fileName: fileName,
+        filePath: filePath,
+        localPath: filePath,
+        fileUrl: fileUrl,
+        thumbImageUrl: thumbImageUrl
+      })
+    }
+  )
+}
+
 function JS_CZUR_UPLOAD_CALLBACK (uploadcnt, localfile, errcode, errmsg) {
   $notify('文件上传成功' + '上传的本地文件地址为：' + localfile)
   console.log(uploadcnt, localfile, errcode, errmsg)
 }
+
 function JS_CZUR_PDF_CALLBACK (pdfstatus) {
   if (pdfstatus === 0) {
     $notify('生成PDF成功！文件保存地址：' + defaultFileName)
@@ -310,6 +332,12 @@ function JS_CZUR_PDF_CALLBACK (pdfstatus) {
     $notify('生成PDF失败！')
   }
 }
+
+function JS_CZUR_CAPTURE_CALLBACK (reserver) {
+  console.log('拍摄图片')
+  console.log(reserver)
+}
+
 function getDateTimeString () {
   var date = new Date()
   var Year = date.getFullYear()
