@@ -2,7 +2,7 @@
  * @Author: qingbin_bai@163.com
  * @Date: 2018-04-24 23:52:07
  * @Last Modified by: qingbin_bai@163.com
- * @Last Modified time: 2018-05-03 21:39:33
+ * @Last Modified time: 2018-05-06 22:43:47
  * TODO:
  *  1. 用户可配置文件保存路径
  *  2. Cookie中保存用户的配置文件
@@ -42,7 +42,10 @@ $(function () {
     return false
   }
   // TODO:如果设备已在运行，则不再重复启动设备，需要优化
-  StopDevice()
+  // StopDevice()
+  // GetDeviceCount()
+  // ReleaseDevice()
+  // StopDevice()
   InitDevice()
   StartDevice()
   InitDefaultConfig()
@@ -228,14 +231,16 @@ function StartDevice (value) {
 
 // 3. 停用当前设备
 function StopDevice () {
-  window.Capture.StopDevice(szDeviceIndex)
+  var res = window.Capture.StopDevice(szDeviceIndex)
+  console.log(res)
   console.log('StopDevice')
   // WriteInfomation('停用当前设备')
 }
 
 // 4. 释放设备，退出程序之前，必须调用此方法，保证设备被正确释放
 function ReleaseDevice () {
-  window.Capture.ReleaseDevice()
+  var res = window.Capture.ReleaseDevice()
+  console.log(res)
   WriteInfomation('释放设备')
 }
 
